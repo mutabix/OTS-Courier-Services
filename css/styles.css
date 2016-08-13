@@ -251,7 +251,7 @@ footer .social_media_icon {
 	vertical-align: middle;
 }
 
-@media screen and (min-width: 480px) {
+@media screen and (max-width: 480px) {
 	body {
 		background-color: black;
 	}
