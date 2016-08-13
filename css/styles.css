@@ -231,6 +231,25 @@ footer {
 	clear: both;
 	margin-top: 300px;
 	width: 100%;
-	height: 100px;
-	background-color: #F7922D;
+	height: 40px;
+	background-color: #5A5B5C;
 }
+
+footer p {
+	color: #FFFFFF;
+	line-height: 40px;
+	text-align: right;
+	margin-right: 85px;
+	font-size: 12px;
+}
+
+footer .social_media_icon {
+	height: 20px;
+	margin-top: 10px;
+	margin-left: 30px;
+	float: left;
+	vertical-align: middle;
+
+}
+
+
