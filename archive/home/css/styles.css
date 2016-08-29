@@ -119,6 +119,54 @@ header h1:hover {
 	color: #F7922D;
 }
 
+/*Mobile Navigation Bar*/
+
+#mobile_navigation {
+	width: 100%;
+	height: 50px;
+	display: inline-block;
+	display: none;
+	margin: 0 auto;
+}
+
+#mobile_navigation ul {
+	padding: 0;
+	list-style: none;
+	overflow: hidden;
+	text-align: center;
+}
+
+#mobile_navigation ul li {
+	display: inline-block;
+	/*float: left;*/
+}
+
+#mobile_navigation li a {
+	display: block;
+	text-decoration: none;
+	color: #5A5B5C;
+	font-weight: 400;
+	margin-left: 35px;
+	margin-right: 35px;
+}
+
+#mobile_navigation li a:hover {
+	color: #F7922D;
+}
+
+#mobile_navigation .active {
+	font-weight: 600;
+    text-decoration: underline;
+	color: #F7922D;
+}
+
+
+
+
+
+
+
+
 #banner_image {
 	width: 100%;
 }
@@ -251,8 +299,53 @@ footer .social_media_icon {
 	vertical-align: middle;
 }
 
+
+/*----------------------------------------------------------------------------------*/
+
+/*Dashboard*/
+
+
+
 @media screen and (max-width: 1060px) {
-	
+	header{
+		text-align: center;
+		margin-bottom: 10px;
+	}
+
+	#main_navigation {
+		display: none;
+	}
+
+	#mobile_navigation {
+		float: none;
+		display: block;
+	}
+
+	#login_top_bar p {
+		float: none;
+		text-align: center;
+		margin-right: 0px;
+	}
 }
+
+@media screen and (max-width: 650px) {
+	header {
+		margin-bottom: 0px;
+		text-align: left;
+	}
+
+	#main_navigation {
+		display: none;
+	}
+
+	#mobile_navigation {
+		display: none;
+	}
+
+	#login_top_bar {
+		display: none;
+	}
+}
+
 
 

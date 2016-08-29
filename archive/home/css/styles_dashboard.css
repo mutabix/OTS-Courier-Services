@@ -1,0 +1,51 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+h1, h2, h3, h4, p, a {
+	font-family: 'Open Sans', sans-serif;
+	color: #5A5B5C;
+	font-weight: 400;
+}
+
+h1 {
+	margin-left: 15px;
+}
+
+h2 {
+	font-size: 15px;
+	margin-left: 15px;
+}
+
+h3 {
+	font-size: 25px;
+}
+
+h4 {
+	margin-top: 20px;
+}
+
+#sidebar_dashboard {
+	top: 0;
+	position: fixed;
+	width: 250px;
+	height: 100%;
+	background-color: #F7922D;
+	float: left;
+}
+
+#dashboard_main_logo {
+	margin-top: 10px;
+	margin-left: 12.5px;
+	width: 225px;
+	height: auto;
+}
+
+#dashboard-content {
+	background-color: red;
+	margin-left: 250px;
+	width: 100%-250px;
+}
