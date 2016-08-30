@@ -1,5 +1,27 @@
 <?php
     include("../includes/dbTools/dbConnect.php");
+
+    $errors = array();
+    if (isset($_POST['email'])) {
+        require 'validate.inc';
+        validateEmail($errors, $_POST, 'email');
+        // validate surname
+        // ...
+        if ($errors)
+        {
+            echo '<h1>Invalid, correct the following errors:</h1>';
+            foreach ($errors as $field => $error)
+                echo "$field $error</br>";
+            // redisplay the form
+            include 'form.inc';
+        }
+        else {
+            echo 'form submitted successfully with no errors';
+        }
+    }
+    else {
+        include 'form.inc';
+    }
 ?>
 
 <!doctype html>
@@ -25,7 +47,11 @@
 
         <div class="content">
             <div class="container-fluid">
-                <form>
+            <?php 
+                include "bookpackage/bookingform.inc";
+            ?>
+
+                <!--<form>
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#senders-details-tab">Senders Details</a></li>
                         <li><a href="#receivers-details-tab">Receivers Details</a></li>
@@ -116,7 +142,6 @@
                             </div>
                         </div>
                         <div id="receivers-details-tab" class="tab-pane fade">
-                            <!--RECEIVERS DETAILS-->
                             <h4>Receivers Details</h4>
                             <div class="card" style="padding-left:10px; padding-top:10px;">
                                 <div class="row">
@@ -257,13 +282,12 @@
                         </div>
 
                         <div id="extras-tab" class="tab-pane fade">
-                            <h4>Package Details</h4>
+                            <h4>Extras</h4>
                             <p>We currently do not offer any extra. Our appologies for any inconvenience</p>
                         </div>
                         <div id="submit-tab" class="tab-pane fade">
                             <h4>Submit Order</h4>
                             <p>Please check all details in the previous tabs</p>
-                            <!--Future release print summary inside this tab<-->
                             
                             <label class="checkbox">
                                 <input type="checkbox" value="" data-toggle="checkbox">
@@ -280,18 +304,9 @@
                             <h2 style="margin-top:-10px; margin-bottom:40px;">$0.00 total</h2>
 
                             <button type="submit" class="btn btn-info btn-fill pull-left">Book Order</button>
-
-                            
-
-             
-
-
-
-
-
                         </div>
                     </div>
-                </form>
+                </form>-->
 
                 <script>
                     $(document).ready(function(){

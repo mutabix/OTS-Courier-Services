@@ -1,0 +1,34 @@
+legend
+{
+font-size: large;
+font-weight: bold;
+}
+fieldset
+{
+background-color: #ddddff;
+padding: 10px;
+margin-bottom: 100px;
+}
+label
+{
+float: left;
+margin-right: 20px;
+width: 200px;
+text-align: right;
+}
+div.field
+{
+clear: both;
+}
+input[type='text']
+{
+width: 300px;
+}
+input[type='password']
+{
+width: 300px;
+}
+input[type='file']
+{
+width: 300px;
+}
