@@ -279,7 +279,7 @@
                             <hr class="special-subtotal-hr">
                             <h2 style="margin-top:-10px; margin-bottom:40px;">$0.00 total</h2>
 
-                            <button type="submit" class="btn btn-info btn-fill pull-right">Book Order</button>
+                            <button type="submit" class="btn btn-info btn-fill pull-left">Book Order</button>
 
                             
 
