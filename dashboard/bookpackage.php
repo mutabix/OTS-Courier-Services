@@ -1,5 +1,7 @@
 <?php
     include("../includes/dbTools/dbConnect.php");
+    //include("dashboardTools/checkAndValidateLogin.php");
+    include("bookPackageTools/inputSenderData.php");
 
     $errors = array();
     if (isset($_POST['email'])) {
@@ -48,7 +50,7 @@
         <div class="content">
             <div class="container-fluid">
             <?php 
-                include "bookpackage/bookingform.inc";
+                include "dashboardTools/bookPackageTools/bookingform.inc";
             ?>
 
                 <!--<form>
