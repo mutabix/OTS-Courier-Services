@@ -1,29 +1,16 @@
 <?php
-    include("../includes/dbTools/dbConnect.php");
+    include("../dbTools/dbConnect.php");
     //include("dashboardTools/checkAndValidateLogin.php");
     include("bookPackageTools/inputSenderData.php");
 
-    $errors = array();
-    if (isset($_POST['email'])) {
-        require 'validate.inc';
-        validateEmail($errors, $_POST, 'email');
-        // validate surname
-        // ...
-        if ($errors)
-        {
-            echo '<h1>Invalid, correct the following errors:</h1>';
-            foreach ($errors as $field => $error)
-                echo "$field $error</br>";
-            // redisplay the form
-            include 'form.inc';
-        }
-        else {
-            echo 'form submitted successfully with no errors';
-        }
-    }
-    else {
-        include 'form.inc';
-    }
+    session_start();
+    //Set variables
+    include ("dashboardTools/bookPackageTools/assignBookingVariables.php");
+
+
+
+
+
 ?>
 
 <!doctype html>
@@ -51,277 +38,51 @@
             <div class="container-fluid">
 
                 <ul class="nav nav-tabs">
-        <li class="active"><a href="#senders-details-tab">Senders Details</a></li>
-        <li><a href="#receivers-details-tab">Receivers Details</a></li>
-        <li><a href="#package-details-tab">Package Details</a></li>
-        <li><a href="#extras-tab">Extras</a></li>
-        <li><a href="#submit-tab">Submit</a></li>
-    </ul>
-            
-            <?php 
-                include "dashboardTools/bookPackageTools/bookingform.php";
-            ?>
+                    <li class="active"><a href="#senders-details-tab">Senders Details</a></li>
+                    <li><a href="#receivers-details-tab">Receivers Details</a></li>
+                    <li><a href="#package-details-tab">Package Details</a></li>
+                    <li><a href="#extras-tab">Extras</a></li>
+                    <li><a href="#submit-tab">Submit</a></li>
+                </ul>
 
-                <!--<form>
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#senders-details-tab">Senders Details</a></li>
-                        <li><a href="#receivers-details-tab">Receivers Details</a></li>
-                        <li><a href="#package-details-tab">Package Details</a></li>
-                        <li><a href="#extras-tab">Extras</a></li>
-                        <li><a href="#submit-tab">Submit</a></li>
-                    </ul>
+                <?php
+                    $errors = array();
+                    //Checks to see if data is set
+                    if (isset($senderCompanyName) && isset($senderFirstName) && isset($senderLastName) && isset($senderEmail) && isset($senderMobile) && isset($senderAddressLine1) && isset($senderSuburb) && isset($senderState) && isset($senderPostcode) && isset($receiverCompanyName) && isset($receiverFirstName) && isset($receiverLastName) && isset($receiverEmail) && isset($receiverMobile) && isset($receiverAddressLine1) && isset($receiverSuburb) && isset($receiverState) && isset($receiverPostcode) && isset($noOfPackages) && isset($packageWeight) && isset($packageWidth) && isset($packageLength) && isset($packageDepth) && isset($serviceTypeID) && isset($totalValue) && isset($shipDate) && isset($_POST["detailsCorrectCheckbox"]) && isset($_POST["termsAcceptCheckbox"])) {
 
-                    <div class="tab-content">
-                        <div id="senders-details-tab" class="tab-pane fade in active">
-                            <h4>Senders Details</h4>
-                            <div class="card" style="padding-left:10px; padding-top:10px;">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="companynameinput">Company Name</label>
-                                            <input type="text" class="form-control" placeholder="Company Name">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="firstnameinput">First Name</label>
-                                            <input type="text" class="form-control" placeholder="First Name">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="lastnameinput">Last Name</label>
-                                            <input type="text" class="form-control" placeholder="Last Name">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="emailinput">Email</label>
-                                            <input type="text" class="form-control" placeholder="Email">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="mobileinput">Mobile Number</label>
-                                            <input type="text" class="form-control" placeholder="Mobile Number">
-                                        </div>
-                                    </div>
-                                </div>
+                        require ("validateBookingDataFunctions.php");
+                        require ("validateBookingData.php");
+                        //validateEmail($errors, $_POST, 'email');
+                        // validate surname
+                        // ...
+                        if ($errors) {
+                            echo '<h1>Invalid, correct the following errors:</h1>';
+                            //foreach ($errors as $field => $error)
+                            //    echo "$field $error</br>";
+                            // redisplay the form
+                            include ("dashboardTools/bookPackageTools/bookingform.php");
 
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <div class="form-group">
-                                            <label for="address1input">Address 1</label>
-                                            <input type="text" class="form-control" placeholder="Address 1">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <div class="form-group">
-                                            <label for="address2input">Address 2</label>
-                                            <input type="text" class="form-control" placeholder="Address 2">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <div class="form-group">
-                                            <label for="suburbinput">Suburb</label>
-                                            <input type="text" class="form-control" placeholder="Suburb">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="stateinput">State</label>
-                                            <input type="text" class="form-control" placeholder="State">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="postcodeinput">Postcode</label>
-                                            <input type="text" class="form-control" placeholder="Postcode">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="receivers-details-tab" class="tab-pane fade">
-                            <h4>Receivers Details</h4>
-                            <div class="card" style="padding-left:10px; padding-top:10px;">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="companynameinput">Company Name</label>
-                                            <input type="text" class="form-control" placeholder="Company Name">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="firstnameinput">First Name</label>
-                                            <input type="text" class="form-control" placeholder="First Name">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="lastnameinput">Last Name</label>
-                                            <input type="text" class="form-control" placeholder="Last Name">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="emailinput">Email</label>
-                                            <input type="text" class="form-control" placeholder="Email">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="mobileinput">Mobile Number</label>
-                                            <input type="text" class="form-control" placeholder="Mobile Number">
-                                        </div>
-                                    </div>
-                                </div>
+                        } else {
 
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <div class="form-group">
-                                            <label for="address1input">Address 1</label>
-                                            <input type="text" class="form-control" placeholder="Address 1">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <div class="form-group">
-                                            <label for="address2input">Address 2</label>
-                                            <input type="text" class="form-control" placeholder="Address 2">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <div class="form-group">
-                                            <label for="suburbinput">Suburb</label>
-                                            <input type="text" class="form-control" placeholder="Suburb">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="stateinput">State</label>
-                                            <input type="text" class="form-control" placeholder="State">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="postcodeinput">Postcode</label>
-                                            <input type="text" class="form-control" placeholder="Postcode">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="package-details-tab" class="tab-pane fade">
-                            <h4>Package Details</h4>
-                            <div class="card" style="padding-left:10px; padding-top:10px;">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="no-packages-input">No. of Packages</label>
-                                            <input type="number" class="form-control" placeholder="0">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="weight-input">Weight (kg)</label>
-                                            <input type="number" class="form-control" placeholder="Weight">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="width-input">Width (mm)</label>
-                                            <input type="number" class="form-control" placeholder="Width">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="length-input">Length (kg)</label>
-                                            <input type="number" class="form-control" placeholder="Length">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="depth-input">Depth (kg)</label>
-                                            <input type="number" class="form-control" placeholder="Depth">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="service-type-input">Service Type</label>
-                                            <input type="text" class="form-control" placeholder="Service Type">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="total-value-input">Total Carriage Value</label>
-                                            <input type="text" class="form-control" placeholder="$0.00">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="ship-date-input">Ship Date</label>
-                                            <input type="date" class="form-control" placeholder="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="extras-tab" class="tab-pane fade">
-                            <h4>Extras</h4>
-                            <p>We currently do not offer any extra. Our appologies for any inconvenience</p>
-                        </div>
-                        <div id="submit-tab" class="tab-pane fade">
-                            <h4>Submit Order</h4>
-                            <p>Please check all details in the previous tabs</p>
-                            
-                            <label class="checkbox">
-                                <input type="checkbox" value="" data-toggle="checkbox">
-                                <p>I confirm that all the details I have entered are correct and accurate</p>
-                            </label>
-                            <label class="checkbox">
-                                <input type="checkbox" value="" data-toggle="checkbox">
-                                <p>I accept the terms and conditions</p>
-                            </label>
-
-                            <h4 style="margin-top:40px;">$0.00 subtotal</h4>
-                            <h4 style="margin-top:-10px; margin-bottom:-10px;">$0.00 gst</h4>
-                            <hr class="special-subtotal-hr">
-                            <h2 style="margin-top:-10px; margin-bottom:40px;">$0.00 total</h2>
-
-                            <button type="submit" class="btn btn-info btn-fill pull-left">Book Order</button>
-                        </div>
-                    </div>
-                </form>-->
+                            //echo 'form submitted successfully with no errors'; //Debugging Tool
+                            include ("dashboardTools/bookPackageTools/insertBookingIntoDatabase.php");
+                            header("Location: submitrequestpickup.php");
+                            exit();
+                        }
+                    } else {
+                        include ("dashboardTools/bookPackageTools/bookingform.php");
+                    }
+                ?>
 
                 <script>
                     $(document).ready(function(){
                         $(".nav-tabs a").click(function(){
+                            $(this).tab('show');
+                        });
+                    });
+
+                    $(document).ready(function(){
+                        $(".nav-buttons button").click(function(){
                             $(this).tab('show');
                         });
                     });
@@ -343,6 +104,4 @@
     </div>
 </div>
 </body>
-
-
 </html>
