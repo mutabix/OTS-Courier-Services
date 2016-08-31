@@ -1,12 +1,4 @@
-<form action="bookpackage.php" method="POST">
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#senders-details-tab">Senders Details</a></li>
-        <li><a href="#receivers-details-tab">Receivers Details</a></li>
-        <li><a href="#package-details-tab">Package Details</a></li>
-        <li><a href="#extras-tab">Extras</a></li>
-        <li><a href="#submit-tab">Submit</a></li>
-    </ul>
-
+<form action="bookpackage.php" method="POST" novalidate>
     <div class="tab-content">
         <div id="senders-details-tab" class="tab-pane fade in active">
             <h4>Senders Details</h4>

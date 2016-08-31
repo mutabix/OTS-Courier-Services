@@ -49,8 +49,17 @@
 
         <div class="content">
             <div class="container-fluid">
+
+                <ul class="nav nav-tabs">
+        <li class="active"><a href="#senders-details-tab">Senders Details</a></li>
+        <li><a href="#receivers-details-tab">Receivers Details</a></li>
+        <li><a href="#package-details-tab">Package Details</a></li>
+        <li><a href="#extras-tab">Extras</a></li>
+        <li><a href="#submit-tab">Submit</a></li>
+    </ul>
+            
             <?php 
-                include "dashboardTools/bookPackageTools/bookingform.inc";
+                include "dashboardTools/bookPackageTools/bookingform.php";
             ?>
 
                 <!--<form>
