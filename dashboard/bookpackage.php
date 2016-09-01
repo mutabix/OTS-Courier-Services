@@ -6,11 +6,6 @@
     session_start();
     //Set variables
     include ("dashboardTools/bookPackageTools/assignBookingVariables.php");
-
-
-
-
-
 ?>
 
 <!doctype html>
@@ -46,20 +41,16 @@
                 </ul>
 
                 <?php
-                    for($i=0; $i<8; $i++){
-                        echo $senderDetails[i];
-                    }
-
                     $errors = array();
 
-                    
                     //Checks to see if data is set
-                    if (isset($senderCompanyName) && isset($senderFirstName) && isset($senderLastName) && isset($senderEmail) && isset($senderMobile) && isset($senderAddressLine1) && isset($senderSuburb) && isset($senderState) && isset($senderPostcode) && isset($receiverCompanyName) && isset($receiverFirstName) && isset($receiverLastName) && isset($receiverEmail) && isset($receiverMobile) && isset($receiverAddressLine1) && isset($receiverSuburb) && isset($receiverState) && isset($receiverPostcode) && isset($noOfPackages) && isset($packageWeight) && isset($packageWidth) && isset($packageLength) && isset($packageDepth) && isset($serviceTypeID) && isset($totalValue) && isset($shipDate) && isset($_POST["detailsCorrectCheckbox"]) && isset($_POST["termsAcceptCheckbox"])) {
+                    if (isset($senderCompanyName) && isset($senderFirstName) && isset($senderLastName) && isset($senderEmail) && isset($senderMobile) && isset($senderAddressLine1) && isset($senderSuburb) && isset($senderState) && isset($senderPostcode) && isset($receiverCompanyName) && isset($receiverFirstName) && isset($receiverLastName) && isset($receiverEmail) && isset($receiverMobile) && isset($receiverAddressLine1) && isset($receiverSuburb) && isset($receiverState) && isset($receiverPostcode) && isset($noOfPackages) && isset($packageWidth) && isset($packageLength) && isset($packageDepth) && isset($serviceTypeID) && isset($totalValue) && isset($_POST["detailsCorrectCheckbox"]) && isset($_POST["termsAcceptCheckbox"])) {
                         
                         
 
-                        require ("validateBookingDataFunctions.php");
-                        require ("validateBookingData.php");
+                        //require ("validateBookingDataFunctions.php");
+                        //require ("validateBookingData.php");
+
                         //validateEmail($errors, $_POST, 'email');
                         // validate surname
                         // ...
@@ -73,7 +64,7 @@
                         } else {
 
                             //echo 'form submitted successfully with no errors'; //Debugging Tool
-                            include ("dashboardTools/bookPackageTools/insertBookingIntoDatabase.php");
+                            //include ("dashboardTools/bookPackageTools/insertBookingIntoDatabase.php");
                             header("Location: submitrequestpickup.php");
                             exit();
                         }
@@ -85,12 +76,6 @@
                 <script>
                     $(document).ready(function(){
                         $(".nav-tabs a").click(function(){
-                            $(this).tab('show');
-                        });
-                    });
-
-                    $(document).ready(function(){
-                        $(".nav-buttons button").click(function(){
                             $(this).tab('show');
                         });
                     });

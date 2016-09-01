@@ -23,7 +23,8 @@ $senderDetails[4] = $senderMobile;
 $senderDetails[5] = $senderAddressLine1;
 $senderDetails[6] = $senderAddressLine2;
 $senderDetails[7] = $senderSuburb;
-$senderDetails[8] = $senderPostcode;
+$senderDetails[8] = $senderState;
+$senderDetails[9] = $senderPostcode;
 
 //Set receiver variables
 $receiverCompanyName = $_POST["receiverCompanyName"];
@@ -45,7 +46,8 @@ $receiverDetails[4] = $receiverMobile;
 $receiverDetails[5] = $receiverAddressLine1;
 $receiverDetails[6] = $receiverAddressLine2;
 $receiverDetails[7] = $receiverSuburb;
-$receiverDetails[8] = $receiverPostcode;
+$receiverDetails[8] = $receiverState;
+$receiverDetails[9] = $receiverPostcode;
 
 //Set package variables
 $noOfPackages = $_POST["noOfPackages"];
@@ -56,13 +58,15 @@ $serviceTypeID = $_POST["serviceType"];
 $packageTypeID = $_POST["packageType"];
 $totalValue = $_POST["totalValue"];
 
+$noOfPackages = 1;
+
 $shipmentDetails[0] = $noOfPackages;
-$shipmentDetails[0] = $packageWidth;
-$shipmentDetails[0] = $packageLength;
-$shipmentDetails[0] = $packageDepth;
-$shipmentDetails[0] = $serviceTypeID;
-$shipmentDetails[0] = $packageTypeID;
-$shipmentDetails[0] = $totalValue;
+$shipmentDetails[1] = $packageWidth;
+$shipmentDetails[2] = $packageLength;
+$shipmentDetails[3] = $packageDepth;
+$shipmentDetails[4] = $serviceTypeID;
+$shipmentDetails[5] = $packageTypeID;
+$shipmentDetails[6] = $totalValue;
 
 $shipDateDay = $POST["shipDateDay"];
 $shipDateMonth = $POST["shipDateMonth"];

@@ -38,7 +38,7 @@
                 <?php
                     $errors = array();
                     //Checks to see if data is set
-                    if (isset($variables)) {
+                    if (isset($_POST["optradio"])) {
 
                         //require ("validateBookingDataFunctions.php");
                         //require ("validateBookingData.php");
@@ -55,7 +55,7 @@
                         } else {
 
                             //echo 'form submitted successfully with no errors'; //Debugging Tool
-                            //include ("dashboardTools/bookPackageTools/insertBookingIntoDatabase.php");
+                            include ("dashboardTools/bookPackageTools/insertBookingIntoDatabase.php");
                             header("Location: bookingconfirmation.php");
                             exit();
                         }
