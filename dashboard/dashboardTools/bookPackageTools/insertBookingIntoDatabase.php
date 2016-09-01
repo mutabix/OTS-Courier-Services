@@ -1,5 +1,5 @@
 <?php
-	$addBooking = $dbConnection->prepare("INSERT INTO shipments (shipmentId, customerId, senderCompanyName, senderFirstName, senderLastName, senderEmail, senderMobile, senderAddressLine1, senderAddressLine2, senderSuburb, senderState, senderPostcode, receiverCompanyName, receiverFirstName, receiverLastName, receiverEmail, receiverMobile, receiverAddressLine1, receiverAddressLine2, receiverSuburb, receiverState, receiverPostcode, noOfPackages, packageWeight, packageWidth, packageLength, packageDepth, serviceTypeID, totalValue, shipDate)VALUES (:shipmentId, :customerId, :senderCompanyName, :senderFirstName, :senderLastName, :senderEmail, :senderMobile, :senderAddressLine1, :senderAddressLine2, :senderSuburb, :senderState, :senderPostcode, :receiverCompanyName, :receiverFirstName, :receiverLastName, :receiverEmail, :receiverMobile, :receiverAddressLine1, :receiverAddressLine2, :receiverSuburb, :receiverState, :receiverPostcode, :noOfPackages, :packageWeight, :packageWidth, :packageLength, :packageDepth, :serviceTypeID, :totalValue, :shipDate)");
+	$addBooking = $dbConnection->prepare("INSERT INTO shipments (shipmentId, customerId, senderCompanyName, senderFirstName, senderLastName, senderEmail, senderMobile, senderAddressLine1, senderAddressLine2, senderSuburb, senderState, senderPostcode, receiverCompanyName, receiverFirstName, receiverLastName, receiverEmail, receiverMobile, receiverAddressLine1, receiverAddressLine2, receiverSuburb, receiverState, receiverPostcode, noOfPackages, packageWeight, packageWidth, packageLength, packageDepth, serviceTypeID, totalValue)VALUES (:shipmentId, :customerId, :senderCompanyName, :senderFirstName, :senderLastName, :senderEmail, :senderMobile, :senderAddressLine1, :senderAddressLine2, :senderSuburb, :senderState, :senderPostcode, :receiverCompanyName, :receiverFirstName, :receiverLastName, :receiverEmail, :receiverMobile, :receiverAddressLine1, :receiverAddressLine2, :receiverSuburb, :receiverState, :receiverPostcode, :noOfPackages, :packageWeight, :packageWidth, :packageLength, :packageDepth, :serviceTypeID, :totalValue)");
     
     //Bind parameters
 
@@ -42,8 +42,7 @@
     $addBooking->bindParam(':packageDepth', $packageDepth);
     $addBooking->bindParam(':serviceTypeID', $serviceTypeID); //NEEDS TO BE ASSIGNED BASED ON SELECTION
     $addBooking->bindParam(':totalValue', $totalValue);
-    $addBooking->bindParam(':shipDate', $shipDate);
-
+    
     try {
     	$addBooking->execute(); //Executes $addBooking - adds the data into the database
 
