@@ -93,10 +93,14 @@
 
     <br />
 
-    <h5 style="margin-top:40px;">$0.00 subtotal</h5>
-    <h5 style="margin-top:-10px; margin-bottom:-10px;">$0.00 gst</h5>
-    <hr class="special-subtotal-hr">
-    <h2 style="margin-top:-10px; margin-bottom:40px;">$0.00 total</h2>
+    <?php
+        include("dashboardTools/bookPackageTools/deliverycostestimation.php");
+
+        echo "<h5 style='margin-top:40px;'> $". number_format($total_cost_ex_gst, 2) ." subtotal</h5>";
+        echo "<h5 style='margin-top:-10px; margin-bottom:-10px;''>". number_format($gst, 2) ." gst</h5>";
+        echo "<hr class='special-subtotal-hr'>";
+        echo "<h2 style='margin-top:-10px; margin-bottom:40px;'>". number_format($total_cost, 2) ." total</h2>";
+    ?>
 
     <button type="submit" class="btn btn-info btn-fill pull-left" name="submitBooking">Submit Order</button>
 

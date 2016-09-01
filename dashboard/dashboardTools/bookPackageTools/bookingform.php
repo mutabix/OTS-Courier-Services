@@ -187,31 +187,25 @@
             <h4>Package Details</h4>
             <div class="card" style="padding-left:10px; padding-top:10px;">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label for="noOfPackages">No. of Packages</label>
-                            <input type="number" class="form-control" placeholder="0" name="noOfPackages">
+                            <input type="number" class="form-control" placeholder="0" name="noOfPackages" value="1" disabled>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label for="packageWeight">Weight (kg)</label>
-                            <input type="number" class="form-control" placeholder="Weight" name="packageWeight">
-                        </div>
-                    </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="packageWidth">Width (cm)</label>
                             <input type="number" class="form-control" placeholder="Width" name="packageWidth">
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="packageLength">Length (cm)</label>
                             <input type="number" class="form-control" placeholder="Length" name="packageLength">
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="packageDepth">Depth (cm)</label>
                             <input type="number" class="form-control" placeholder="Depth" name="packageDepth">
@@ -219,19 +213,36 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="serviceTypeID">Service Type</label>
-                            <select class="form-control" id="shipDateDay" name="shipDateDay">
+                            <select class="form-control" id="serviceType" name="serviceType">
                                 <!--Use for loop later to optimise this-->
                                 <option disabled selected value="0">Select Service</option>
                                 <option value="1">Standard 2-5 Days</option>
-                                <option value="2">Express 1-3 Days(+$5.00)</option>
+                                <option value="2">Express 1-3 Days (+$5.00)</option>
                                 <option value="3">Overnight (+$15.00)</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="serviceTypeID">Package Type</label>
+                            <select class="form-control" id="packageType" name="packageType">
+                                <!--Use for loop later to optimise this-->
+                                <option disabled selected value="0">Select Package Type</option>
+                                <option value="1">1kg Satchel</option>
+                                <option value="2">3kg Satchel (+$5.00)</option>
+                                <option value="3">5kg Satchel (+$7.50)</option>
+                                <option value="4">1kg Box</option>
+                                <option value="5">3kg Box (+$5.00)</option>
+                                <option value="6">5kg Box (+$10.00)</option>
+                                <option value="7">10kg Box (+$25.00)</option>
+                                <option value="8">20kg Box (+$45.00)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="totalValue">Total Carriage Value</label>
                             <input type="text" class="form-control" placeholder="$0.00" name="totalValue">
