@@ -245,7 +245,7 @@
                     <div class='col-md-3'>
                         <div class='form-group'>
                             <label for='totalValue'>Total Carriage Value</label>
-                            <?php echo "<input type='text' class='form-control' placeholder='$0.00' name='totalValue' value='". $_SESSION['shipmentDetails'] [6] ."'>" ?>
+                            <?php echo "<input type='number' class='form-control' placeholder='$0.00' step='any' name='totalValue' value='". $_SESSION['shipmentDetails'] [6] ."'>" ?>
                         </div>
                     </div>
                 </div>

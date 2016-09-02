@@ -5,7 +5,9 @@
 
     session_start();
     //Set variables
-    include ("dashboardTools/bookPackageTools/assignBookingVariables.php");
+    //include ("dashboardTools/bookPackageTools/assignBookingVariables.php");
+
+
 ?>
 
 <!doctype html>

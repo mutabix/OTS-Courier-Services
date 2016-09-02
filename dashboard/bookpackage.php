@@ -41,20 +41,20 @@
                 </ul>
 
                 <?php
-                    $errors = array();
+                    $errorsExist = false;
 
                     //Checks to see if data is set
                     if (isset($senderCompanyName) && isset($senderFirstName) && isset($senderLastName) && isset($senderEmail) && isset($senderMobile) && isset($senderAddressLine1) && isset($senderSuburb) && isset($senderState) && isset($senderPostcode) && isset($receiverCompanyName) && isset($receiverFirstName) && isset($receiverLastName) && isset($receiverEmail) && isset($receiverMobile) && isset($receiverAddressLine1) && isset($receiverSuburb) && isset($receiverState) && isset($receiverPostcode) && isset($noOfPackages) && isset($packageWidth) && isset($packageLength) && isset($packageDepth) && isset($serviceTypeID) && isset($totalValue) && isset($_POST["detailsCorrectCheckbox"]) && isset($_POST["termsAcceptCheckbox"])) {
                         
                         
 
-                        //require ("validateBookingDataFunctions.php");
+                        require ("validateBookingDataFunctions.php");
                         //require ("validateBookingData.php");
 
                         //validateEmail($errors, $_POST, 'email');
                         // validate surname
                         // ...
-                        if ($errors) {
+                        if ($errorsExist) {
                             echo '<h1>Invalid, correct the following errors:</h1>';
                             //foreach ($errors as $field => $error)
                             //    echo "$field $error</br>";
