@@ -7,12 +7,11 @@ include 'assets/includes/header.php';
 	</div>
 </div>
 
-
 <div class="container top-buffer">
 	<div class="row">
 	<h1>Welcome to the postage calculator</h1>
-	<h2>Here, you may enter the address you wish to post from and to and receive a cost estimate</h2>
-	<h2>Start by making sure your package will fit the requirements</h2>
+	<h2>Here, you may enter details on your package and its destination to receive a price estimate.</h2>
+	<h2>Start by making sure your package will fit the requirements.</h2>
 	</div>
 </div>
 
@@ -40,43 +39,48 @@ include 'assets/includes/header.php';
 	</div>
 </div>
 
+<div class="container">
+	<div class="row">
+	<h2>Please enter the measurements of your desired package.</h2>
+	</div>
+</div>
+
 <div class="container top-buffer">
 	<div class="row postage-addresses">
-		<form onsubmit="return false;">
+		<form id="postForm" onsubmit="return false;">
 			<div class="col-md-4">
-				Weight	
-				<input type="text" class="form-control">
-			</div>
-		</form>
-			<div class="col-md-4">
-				Height
-				<input type="text" class="form-control">
+				Weight (in kilograms)	
+				<input type="text" class="form-control" required>
 			</div>
 			<div class="col-md-4">
-				Length
-				<input type="text" class="form-control">
+				Height (in centimetres)
+				<input type="text" class="form-control" required>
+			</div>
+			<div class="col-md-4">
+				Length (in centimetres)
+				<input type="text" class="form-control" required>
 			</div>
 	</div>
 </div>
 
 <div class="container top-buffer">
 	<div class="row">
+	<h2>And finally, please enter the address you wish to post from and to.
 	</div>
 </div>
  
 <div class="container top-buffer">
 	<div class="row postage-addresses">
-		<form onsubmit="return false;">
 			<div class="col-md-6">
 				Postage from:
 				<br>
-				<input type="text" id="address1" class="form-control">
+				<input type="text" id="address1" class="form-control" required>
 			</div>
 		
 			<div class="col-md-6">
 				To:
 				<br>
-				<input type="text" id="address2" class="form-control">
+				<input type="text" id="address2" class="form-control" required>
 			</div>
 	</div>
 	<div class="row top-buffer">
@@ -87,12 +91,11 @@ include 'assets/includes/header.php';
 	</div>
 </div>
 
-
 <script>
 function initMap()
 {
 	var geocoder = new google.maps.Geocoder();
-	document.getElementById("submit").addEventListener("click", function(){
+	document.getElementById("postForm").addEventListener("submit", function(){
 		geocodeAddress(geocoder);
 	});
 }
@@ -125,15 +128,15 @@ function geocodeAddress(geocoder)
 	});
 }
 
-function determineDistance
+function determineDistance ()
 {
-	
+	return false;
 }
 
 </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC681vlrQytqEPRKSbNRN45PS8-iVReBmY&callback=initMap">
-    </script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC681vlrQytqEPRKSbNRN45PS8-iVReBmY&callback=initMap">
+</script>
 
 <?php
 include 'assets/includes/footer.php';
