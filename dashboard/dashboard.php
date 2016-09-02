@@ -1,5 +1,7 @@
 <?php
     include("../includes/dbTools/dbConnect.php");
+
+    session_start();
 ?>
 
 <!doctype html>

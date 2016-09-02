@@ -31,55 +31,39 @@
 
         <div class="content">
             <div class="container-fluid">
-
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#senders-details-tab">Senders Details</a></li>
-                    <li><a href="#receivers-details-tab">Receivers Details</a></li>
-                    <li><a href="#package-details-tab">Package Details</a></li>
-                    <li><a href="#extras-tab">Extras</a></li>
-                    <li><a href="#submit-tab">Submit</a></li>
-                </ul>
-
+                <h3>Request Courier to Pickup Package</h3>
+                <h4>Payment Type</h4>
+                <p>See below for cost. Payment will be collected on pickup.</p>
+                
                 <?php
                     $errors = array();
-
                     //Checks to see if data is set
-                    if (isset($senderCompanyName) && isset($senderFirstName) && isset($senderLastName) && isset($senderEmail) && isset($senderMobile) && isset($senderAddressLine1) && isset($senderSuburb) && isset($senderState) && isset($senderPostcode) && isset($receiverCompanyName) && isset($receiverFirstName) && isset($receiverLastName) && isset($receiverEmail) && isset($receiverMobile) && isset($receiverAddressLine1) && isset($receiverSuburb) && isset($receiverState) && isset($receiverPostcode) && isset($noOfPackages) && isset($packageWidth) && isset($packageLength) && isset($packageDepth) && isset($serviceTypeID) && isset($totalValue) && isset($_POST["detailsCorrectCheckbox"]) && isset($_POST["termsAcceptCheckbox"])) {
-                        
-                        
+                    if (isset($_POST["optradio"])) {
 
                         //require ("validateBookingDataFunctions.php");
                         //require ("validateBookingData.php");
-
                         //validateEmail($errors, $_POST, 'email');
                         // validate surname
                         // ...
                         if ($errors) {
-                            echo '<h1>Invalid, correct the following errors:</h1>';
+                            //echo '<h1>Invalid, correct the following errors:</h1>';
                             //foreach ($errors as $field => $error)
                             //    echo "$field $error</br>";
                             // redisplay the form
-                            include ("dashboardTools/bookPackageTools/bookingform.php");
+                            include ("dashboardTools/bookPackageTools/submitrequestform.php");
 
                         } else {
 
                             //echo 'form submitted successfully with no errors'; //Debugging Tool
-                            //include ("dashboardTools/bookPackageTools/insertBookingIntoDatabase.php");
-                            header("Location: submitrequestpickup.php");
+                            include ("dashboardTools/bookPackageTools/insertBookingIntoDatabase.php");
+                            header("Location: bookingconfirmation.php");
                             exit();
                         }
                     } else {
-                        include ("dashboardTools/bookPackageTools/bookingform.php");
+                        include ("dashboardTools/bookPackageTools/submitrequestform.php");
                     }
                 ?>
 
-                <script>
-                    $(document).ready(function(){
-                        $(".nav-tabs a").click(function(){
-                            $(this).tab('show');
-                        });
-                    });
-                </script>
                 <style>
                     .special-subtotal-hr {
                         border: 0;
