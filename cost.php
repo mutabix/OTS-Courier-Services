@@ -1,8 +1,9 @@
 <?php
 include 'assets/includes/header.php';
 
-echo 
-'<div class="container">
+?>
+ 
+<div class="container">
 	<div class="row">
 		<form onsubmit="return false;">
 			<div class="col-md-6">
@@ -22,10 +23,10 @@ echo
 		<div class="col-md-12">
 		</div>
 	</div>
-</div>';
+</div>
 
-echo
-'<script>
+
+<script>
 function initMap()
 {
 	var geocoder = new google.maps.Geocoder();
@@ -64,6 +65,5 @@ function geocodeAddress(geocoder)
 </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC681vlrQytqEPRKSbNRN45PS8-iVReBmY&callback=initMap">
-    </script>';
+    </script>
 
-?>
