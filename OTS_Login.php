@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<title>Register</title>
+		<title>Login</title>
 		 <!--Metadata-->
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -30,16 +30,20 @@
 			}
 		</style>
 		<?php
-			$servername = "d6q8diwwdmy5c9k9.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
-			$username = "tgs66cq1wippa93b";
-			$password = "xi7mibqw1s765w4q";
+			//Database connection info
+			$host = "d6q8diwwdmy5c9k9.cbetxkdyhwsb.us-east-1.rds.amazonaws.com";
+			$dbusername = "tgs66cq1wippa93b";
+			$dbpassword = "xi7mibqw1s765w4q";
+			$dbname = "vrtepy2jtdixgvmr";
 
-			$conn = mysqli_connect($servername, $username, $password);
-
-			if (!$conn) {
-				die("Connection failed: " . mysqli_connect_error());
+			try {
+				//DATABASE CONNECTION
+				$dbConnection = new PDO("mysql:host=$host;dbname=$dbname", $dbusername, $dbpassword);
+				echo "Connected successfully"; //Debugging
 			}
-			echo "Connected successfully";
+			catch(PDOException $error) { //Should make a error page
+				echo "Connection failed: ";
+			}
 		?>
 		<br>
 		<div class="row">
@@ -47,7 +51,7 @@
 			</div>
 			<div class="col-md-3">
 				<div class="pull-right">
-					<button type="button" onclick="goToLogin()" class="list-group-item">Don't have an account? Register now</button>
+					<button type="button" onclick="goToRegister()" class="list-group-item">Don't have an account? Register now</button>
 				</div>
 			</div>
 			<div class="col-md-1">
@@ -79,7 +83,7 @@
 									<div class="col-md-4">
 									</div>
 									<div class="col-md-4">
-										<button type="button" onclick="registerAccount()" class="list-group-item"><center>Login</center></button>
+										<button type="button" onclick="login()" class="list-group-item"><center>Login</center></button>
 									</div>
 									<div class="col-md-4">
 									</div>
@@ -102,11 +106,22 @@
 		<br>
 		<br>
 		<script>
-			function goToLogin() {
+			function goToRegister() {
 				window.location = 'OTS_Register.php'
 			}
-			function registerAccount() {
-				$sql = "INSERT INTO customers (firstName, lastName, email) VALUES ('John', 'Doe', 'john@example.com')";
+			function login() {
+				<?php
+					if ($stmt = $mysqli->prepare("SELECT email FROM customers")) {
+						$stmt->bind_result($name);
+						$OK = $stmt->execute();
+					}
+					$result_array = Array();
+					while($stmt->fetch()) {
+					$result_array[] = $name;
+					}
+					$json_array = json_encode($result_array);
+				?>
+				var login = false;
 			}
 		</script>
 	</body>
