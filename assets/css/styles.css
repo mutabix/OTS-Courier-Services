@@ -1,6 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
 
-
+html
+{
+	overflow: -moz-scrollbars-vertical; 
+	overflow-y: scroll;
+}
 
 h1, h2, h3, h4, p, a {
 	font-family: 'Open Sans', sans-serif;
@@ -215,3 +219,8 @@ footer .social_media_icon {
 }
 
 
+.postage-addresses
+{
+}
+
+.

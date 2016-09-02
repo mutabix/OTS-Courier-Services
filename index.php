@@ -53,11 +53,7 @@ include 'assets/includes/header.php';
 	</div>
 </div>
 
-<footer>
-	<p>© 2016 Geckoboard. All rights reserved.</p>
-</footer>
-
-		</div>
-	</body>
-</html>
+<?php
+include 'assets/includes/footer.php';
+?>
 
