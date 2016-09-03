@@ -47,7 +47,7 @@ include 'assets/includes/header.php';
 
 <div class="container top-buffer">
 	<div class="row postage-addresses">
-		<form id="postForm" onsubmit="return false;">
+		<form id="postForm" onsubmit="initMap()" action="cost_result.php" method="post">
 			<div class="col-md-4">
 				Weight (in kilograms)	
 				<input type="text" class="form-control" required>
