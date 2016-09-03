@@ -52,5 +52,9 @@
 		$total_cost_ex_gst = $flat_rate_box + $box_type_cost + $dimensional_cost + $delivery_location_fee;
 		$gst = $total_cost_ex_gst * 0.1;
 		$total_cost = $total_cost_ex_gst + $gst;
+		
+		$total_cost = round($total_cost*2) / 2;
+		$total_cost_ex_gst = $total_cost * 0.9;
+		$gst = $total_cost - $total_cost_ex_gst;
 	}
 ?>
