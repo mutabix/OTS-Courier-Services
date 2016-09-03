@@ -61,10 +61,16 @@
 		echo "</section>";
 		header("location: $errorMsg"); //Redirects user to login page
 	}
-
-    //Ends the error session
-	session_unset();
-	session_destroy();
+	$email = "";
+	$password = "";
+	$error = "";
+	$firstName = "";
+	$lastName = "";
+	$phoneNumber = "";
+	$addressLineOne = "";
+	$addressLineTwo = "";
+	$state = "";
+	$postcode = "";
 ?>
 <!doctype html>
 <html lang="en">
@@ -129,14 +135,23 @@
 								<div class="input-group">
 									<input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" aria-describedby="basic-addon1">
 									<input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name" aria-describedby="basic-addon1">
-									<input type="text" class="form-control" name="email" id="email" placeholder="Email" aria-describedby="basic-addon1">
-									<input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="Phone Number" aria-describedby="basic-addon1">
+									<input type="email" class="form-control" name="email" id="email" placeholder="Email" aria-describedby="basic-addon1">
+									<input type="number" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="Phone Number" aria-describedby="basic-addon1">
 									<input type="text" class="form-control" name="addressLineOne" id="addressLineOne" placeholder="Address Line 1" aria-describedby="basic-addon1">
 									<input type="text" class="form-control" name="addressLineTwo" id="addressLineTwo" placeholder="Address Line 2" aria-describedby="basic-addon1">
-									<input type="text" class="form-control" name="postcode" id="postcode" placeholder="Postcode" aria-describedby="basic-addon1">
-									<input type="text" class="form-control" name="state" id="state" placeholder="State" aria-describedby="basic-addon1">
-									<input type="text" class="form-control" name="password" id="password" placeholder="Password" aria-describedby="basic-addon1">
-									<input type="text" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" aria-describedby="basic-addon1">
+									<input type="number" class="form-control" name="postcode" id="postcode" placeholder="Postcode" aria-describedby="basic-addon1">
+									<select class='form-control' id='state' name='state'>
+										<option value="QLD">Queensland</option>
+										<option value="NSW">New South Wales</option>
+										<option value="VIC">Victoria</option>
+										<option value="ACT">Australian Capital Territory</option>
+										<option value="NT">Northern Territory</option>
+										<option value="SA">South Australia</option>
+										<option value="WA">Western Australia</option>
+										<option value="TAS">Tasmania</option>
+									</select>
+									<input type="password" class="form-control" name="password" id="password" placeholder="Password" aria-describedby="basic-addon1">
+									<input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" aria-describedby="basic-addon1">
 									<div class="row">
 										<div class="col-md-4">
 										</div>

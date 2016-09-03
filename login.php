@@ -62,10 +62,9 @@
 		echo "</section>";
 		header("location: $errorMsg"); //Redirects user to login page
 	}
-
-    //Ends the error session
-	session_unset();
-	session_destroy();
+	$email = "";
+	$password = "";
+	$error = "";
 ?>
 <!doctype html>
 <html lang="en">
