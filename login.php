@@ -11,7 +11,7 @@
 
 		//If values are assigned to $username and $password (entered into login form)
 		if(isset($email)&&isset($password)){
-			$password = md5($password); //Hashes password
+			$password = sha1($password); //Hashes password
 			
 			//SQL query selects the user from the database where username and password MongoDeleteBatch
 			//Checks if user is in the database

@@ -21,9 +21,18 @@
 		//If values are assigned to $username and $password (entered into login form)
 		if(isset($email)&&isset($password)&&isset($firstName)&&isset($lastName)&&isset($phoneNumber)&&isset($addressLineOne)&&isset($phoneNumber)&&isset($postcode)&&isset($state)&&isset($confirmPassword)){
 			if(isset($password) == isset($confirmPassword)) {
-				$password = md5($password); //Hashes password
-				$sql = "INSERT INTO customers (firstName, lastName, email) VALUES ('John', 'Doe', 'john@example.com')";
-				$dbConnection->exec($sql);
+				$password = sha1($password); //Hashes password
+				$addUser = $dbConnection->prepare("INSERT INTO customers (firstName, lastName, email, mobileNumber, addressLine1, addressLine2, state, postcode, password) VALUES (:firstName, :lastName, :email, :mobileNumber, :addressLine1, :addressLine2, :state, :postcode, :password)");
+				$addUser->bindValue(':email', $email);
+				$addUser->bindValue(':firstName', $firstName);
+				$addUser->bindValue(':lastName', $lastName);
+				$addUser->bindValue(':mobileNumber', $phoneNumber);
+				$addUser->bindValue(':addressLine1', $addressLineOne);
+				$addUser->bindValue(':addressLine2', $addressLineTwo);
+				$addUser->bindValue(':state', $state);
+				$addUser->bindValue(':postcode', $postcode);
+				$addUser->bindValue(':password', $password);
+				$addUser->execute();
 			} else {
 				$error = "Confirmed password does not match password given.";
 			}
