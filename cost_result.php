@@ -1,5 +1,16 @@
 <?php
 include 'assets/includes/header.php';
+
+$package_type = $_POST['type'];
+$height = $_POST['height'];
+$width = $_POST['width'];
+$length = $_POST['length'];
+
+$pickup_state = $_POST['pickup_state'];
+$delivery_state = $_POST['deliver_state'];
+
+$service_type = $_POST['service_type'];
+
 ?>
 <div class="container-fluid top-buffer">
 	<div class="row">
@@ -14,8 +25,12 @@ include 'assets/includes/header.php';
 	</div>
 </div>
 
+<?php
+include 'assets/includes/cost_formula.php';
+?>
+
 <div class="container top-buffer">
 	<div class="row text-center">
-	<h1>Example amount</h1>
+	<h1><?php echo $total_cost ?> Dollars</h1>
 	</div>
 </div>
