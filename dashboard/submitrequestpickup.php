@@ -1,7 +1,7 @@
 <?php
     include("../dbTools/dbConnect.php");
     //include("dashboardTools/checkAndValidateLogin.php");
-    include("bookPackageTools/inputSenderData.php");
+    //include("bookPackageTools/inputSenderData.php");
 
     session_start();
     //Set variables
@@ -38,8 +38,10 @@
                 <p>See below for cost. Payment will be collected on pickup.</p>
                 
                 <?php
-                    $errors = array();
+                    //$errors = array();
                     //Checks to see if data is set
+                    $errorsExist = false;
+
                     if (isset($_POST["optradio"])) {
 
                         //require ("validateBookingDataFunctions.php");
@@ -47,7 +49,7 @@
                         //validateEmail($errors, $_POST, 'email');
                         // validate surname
                         // ...
-                        if ($errors) {
+                        if ($errorsExist) {
                             //echo '<h1>Invalid, correct the following errors:</h1>';
                             //foreach ($errors as $field => $error)
                             //    echo "$field $error</br>";

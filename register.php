@@ -22,16 +22,17 @@
 		if(isset($email)&&isset($password)&&isset($firstName)&&isset($lastName)&&isset($phoneNumber)&&isset($addressLineOne)&&isset($phoneNumber)&&isset($postcode)&&isset($state)&&isset($confirmPassword)){
 			if(isset($password) == isset($confirmPassword)) {
 				$password = sha1($password); //Hashes password
+
 				$addUser = $dbConnection->prepare("INSERT INTO customers (firstName, lastName, email, mobileNumber, addressLine1, addressLine2, state, postcode, password) VALUES (:firstName, :lastName, :email, :mobileNumber, :addressLine1, :addressLine2, :state, :postcode, :password)");
-				$addUser->bindValue(':email', $email);
-				$addUser->bindValue(':firstName', $firstName);
-				$addUser->bindValue(':lastName', $lastName);
-				$addUser->bindValue(':mobileNumber', $phoneNumber);
-				$addUser->bindValue(':addressLine1', $addressLineOne);
-				$addUser->bindValue(':addressLine2', $addressLineTwo);
-				$addUser->bindValue(':state', $state);
-				$addUser->bindValue(':postcode', $postcode);
-				$addUser->bindValue(':password', $password);
+				$addUser->bindParam(':firstName', $firstName);
+				$addUser->bindParam(':lastName', $lastName);
+				$addUser->bindParam(':email', $email);
+				$addUser->bindParam(':mobileNumber', $phoneNumber);
+				$addUser->bindParam(':addressLine1', $addressLineOne);
+				$addUser->bindParam(':addressLine2', $addressLineTwo);
+				$addUser->bindParam(':state', $state);
+				$addUser->bindParam(':postcode', $postcode);
+				$addUser->bindParam(':password', $password);
 				$addUser->execute();
 			} else {
 				$error = "Confirmed password does not match password given.";
@@ -63,8 +64,6 @@
 	}
 
     //Ends the error session
-	session_unset();
-	session_destroy();
 ?>
 <!doctype html>
 <html lang="en">
@@ -129,14 +128,14 @@
 								<div class="input-group">
 									<input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" aria-describedby="basic-addon1">
 									<input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name" aria-describedby="basic-addon1">
-									<input type="text" class="form-control" name="email" id="email" placeholder="Email" aria-describedby="basic-addon1">
-									<input type="text" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="Phone Number" aria-describedby="basic-addon1">
+									<input type="email" class="form-control" name="email" id="email" placeholder="Email" aria-describedby="basic-addon1">
+									<input type="number" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="Phone Number" aria-describedby="basic-addon1">
 									<input type="text" class="form-control" name="addressLineOne" id="addressLineOne" placeholder="Address Line 1" aria-describedby="basic-addon1">
 									<input type="text" class="form-control" name="addressLineTwo" id="addressLineTwo" placeholder="Address Line 2" aria-describedby="basic-addon1">
-									<input type="text" class="form-control" name="postcode" id="postcode" placeholder="Postcode" aria-describedby="basic-addon1">
+									<input type="number" class="form-control" name="postcode" id="postcode" placeholder="Postcode" aria-describedby="basic-addon1">
 									<input type="text" class="form-control" name="state" id="state" placeholder="State" aria-describedby="basic-addon1">
-									<input type="text" class="form-control" name="password" id="password" placeholder="Password" aria-describedby="basic-addon1">
-									<input type="text" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" aria-describedby="basic-addon1">
+									<input type="password" class="form-control" name="password" id="password" placeholder="Password" aria-describedby="basic-addon1">
+									<input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" aria-describedby="basic-addon1">
 									<div class="row">
 										<div class="col-md-4">
 										</div>
