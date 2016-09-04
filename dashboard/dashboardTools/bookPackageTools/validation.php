@@ -4,9 +4,11 @@
         $errors = array();
         $errorCount = 0;
 
-        $anerror = validateEmail($senderEmail);
-        
-        if(!$anerror){
+        $anerror = validateEmail("matthew.d.magingmail.com");
+        echo $anerror;
+        $errorsExist = true;
+
+        if(!(validateEmail("matthew.d.magingmail.com"))){
             $errorsExist = true;
             $errors[$errorCount] = "Sender Email Invalid";
             $errorCount++;

@@ -21,12 +21,10 @@
         },
     }
     $(document).ready(function(){
-        var errorLength = "<?php $errors.length ?>";
-        var errors[] = "<?php $errors ?>";
 
         $.notify({
             icon: 'pe-7s-attention',
-            message: "errorLength"
+            message: "Please ensure that you have filled out all required information and there are no errors."
 
         },{
             type: 'warning',

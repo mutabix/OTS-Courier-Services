@@ -73,25 +73,83 @@
                     $errorsExist = false;
 
                     //Checks to see if data is set
-                    if (isset($senderCompanyName) && isset($senderFirstName) && isset($senderLastName) && isset($senderEmail) && isset($senderMobile) && isset($senderAddressLine1) && isset($senderSuburb) && isset($senderState) && isset($senderPostcode) && isset($receiverCompanyName) && isset($receiverFirstName) && isset($receiverLastName) && isset($receiverEmail) && isset($receiverMobile) && isset($receiverAddressLine1) && isset($receiverSuburb) && isset($receiverState) && isset($receiverPostcode) && isset($noOfPackages) && isset($serviceTypeID) && isset($totalValue)) {
+                    if (isset($senderFirstName) && isset($senderLastName) && isset($senderEmail) && isset($senderMobile) && isset($senderAddressLine1) && isset($senderSuburb) && isset($senderState) && isset($senderPostcode) && isset($receiverFirstName) && isset($receiverLastName) && isset($receiverEmail) && isset($receiverMobile) && isset($receiverAddressLine1) && isset($receiverSuburb) && isset($receiverState) && isset($receiverPostcode) && isset($noOfPackages) && isset($serviceTypeID) && isset($totalValue)) {
                         
                         
 
-                        include ("dashboardTools/bookPackageTools/validation.php");
-                        validateData();
-
-
-
+                        require ("dashboardTools/bookPackageTools/validation.php");
+                        //$errorsExist = true;
                         //validateData();
-                        //require ("validateBookingData.php");
+                        if(!(validateEmail($senderEmail))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Sender Email Invalid";
+                            $errorCount++;
+                        }
+
+                        if(!(validateEmail($receiverEmail))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Sender Email Invalid";
+                            $errorCount++;
+                        }
+
+                        if(!(validatePhoneNumber($senderMobile))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Sender Mobile Number Invalid";
+                            $errorCount++;
+                        }
+
+                        if(!(validatePhoneNumber($receiverMobile))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Sender Mobile Number Invalid";
+                            $errorCount++;
+                        }
+
+                        if(!(validatePostcode($senderPostcode))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Sender Postcode Invalid";
+                            $errorCount++;
+                        }
+
+                        if(!(validatePostcode($receiverPostcode))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Sender Postcode Invalid";
+                            $errorCount++;
+                        }
+
+                        if(!(validateSize($packageWidth))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Package Width Invalid";
+                            $errorCount++;
+                        }
+
+                        if(!(validateSize($packageLength))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Package Length Invalid";
+                            $errorCount++;
+                        }
+
+                        if(!(validateSize($packageDepth))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Package Depth Invalid";
+                            $errorCount++;
+                        } 
+
+                        if(!(isset($_POST["detailsCorrectCheckbox"]))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Please Confirm That All The Details You Have Entered Are Correct";
+                            $errorCount++;
+                        }
+
+                        if(!(isset($_POST["termsAcceptCheckbox"]))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Please Accept Our Terms And Conditions";
+                            $errorCount++;
+                        }
+
+                        include ("dashboardTools/bookPackageTools/errorPopupNotification.php");
+                    
 
                         if ($errorsExist) {
-                            include ("dashboardTools/bookPackageTools/errorPopupNotification.php");
-
-                            
-
-
-
                             include ("dashboardTools/bookPackageTools/bookingform.php");
 
                         } else {
