@@ -22,7 +22,12 @@
         <br />
         <div class='col-md-12'>
             <div class='row' style='margin-top: 20px'>
-                <button type='submit' class='btn btn-info btn-fill col-md-12 white-custom-button' name='submitRegistration'>Register</button>
+				<button type="button" onclick="goToRegister()" class='btn btn-info btn-fill col-md-12 white-custom-button'>Register</button>
+				<script>
+					function goToRegister() {
+						window.location = 'register.php'
+					}
+				</script>
             </div>
 
             <div class='row' style='margin-top: 20px'>

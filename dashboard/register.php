@@ -26,7 +26,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Book Package</title>
+	<title>Register</title>
 
     <?php include("includes/styling_scripts/meta.html"); ?>
     <?php include("includes/styling_scripts/css.html"); ?>
