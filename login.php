@@ -30,7 +30,7 @@
 			if($email == $retrievedEmail && $password == $retrievedPassword){
 				$_SESSION['email'] = $email; //Current session username
 				header("location: index.php"); //Redirects to home page if credentials matchs
-				exit;
+				exit;                                                        
 			}
 			else { //If doesn't match username and password doesn't
 				//match the retrieved values - only used if there is a
