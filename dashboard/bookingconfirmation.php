@@ -48,16 +48,6 @@
                 <button type="button" class="btn btn-info btn-fill pull-left" name="toDashboard" href="dashboard.php">Return to Dashboard</button>
             </div>
 
-
-
-                
-
-
-
-
-
-
-
                 <style>
                     .special-subtotal-hr {
                         border: 0;
