@@ -1,18 +1,49 @@
+<?php
+    include ("../dbTools/dbConnect.php");
+
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 	<meta charset="UTF-8" />
 		<title>Track</title>
-<style>
-	body{
-		font-family: sans-serif;
-		font-size: 1em;
-	}
-	</style>
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+		<link rel="shortcut icon" href="images/favicon.ico" />
+		<meta name ="viewport" content="width=device-width, initial-scale=1">
+<div id="wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<div id="login_top_bar">
+						<p><a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">My Dashboard</a> | <a href="#">Support</a></p>
+					</div>
+				</div>
+			</div>
+
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-6 logo">
+						<img class="img-responsive" src="assets/img/logo.png" alt="On The Spot Couriers">
+					</div>
+				
+					<div class="col-md-6 main_navigation">
+						<ul>
+						<li><a class="active" href="#">Home</a></li>
+						<li><a href="#">About</a></li>
+						<li><a href="#">Ship</a></li>
+						<li><a href="#">Track</a></li>
+						<li><a href="#">Contact Us</a></li>
+						</ul>
+						
+					</div>
+				</div>
+			</div>
 		 
 		<link rel="stylesheet" type="text/css" href="css/styles_'.css">
 		</head>
 		<body>
+        
+        
 		
 <div class="main-panel">
         <?php include("includes/navbar-mobile-open.html"); ?>
@@ -29,7 +60,7 @@
 
 
 		<form action="Tracking.php" method="get">
-  <label>Name:
+  <label>Tracking number:
   <input type="number" name="tracking number" />
   </label>
   <input type="submit" value="Track" />
@@ -45,17 +76,11 @@ echo "Enter tracking number";
 exit();
 }
 
-$hostname='d6q8diwwdmy5c9k9.cbetxkdyhwsb.us-east-1.rds.amazonaws.com';
-$username='tgs66cq1wippa93b';
-$password='xi7mibqw1s765w4q';
-$dbname='vrtpy2jtdixgvmr';
-$usertable='Tracking';
+
+$usertable='bookings';
 $location = $_POST['location'];
 $usertable = $_POST['usertable'];
 
-
-mysql_connect($hostname,$username, $password), ('Unable to connect to database! Please try again later.');
-mysql_select_db($dbname);
 
 $query = "select * from $usertable where Location = '$location'";
 
@@ -104,8 +129,13 @@ else
     echo "There was no matching record for the name " . $searchTerm;
 ?>
 
+<footer>
+	<p>© 2016 Geckoboard. All rights reserved.</p>
+</footer>
 
-?>
+		</div>
 
 </body>
 </html>
+
+

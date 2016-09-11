@@ -124,7 +124,12 @@
         <br />
         <div class='col-md-12'>
             <div class='row' style='margin-top: 20px'>
-                <button type='submit' class='btn btn-info btn-fill col-md-12 white-custom-button' name='submitRegistration'>Already Have an Account? Login.</button>
+				<button type="button" onclick="goToLogin()" class='btn btn-info btn-fill col-md-12 white-custom-button'>Already Have an Account? Login.</button>
+				<script>
+					function goToLogin() {
+						window.location = 'login.php'
+					}
+				</script>
             </div>
         </div>
     </div>
