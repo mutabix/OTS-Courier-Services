@@ -1,0 +1,78 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700';
+
+*{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.title{
+    margin-top: 30px;
+    margin-bottom: 25px;
+    min-height: 32px;
+}
+
+#navbar-full .navbar{
+    border-radius: 0 !important;
+    margin-bottom: 15px;
+    z-index: 2;
+}
+
+.logo-container .logo{
+    overflow: hidden;
+    width: 275px;
+    float: left;
+}
+
+.logo-container .brand{
+    font-size: 16px;
+    color: #FFFFFF;
+    line-height: 18px;
+    float: left;
+    margin-left: 10px;
+    margin-top: 7px;
+    width: 70px;
+    height: 40px;
+    text-align: left;
+}
+.logo-container .brand-material{
+    font-size: 18px;
+    margin-top: 15px;
+    height: 25px;
+    width: auto;
+}
+.logo-container .logo img{
+    width: 100%;
+}
+
+.logo-container .brand{
+    color: #333333;
+}
+
+.logo-container .logo, .logo-container .brand{
+     -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+}
+
+.spacer-100{
+    margin-top: 100px;
+}
+
+.quick-links{
+    text-align: center;
+}
+
+.quick-links a{
+    color: #333333;
+}
+
+.quick-links h4{
+    font-weight: 400;
+    color: #F7922D;
+    text-align: center
+}
+
+.quick-links a:hover{
+    text-decoration: none;
+}
+

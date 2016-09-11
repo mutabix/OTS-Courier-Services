@@ -1,0 +1,35 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:400,700,800';
+
+*{
+	margin: 0;
+	padding: 0;
+	font-family: 'Open Sans', sans-serif;
+}
+
+h1{
+	font-size: 20px;
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
+.wrapper{
+	width: 210mm;
+	height: 148mm;
+	outline: 1px solid;
+}
+
+.senderSection{
+	width: 95mm;
+	height: 10mm;
+	margin-right: 20px;
+	background-color: green;
+	float: right;
+}
+
+.receiverSection{
+	width: 95mm;
+	height: 10mm;
+	margin-left: 20px;
+	background-color: red;
+	float: left;
+}

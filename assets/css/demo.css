@@ -1,61 +1,49 @@
-@media (min-width: 992px){
-    .typo-line{
-        padding-left: 140px;
-        margin-bottom: 40px;
-        position: relative;
-    }
-
-    .typo-line .category{
-        transform: translateY(-50%);
-        top: 50%;
-        left: 0px;
-        position: absolute;
-    }
+.title{
+    margin-top: 30px;
+    margin-bottom: 25px;
+    min-height: 32px;
 }
 
-.all-icons [class*="pe-"]{
-    font-size: 40px;
-}
-.all-icons input{
-    border: 0;
-}
-.all-icons .font-icon-detail{
-    text-align: center;
-    padding: 45px 0px 30px;
-    border: 1px solid #e5e5e5;
-    border-radius: 6px;
-    margin: 15px 0;
-}
-.all-icons .font-icon-detail input{
-    margin: 25px auto 0;
-    width: 100%;
-    text-align: center;
-    display: block;
-    color: #aaa;
-    font-size: 13px;
+#navbar-full .navbar{
+    border-radius: 0 !important;
+    margin-bottom: 15px;
+    z-index: 2;
 }
 
-#map{
-    position:relative;
-    width:100%;
-    height: calc(100% - 60px);
+.logo-container .logo{
+    overflow: hidden;
+    width: 275px;
+    float: left;
 }
 
-.places-buttons .btn{
-    margin-bottom: 30px
-}
-.sidebar .nav > li.active-pro{
-    position: absolute;
-    width: 100%;
-    bottom: 10px;
-}
-.sidebar .nav > li.active-pro a{
-    background: rgba(255, 255, 255, 0.14);
-    opacity: 1;
+.logo-container .brand{
+    font-size: 16px;
     color: #FFFFFF;
+    line-height: 18px;
+    float: left;
+    margin-left: 10px;
+    margin-top: 7px;
+    width: 70px;
+    height: 40px;
+    text-align: left;
+}
+.logo-container .brand-material{
+    font-size: 18px;
+    margin-top: 15px;
+    height: 25px;
+    width: auto;
+}
+.logo-container .logo img{
+    width: 100%;
 }
 
-.table-upgrade td:nth-child(2),
-.table-upgrade td:nth-child(3){
-    text-align: center;
+.logo-container .brand{
+    color: #333333;
+}
+
+.logo-container .logo, .logo-container .brand{
+     -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
 }

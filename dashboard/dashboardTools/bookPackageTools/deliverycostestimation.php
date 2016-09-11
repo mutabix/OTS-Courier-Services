@@ -22,7 +22,7 @@
 	$box_type_cost_10_kg = 25.0;
 	$box_type_cost_20_kg = 45.0;
 
-	$delivery_location_within_state = 5.0;
+	$delivery_location_within_state = 0.0;
 	$delivery_location_outside_state = 15.0;
 
 	$service_type_std_cost = 0.0;

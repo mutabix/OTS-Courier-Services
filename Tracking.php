@@ -23,9 +23,9 @@
 		<h1>Track your package</h1>
 
 		<?php include("includes/styling_scripts/meta.html"); ?>
-    <?php include("includes/styling_scripts/css.html"); ?>
-    <?php include("includes/styling_scripts/fonts-icons.html"); ?>
-    <?php include("includes/styling_scripts/javascript.html"); ?>
+        <?php include("includes/styling_scripts/css.html"); ?>
+        <?php include("includes/styling_scripts/fonts-icons.html"); ?>
+        <?php include("includes/styling_scripts/javascript.html"); ?>
 
 
 		<form action="Tracking.php" method="get">
