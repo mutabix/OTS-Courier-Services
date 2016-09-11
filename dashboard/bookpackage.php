@@ -17,8 +17,38 @@
     <?php include("includes/styling_scripts/css.html"); ?>
     <?php include("includes/styling_scripts/fonts-icons.html"); ?>
     <?php include("includes/styling_scripts/javascript.html"); ?>
+    
+    <script>
+        function checkPackageType(){
+            var packageTypeSelected = document.getElementById("packageType").selectedIndex;
+            if(packageTypeSelected >= 1 && packageTypeSelected <= 3){
+                document.getElementById('packageWidth').value = "0";
+                document.getElementById('packageLength').value = "0";
+                document.getElementById('packageDepth').value = "0";
+
+                document.getElementById('packageWidth').disabled = true;
+                document.getElementById('packageLength').disabled = true;
+                document.getElementById('packageDepth').disabled = true;
+            } else {
+                if(document.getElementById('packageWidth').value == 0 && document.getElementById('packageLength').value == 0 && document.getElementById('packageDepth').value == 0){
+                    document.getElementById('packageWidth').value = "";
+                    document.getElementById('packageLength').value = "";
+                    document.getElementById('packageDepth').value = "";
+                }
+
+                document.getElementById('packageWidth').disabled = false;
+                document.getElementById('packageLength').disabled = false;
+                document.getElementById('packageDepth').disabled = false;
+            }
+        }
+
+    </script>
 </head>
+
+
+
 <body>
+
 
 <div class="wrapper">
     <?php include("includes/sidebar.html"); ?>
@@ -27,7 +57,6 @@
         <?php include("includes/navbar-mobile-open.html"); ?>
         <a class="navbar-brand" href="#">Book a Package</a>
         <?php include("includes/navbar-mobile-close.html"); ?>
-
 
         <div class="content">
             <div class="container-fluid">
@@ -41,24 +70,86 @@
                 </ul>
 
                 <?php
-                    $errors = array();
+                    $errorsExist = false;
 
                     //Checks to see if data is set
-                    if (isset($senderCompanyName) && isset($senderFirstName) && isset($senderLastName) && isset($senderEmail) && isset($senderMobile) && isset($senderAddressLine1) && isset($senderSuburb) && isset($senderState) && isset($senderPostcode) && isset($receiverCompanyName) && isset($receiverFirstName) && isset($receiverLastName) && isset($receiverEmail) && isset($receiverMobile) && isset($receiverAddressLine1) && isset($receiverSuburb) && isset($receiverState) && isset($receiverPostcode) && isset($noOfPackages) && isset($packageWidth) && isset($packageLength) && isset($packageDepth) && isset($serviceTypeID) && isset($totalValue) && isset($_POST["detailsCorrectCheckbox"]) && isset($_POST["termsAcceptCheckbox"])) {
+                    if (isset($senderFirstName) && isset($senderLastName) && isset($senderEmail) && isset($senderMobile) && isset($senderAddressLine1) && isset($senderSuburb) && isset($senderState) && isset($senderPostcode) && isset($receiverFirstName) && isset($receiverLastName) && isset($receiverEmail) && isset($receiverMobile) && isset($receiverAddressLine1) && isset($receiverSuburb) && isset($receiverState) && isset($receiverPostcode) && isset($noOfPackages) && isset($serviceTypeID) && isset($totalValue)) {
                         
                         
 
-                        //require ("validateBookingDataFunctions.php");
-                        //require ("validateBookingData.php");
+                        require ("dashboardTools/bookPackageTools/validation.php");
+                        //$errorsExist = true;
+                        //validateData();
+                        if(!(validateEmail($senderEmail))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Sender Email Invalid";
+                            $errorCount++;
+                        }
 
-                        //validateEmail($errors, $_POST, 'email');
-                        // validate surname
-                        // ...
-                        if ($errors) {
-                            echo '<h1>Invalid, correct the following errors:</h1>';
-                            //foreach ($errors as $field => $error)
-                            //    echo "$field $error</br>";
-                            // redisplay the form
+                        if(!(validateEmail($receiverEmail))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Sender Email Invalid";
+                            $errorCount++;
+                        }
+
+                        if(!(validatePhoneNumber($senderMobile))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Sender Mobile Number Invalid";
+                            $errorCount++;
+                        }
+
+                        if(!(validatePhoneNumber($receiverMobile))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Sender Mobile Number Invalid";
+                            $errorCount++;
+                        }
+
+                        if(!(validatePostcode($senderPostcode))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Sender Postcode Invalid";
+                            $errorCount++;
+                        }
+
+                        if(!(validatePostcode($receiverPostcode))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Sender Postcode Invalid";
+                            $errorCount++;
+                        }
+
+                        if(!(validateSize($packageWidth))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Package Width Invalid";
+                            $errorCount++;
+                        }
+
+                        if(!(validateSize($packageLength))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Package Length Invalid";
+                            $errorCount++;
+                        }
+
+                        if(!(validateSize($packageDepth))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Package Depth Invalid";
+                            $errorCount++;
+                        } 
+
+                        if(!(isset($_POST["detailsCorrectCheckbox"]))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Please Confirm That All The Details You Have Entered Are Correct";
+                            $errorCount++;
+                        }
+
+                        if(!(isset($_POST["termsAcceptCheckbox"]))){
+                            $errorsExist = true;
+                            $errors[$errorCount] = "Please Accept Our Terms And Conditions";
+                            $errorCount++;
+                        }
+
+                        include ("dashboardTools/bookPackageTools/errorPopupNotification.php");
+                    
+
+                        if ($errorsExist) {
                             include ("dashboardTools/bookPackageTools/bookingform.php");
 
                         } else {
@@ -97,4 +188,6 @@
     </div>
 </div>
 </body>
+<!--<script src="demo.js"></script>-->
+
 </html>

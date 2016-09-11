@@ -35,7 +35,7 @@
                     <div class='col-md-5'>
                         <div class='form-group'>
                             <label for='senderMobile'>Mobile Number</label>
-                            <?php echo "<input type='text' class='form-control' placeholder='Mobile Number' name='senderMobile' value='". $_SESSION['senderDetails'] [4] ."'>" ?>
+                            <?php echo "<input type='number' class='form-control' placeholder='Mobile Number' name='senderMobile' value='". $_SESSION['senderDetails'] [4] ."'>" ?>
                         </div>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
                     <div class='col-md-5'>
                         <div class='form-group'>
                             <label for='receiverMobile'>Mobile Number</label>
-                            <?php echo "<input type='text' class='form-control' placeholder='Mobile Number' name='receiverMobile' value='". $_SESSION['receiverDetails'] [4] ."'>" ?>
+                            <?php echo "<input type='number' class='form-control' placeholder='Mobile Number' name='receiverMobile' value='". $_SESSION['receiverDetails'] [4] ."'>" ?>
                         </div>
                     </div>
                 </div>
@@ -196,19 +196,19 @@
                     <div class='col-md-3'>
                         <div class='form-group'>
                             <label for='packageWidth'>Width (cm)</label>
-                            <?php echo "<input type='number' class='form-control' placeholder='Width' name='packageWidth' value='". $_SESSION['shipmentDetails'] [1] ."'>" ?>
+                            <?php echo "<input type='number' class='form-control' placeholder='Width' name='packageWidth' id='packageWidth' value='". $_SESSION['shipmentDetails'] [1] ."'>" ?>
                         </div>
                     </div>
                     <div class='col-md-3'>
                         <div class='form-group'>
                             <label for='packageLength'>Length (cm)</label>
-                            <?php echo "<input type='number' class='form-control' placeholder='Length' name='packageLength' value='". $_SESSION['shipmentDetails'] [2] ."'>" ?>
+                            <?php echo "<input type='number' class='form-control' placeholder='Length' name='packageLength' id='packageLength' value='". $_SESSION['shipmentDetails'] [2] ."'>" ?>
                         </div>
                     </div>
                     <div class='col-md-3'>
                         <div class='form-group'>
                             <label for='packageDepth'>Depth (cm)</label>
-                            <?php echo "<input type='number' class='form-control' placeholder='Depth' name='packageDepth' value='". $_SESSION['shipmentDetails'] [3] ."'>" ?>
+                            <?php echo "<input type='number' class='form-control' placeholder='Depth' name='packageDepth' id='packageDepth' value='". $_SESSION['shipmentDetails'] [3] ."'>" ?>
                         </div>
                     </div>
                 </div>
@@ -227,8 +227,8 @@
                     </div>
                     <div class='col-md-4'>
                         <div class='form-group'>
-                            <label for='serviceTypeID'>Package Type</label>
-                            <select class='form-control' id='packageType' name='packageType'>
+                            <label for='packageType'>Package Type</label>
+                            <select class='form-control' id='packageType' name='packageType' onchange='checkPackageType()'>
                                 <!--Use for loop later to optimise this-->
                                 <option disabled selected value='0'>Select Package Type</option>
                                 <option value='1'>1kg Satchel</option>
@@ -242,10 +242,13 @@
                             </select>
                         </div>
                     </div>
+
+
+
                     <div class='col-md-3'>
                         <div class='form-group'>
                             <label for='totalValue'>Total Carriage Value</label>
-                            <?php echo "<input type='text' class='form-control' placeholder='$0.00' name='totalValue' value='". $_SESSION['shipmentDetails'] [6] ."'>" ?>
+                            <?php echo "<input type='number' class='form-control' placeholder='$0.00' step='any' name='totalValue' value='". $_SESSION['shipmentDetails'] [6] ."'>" ?>
                         </div>
                     </div>
                 </div>
