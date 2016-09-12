@@ -2,12 +2,13 @@
     include("dbTools/dbConnect.php");
 
     $trackingNumber = $_POST["trackingNumber"];
+    $_POST["trackingNumber"] = "";
 
     $trackingNumberExists;
 
     if(isset($trackingNumber)){
     	$trackingNumberExists = false;
-    	$checkTracking = $dbConnection->prepare("SELECT * FROM shipments WHERE checkTracking = :trackingNumber");
+    	$checkTracking = $dbConnection->prepare("SELECT * FROM shipments WHERE trackingNumber = :trackingNumber");
 
 		$checkTracking->bindParam(':trackingNumber', $trackingNumber);
 
@@ -21,6 +22,15 @@
 
     	$trackingDetails = $checkTracking->fetch();
     	$retrievedTrackingNumber = $trackingDetails['trackingNumber'];
+    	$shipmentStatusCode = $trackingDetails['shipmentStatusCode'];
+    	$pendingBool = $trackingDetails['pendingBool'];
+    	$pendingDate = $trackingDetails['pendingDate'];
+    	$pickupBool = $trackingDetails['pickupBool'];
+    	$pickupDate = $trackingDetails['pickupDate'];
+    	$processingBool = $trackingDetails['processingBool'];
+    	$processingDate = $trackingDetails['processingDate'];
+    	$deliveryBool = $trackingDetails['deliveryBool'];
+    	$deliveryDate = $trackingDetails['deliveryDate'];
 
     	if(isset($retrievedTrackingNumber)){
     		$trackingNumberExists = true;
@@ -38,7 +48,7 @@
 	<link rel="icon" type="image/png" href="assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Home - OTS Courier Services</title>
+	<title>Tracking - OTS Courier Services</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
@@ -99,29 +109,13 @@
 			            	<div id="tracking-details">
 
 			            	<?php
-			            		$errorsExist = false;
-
-			            		if (isset($trackingNumber)) {
-			            			if (strlen((string)$trackingNumber > 1){
-			            				echo "Tracking Number Not Valid";
-			            			}
-){
-			            			else if (!$trackingNumberExists) {
-			            				echo "Tracking Number Does not Exist";
-			            			} else {
-
-
-			            			}
-
-			            		} else {
-			            			include ("trackform.php");
-			            		}
-
 			            		if(isset($trackingNumber)) {
-			            			if(strlen((string)$trackingNumber > 1)){
+			            			if(strlen((string)$trackingNumber < 2)){
+			            				echo "Tracking Number Not Valid";
 			            				include("trackform.php");
 
 			            			} else if (!$trackingNumberExists){
+			            				echo "Tracking Number Does Not Exist";
 			            				include("trackform.php");
 
 			            			} else {
@@ -134,35 +128,134 @@
 			            		}
 
 
-
 			            	?>
 
-			            	<!--FONT AWESOME ICONS 
+			            	
+			            	</div>
+	            	</div>
+
+	            	<br>
+
+	            	<div class='col-md-12' style='text-align: center;'>
+	            		<br>
+	            		<br>
+
+	            		<div class="quick-links">
+							<div class="row">
+								<?php
+									if($trackingNumberExists){
+										if($shipmentStatusCode == 0){
+											if($pendingBool == 0){
+												echo "<div class='col-md-3'>";
+													echo "<div class='info'>";
+														echo "<div class='icon icon-primary'>";
+															echo "<i class='fa fa-spinner' aria-hidden='true' style='font-size: 100px'></i>";
+														echo "</div>";
+														echo "<h4 class='info-title'>Pending</h4>";
+													echo "</div>";
+					                    		echo "</div>";
+				                    		} else if($pendingBool == 1){
+				                    			echo "<div class='col-md-3'>";
+													echo "<div class='info'>";
+														echo "<div class='icon icon-primary'>";
+															echo "<i class='fa fa-spinner' aria-hidden='true' style='font-size: 100px'></i>";
+														echo "</div>";
+														echo "<h4 class='info-title'>Pending Complete</h4>";
+														echo "<h4 class='info-title'>".$pendingDate."</h4>";
+													echo "</div>";
+					                    		echo "</div>";
+				                    		}
+				                    	}
+
+				                    	if($shipmentStatusCode == 1){
+				                    		if($pickupBool == 0){
+				                    			echo "<div class='col-md-3'>";
+													echo "<div class='info'>";
+														echo "<div class='icon icon-primary'>";
+															echo "<i class='fa fa-truck' aria-hidden='true' style='font-size: 100px'></i>";
+														echo "</div>";
+														echo "<h4 class='info-title'>Enroute to Pickup</h4>";
+													echo "</div>";
+					                    		echo "</div>";
+				                    		} else if($pickupBool == 1){
+				                    			echo "<div class='col-md-3'>";
+													echo "<div class='info'>";
+														echo "<div class='icon icon-primary'>";
+															echo "<i class='fa fa-truck' aria-hidden='true' style='font-size: 100px'></i>";
+														echo "</div>";
+														echo "<h4 class='info-title'>Package Picked Up</h4>";
+														echo "<h4 class='info-title'>".$pendingDate."</h4>";
+													echo "</div>";
+					                    		echo "</div>";
+				                    		}
+				                    	}
+
+				                    	if($shipmentStatusCode == 3){
+				                    		if($processingBool == 0){
+				                    			echo "<div class='col-md-3'>";
+													echo "<div class='info'>";
+														echo "<div class='icon icon-primary'>";
+															echo "<i class='fa fa-cogs' aria-hidden='true' style='font-size: 100px'></i>";
+														echo "</div>";
+														echo "<h4 class='info-title'>Processing</h4>";
+													echo "</div>";
+					                    		echo "</div>";
+				                    		} else if($processingBool == 1){
+				                    			echo "<div class='col-md-3'>";
+													echo "<div class='info'>";
+														echo "<div class='icon icon-primary'>";
+															echo "<i class='fa fa-cogs' aria-hidden='true' style='font-size: 100px'></i>";
+														echo "</div>";
+														echo "<h4 class='info-title'>Package Processed</h4>";
+														echo "<h4 class='info-title'>".$processingDate."</h4>";
+													echo "</div>";
+					                    		echo "</div>";
+				                    		}
+				                    	}
+
+				                    	if($shipmentStatusCode == 4){
+				                    		if($deliveryBool == 0){
+				                    			echo "<div class='col-md-3'>";
+													echo "<div class='info'>";
+														echo "<div class='icon icon-primary'>";
+															echo "<i class='fa fa-truck' aria-hidden='true' style='font-size: 100px'></i>";
+														echo "</div>";
+														echo "<h4 class='info-title'>Onboard with Driver for Delivery</h4>";
+													echo "</div>";
+					                    		echo "</div>";
+				                    		} else if($deliveryBool == 1){
+				                    			echo "<div class='col-md-3'>";
+													echo "<div class='info'>";
+														echo "<div class='icon icon-primary'>";
+															echo "<i class='fa fa-truck' aria-hidden='true' style='font-size: 100px'></i>";
+														echo "</div>";
+														echo "<h4 class='info-title'>Package Delivered</h4>";
+														echo "<h4 class='info-title'>".$deliveryDate."</h4>";
+													echo "</div>";
+					                    		echo "</div>";
+				                    		}
+			                    		}
+									}
+
+		                    		
+								?>
+			                    
+			                    <!--
+			            		FONT AWESOME ICONS 
 			            		PENDING - ellipsis-h or spinner
 			            		ENROUTE TO PICKUP - truck
 			            		WITH DRIVER FOR PROCESSING - truck
 			            		PROCESSING @ FACILITY - cogs
 			            		WITH DRIVER FOR DELIVERY - truck
 			            	-->
-			            	</div>
-	            	</div>				
+			                    
+			                    
+			                </div>
+						</div>
+
+	            	</div>			
 	    	</div>
 	    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	</div>
     <footer class="footer">
 	    <div class="container">
