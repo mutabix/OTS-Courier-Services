@@ -1,3 +1,36 @@
+<?php
+    include("dbTools/dbConnect.php");
+
+    $trackingNumber = $_POST["trackingNumber"];
+
+    $trackingNumberExists;
+
+    if(isset($trackingNumber)){
+    	$trackingNumberExists = false;
+    	$checkTracking = $dbConnection->prepare("SELECT * FROM shipments WHERE checkTracking = :trackingNumber");
+
+		$checkTracking->bindParam(':trackingNumber', $trackingNumber);
+
+		try {
+        	$checkTracking->execute();
+
+    	} catch(Exception $error) {
+	        echo 'Exception -> ';
+	        var_dump($error->getMessage());
+    	}
+
+    	$trackingDetails = $checkTracking->fetch();
+    	$retrievedTrackingNumber = $trackingDetails['trackingNumber'];
+
+    	if(isset($retrievedTrackingNumber)){
+    		$trackingNumberExists = true;
+    	}
+    }
+    
+
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -35,7 +68,7 @@
 	    	<a href="index.php">
 	        	<div class="logo-container">
 	                <div class="logo">
-	                    <img src="assets/img/logo-white.png" alt="On The Spot Courier Services Logo" rel="tooltip" data-placement="bottom" data-html="true">
+	                    <img src="assets/img/logo-white.png" alt="On The Spot Courier Services Logo" rel="tooltip" data-placement="bottom"data-html="true">
 	                </div>
 				</div>
 	      	</a>
@@ -61,15 +94,50 @@
 		<div class="section section-basic">
 	    	<div class="container">
 	            <div class="title"><h2>Track a Package</h2></div>
-	            	<div id='col-md-8'>
-			            	<form>
-			            		<label for='trackingNumber'>Please Enter a Tracking Number</label>
-			            		<input type="number" name="trackingNumber" class="form-control" required>
-			            	</form>
-
+	            	<div class='col-md-12'>
+			            	
 			            	<div id="tracking-details">
 
-			            	<!-- FONT AWESOME ICONS 
+			            	<?php
+			            		$errorsExist = false;
+
+			            		if (isset($trackingNumber)) {
+			            			if (strlen((string)$trackingNumber > 1){
+			            				echo "Tracking Number Not Valid";
+			            			}
+){
+			            			else if (!$trackingNumberExists) {
+			            				echo "Tracking Number Does not Exist";
+			            			} else {
+
+
+			            			}
+
+			            		} else {
+			            			include ("trackform.php");
+			            		}
+
+			            		if(isset($trackingNumber)) {
+			            			if(strlen((string)$trackingNumber > 1)){
+			            				include("trackform.php");
+
+			            			} else if (!$trackingNumberExists){
+			            				include("trackform.php");
+
+			            			} else {
+			            				include("trackform.php");
+			            			}
+
+
+			            		} else {
+			            			include("trackform.php");
+			            		}
+
+
+
+			            	?>
+
+			            	<!--FONT AWESOME ICONS 
 			            		PENDING - ellipsis-h or spinner
 			            		ENROUTE TO PICKUP - truck
 			            		WITH DRIVER FOR PROCESSING - truck
