@@ -26,8 +26,9 @@
         <div class="content">
             <div class="container-fluid">
                 <?php
-				$result = $dbConnection->prepare('SELECT customerID, companyName, firstName, lastName, email, mobileNumber, state
-				FROM customers');
+					$result = $dbConnection->prepare('SELECT customerID, companyName, firstName, lastName, email, mobileNumber, addressLine1, addressLine2, suburb, state, postcode
+					FROM customers
+					WHERE customerID = '.$_GET["id"].'');
 				$result->execute();
 				?>
 				<table class="table">
@@ -38,7 +39,11 @@
 							<th>Company Name</th>
 							<th>Email</th>
 							<th>Phone number</th>
+							<th>Address</th>
+							<th>Address (Will combine these two)</th>
+							<th>Suburb</th>
 							<th>State</th>
+							<th>Postcode</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -47,7 +52,7 @@
 						{
 							echo '<tr>';
 								echo '<td>';
-									echo "<a href='contact.php?id=".$customer["customerID"]."'>".$customer["firstName"]."</a>";
+									echo "<a href='contact=".$customer["customerID"]."'>".$customer["firstName"]."</a>";
 								echo '</td>';
 								echo '<td>';
 									echo $customer['lastName'];
@@ -62,13 +67,27 @@
 									echo $customer['mobileNumber'];
 								echo '</td>';
 								echo '<td>';
+									echo $customer['addressLine1'];
+								echo '</td>';
+								echo '<td>';
+									echo $customer['addressLine2'];
+								echo '</td>';
+								echo '<td>';
+									echo $customer['suburb'];
+								echo '</td>';
+								echo '<td>';
 									echo $customer['state'];
 								echo '</td>';
+								echo '<td>';
+									echo $customer['postcode'];
+								echo '</td>';
+
 							echo '</tr>';
 						}
-					echo '</tbody>
-					</table>';
-				?>
+						?>
+					</tbody>
+				</table>
+				
 
 
 
