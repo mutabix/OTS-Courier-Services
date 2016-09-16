@@ -4,6 +4,20 @@
      session_start();
   
 ?>
+<?php
+function updater($value,$id) {
+    
+   $sql = "UPDATE table_name SET name = ? WHERE id= ?";
+   $update = $conn->prepare($sql);
+   $update->bind_param(':Shipment Status', $shipmentId);
+   $update->bind_param(':Payment Status' $paymentStatus); //Getting a Error message 
+   $update->bind_param(':Date' $date); 
+   $update->execute();
+   if ($update->affected_rows > 0) {
+       echo "Record updated successfully";
+   } else {
+       echo "Error updating record: " . $conn->error;
+       ?>
 
 <!doctype html>
 <html lang="en">
@@ -29,7 +43,7 @@
         <div class="content">
             <div class="container-fluid">
                 <?php
-				$result = $dbConnection->prepare('SELECT shipmentId, costumerId, firstName, lastName paymentStatus, trackingId, driverId, Date 
+				$result = $dbConnection->prepare('SELECT shipmentId, costumerId, firstName, lastName, paymentStatus, trackingId, driverId, Date 
 				FROM payment, booking');
 				$result->execute();
 				
