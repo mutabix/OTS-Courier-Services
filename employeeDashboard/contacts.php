@@ -25,48 +25,56 @@
 
         <div class="content">
             <div class="container-fluid">
-                <?php
-				$total = $dbConnection->query('SELECT
-				COUNT(*)
-				FROM customers')->fetchColumn();
-				
-				$limit = 11;
-				
-				$pages = ceil($total / $limit);
-				
-				$page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array
-				('options' => array
-					('default' => 1,
-					 'min_range' => 1,
-					),
-				)));
-				
-				$offset = ($page - 1) * $limit;
-				
-				$start = $offset + 1;
-				$end = min(($offset + $limit), $total);
-				
-				$prevlink = ($page > 1) ? '<a href="?page=1" title="First page">&laquo;</a> <a href="?page=' . ($page - 1) . '" title="Previous page">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
-				$nextlink = ($page < $pages) ? '<a href="?page=' . ($page + 1) . '" title="Next page">&rsaquo;</a> <a href="?page=' . $pages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
-				echo '<div id="paging"><p>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $total, ' results ', $nextlink, ' </p></div>';
-				
-				
-				
-				
-				$result = $dbConnection->prepare('SELECT customerID, companyName, firstName, lastName, email, mobileNumber, state
-				FROM customers
-				ORDER BY companyName
-				LIMIT :limit
-				OFFSET :offset');
-				$result->bindParam(':limit', $limit, PDO::PARAM_INT);
-				$result->bindParam(':offset', $offset, PDO::PARAM_INT);
-				$result->execute();
-				
-				
-
-					
-					
-				?>
+				<div class="row">
+					<div class="col-md-6";
+						<?php
+						$total = $dbConnection->query('SELECT
+						COUNT(*)
+						FROM customers')->fetchColumn();
+						
+						$limit = 11;
+						
+						$pages = ceil($total / $limit);
+						
+						$page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array
+						('options' => array
+							('default' => 1,
+							 'min_range' => 1,
+							),
+						)));
+						
+						$offset = ($page - 1) * $limit;
+						
+						$start = $offset + 1;
+						$end = min(($offset + $limit), $total);
+						
+						$prevlink = ($page > 1) ? '<a href="?page=1" title="First page">&laquo;</a> <a href="?page=' . ($page - 1) . '" title="Previous page">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
+						$nextlink = ($page < $pages) ? '<a href="?page=' . ($page + 1) . '" title="Next page">&rsaquo;</a> <a href="?page=' . $pages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
+						echo '<div id="paging"><p>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $total, ' results ', $nextlink, ' </p></div>';
+						
+						
+						
+						
+						$result = $dbConnection->prepare('SELECT customerID, companyName, firstName, lastName, email, mobileNumber, state
+						FROM customers
+						ORDER BY companyName
+						LIMIT :limit
+						OFFSET :offset');
+						$result->bindParam(':limit', $limit, PDO::PARAM_INT);
+						$result->bindParam(':offset', $offset, PDO::PARAM_INT);
+						$result->execute();	
+						?>
+					</div>
+					<div class="col-md-6">
+						<?php if(true)//user is owner
+						{
+							echo '<form>';
+								echo '<a href="addContact.php" class="btn btn-info" role="button">Add contact</a>';
+							echo '</form>';
+						}
+						?>
+					</div>
+				</div>
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -76,6 +84,7 @@
 							<th><strong>Email</strong></th>
 							<th><strong>Phone number</strong></th>
 							<th><strong>State</strong></th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -103,6 +112,12 @@
 								echo '<td>';
 									echo $customer['state'];
 								echo '</td>';
+								if(true) //(User is owner)
+								{
+									echo'<td>';
+										echo 'Delete Link';
+									echo '</td>';
+								}
 							echo '</tr>';
 						}
 					echo '</tbody>

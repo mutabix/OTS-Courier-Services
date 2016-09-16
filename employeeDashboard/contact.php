@@ -29,68 +29,74 @@
 					$result = $dbConnection->prepare('SELECT customerID, companyName, firstName, lastName, email, mobileNumber, addressLine1, addressLine2, suburb, state, postcode
 					FROM customers
 					WHERE customerID = '.$_GET["id"].'');
-				$result->execute();
+					$result->execute();
+					
+					foreach ($result as $customer)
+					{
+						//Don't need to assign variables here
+					}
 				?>
-				<table class="table">
-					<thead>
-						<tr>
-							<th>First Name</th>
-							<th>Last Name</th>
-							<th>Company Name</th>
-							<th>Email</th>
-							<th>Phone number</th>
-							<th>Address</th>
-							<th>Address (Will combine these two)</th>
-							<th>Suburb</th>
-							<th>State</th>
-							<th>Postcode</th>
-						</tr>
-					</thead>
-					<tbody>
-					<?php
-						foreach ($result as $customer)
-						{
-							echo '<tr>';
-								echo '<td>';
-									echo "<a href='contact=".$customer["customerID"]."'>".$customer["firstName"]."</a>";
-								echo '</td>';
-								echo '<td>';
-									echo $customer['lastName'];
-								echo '</td>';
-								echo '<td>';
-									echo $customer['companyName'];
-								echo '</td>';
-								echo '<td>';
-									echo $customer['email'];
-								echo '</td>';
-								echo '<td>';
-									echo $customer['mobileNumber'];
-								echo '</td>';
-								echo '<td>';
-									echo $customer['addressLine1'];
-								echo '</td>';
-								echo '<td>';
-									echo $customer['addressLine2'];
-								echo '</td>';
-								echo '<td>';
-									echo $customer['suburb'];
-								echo '</td>';
-								echo '<td>';
-									echo $customer['state'];
-								echo '</td>';
-								echo '<td>';
-									echo $customer['postcode'];
-								echo '</td>';
-
-							echo '</tr>';
-						}
+				<div class="row">
+					<div class="col-md-6">
+						<?php 
+						echo '<h2>';
+						echo $customer['firstName'];
+						echo ' ';
+						echo $customer['lastName'];
+						echo '</h2>';
 						?>
-					</tbody>
-				</table>
+					</div>
+					<div class="col-md-6">
+						<!-- Maybe have a notes section here? -->
+					</div>
+				</div>
 				
-
-
-
+				<table class="table table-striped">
+				<?php
+					echo '<tbody>';
+						echo '<tr>';
+							echo '<th><h3>First Name</h3></th>';
+							echo '<th><h3>Last Name</h3></th>';
+							echo '<th><h3>Company Name</h3></th>';
+						echo '</tr>';
+						echo '<tr>';
+							echo '<td><h5>'.$customer["firstName"].'</h5></td>';
+							echo '<td><h5>'.$customer["lastName"].'</h5></td>';
+							echo '<td><h5>'.$customer["companyName"].'</h5></td>';
+						echo '</tr>';
+						echo '<tr>';
+							echo '<th><h3>Email</h3></th>';
+							echo '<th><h3>Phone Number</h3></th>';
+							echo '<th><h3>Address</h3></th>';
+						echo '</tr>';
+						echo '<tr>';
+							echo '<td><h5>'.$customer["email"].'</h5></td>';
+							echo '<td><h5>'.$customer["mobileNumber"].'</h5></td>';
+							echo '<td><h5>'.$customer["addressLine1"].' '.$customer["addressLine2"].'</h5></td>';
+						echo '</tr>';
+						echo '<tr>';
+							echo '<th><h3>Suburb</h3></th>';
+							echo '<th><h3>State</h3></th>';
+							echo '<th><h3>Postcode</h3></th>';							
+						echo '</tr>';
+						echo '<tr>';
+							echo '<td><h5>'.$customer["suburb"].'</h5></td>';
+							echo '<td><h5>'.$customer["state"].'</h5></td>';
+							echo '<td><h5>'.$customer["postcode"].'</h5></td>';
+						echo '</tr>';
+					echo '</tbody>';
+				echo '</table>';
+				?>
+			
+				<div class="col-md-6">
+					<?php if(true)//user is owner
+					{
+						echo '<form>';
+							echo '<a href="#" class="btn btn-info" role="button">Edit contact</a>';
+						echo '</form>';
+					}
+					?>
+				</div>
 
             </div>
         </div>
