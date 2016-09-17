@@ -68,9 +68,7 @@
 					<div class="col-md-6">
 						<?php if(true)//user is owner
 						{
-							echo '<form>';
-								echo '<a href="addContact.php" class="btn btn-info" role="button">Add contact</a>';
-							echo '</form>';
+							echo '<a href="addContact.php" class="btn btn-info" role="button">Add contact</a>';
 						}
 						?>
 					</div>
@@ -115,7 +113,7 @@
 								if(true) //(User is owner)
 								{
 									echo'<td>';
-										echo 'Delete Link';
+										echo '<a href="delete.php?id='.$customer["customerID"].'" class="btn btn-info" role="button">Delete</a>';
 									echo '</td>';
 								}
 							echo '</tr>';

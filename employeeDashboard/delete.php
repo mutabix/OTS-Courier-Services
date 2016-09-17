@@ -26,6 +26,20 @@
         <div class="content">
             <div class="container-fluid">
                 <?php
+					if(isset($_POST['deleteTrue']))
+					{
+						$result = $dbConnection->prepare('DELETE
+						FROM customers
+						WHERE customerID = '.$_GET["id"].'');
+						$result->execute();
+						
+						echo '<script type="text/javascript">
+						window.location = "contacts.php"
+						</script>';
+						
+					}
+
+				
 					$result = $dbConnection->prepare('SELECT customerID, companyName, firstName, lastName, email, mobileNumber, addressLine1, addressLine2, suburb, state, postcode
 					FROM customers
 					WHERE customerID = '.$_GET["id"].'');
@@ -89,13 +103,14 @@
 				?>
 				<div class="row">
 					<div class="col-md-6">
-						<?php if(true)//user is owner
-						{
-							echo '<form>';
-								echo '<a href="#" class="btn btn-info" role="button">Edit contact</a>';
-							echo '</form>';
-						}
-						?>
+					<?php
+						
+						echo '<form method="POST">';
+						echo 'Are you sure you wish to delete this contact: '.$customer["firstName"].' '.$customer["lastName"].'? ';
+						echo '<input type="submit" name="deleteTrue" class="btn btn-info" role="button" value="Yes"> ';
+						echo '<input type="submit" name="deleteFalse" class="btn btn-info" role="button" value="No">';
+						echo '</form>';
+					?>
 					</div>
 				</div>
 
@@ -103,7 +118,15 @@
         </div>
 
 
-        <?php include("includes/footer.html"); ?>
+        <?php include("includes/footer.html");
+
+		if(isset($_POST['deleteFalse']))
+		{
+			echo '<script type="text/javascript">
+				window.location = "contacts.php"
+				</script>';
+		}	
+		?>
 
     </div>
 </div>
