@@ -67,11 +67,11 @@
 						?>
 					</div>
 					<div class="col-md-6">
-						<?php if(true)//user is owner
+						<?php /* if(true)//user is owner
 						{
 							echo '<a href="addContact.php" class="btn btn-info" role="button">Add contact</a>';
 						}
-						?>
+						*/?>
 					</div>
 				</div>
 				<table class="table table-hover">
