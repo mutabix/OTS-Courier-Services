@@ -1,9 +1,14 @@
 <?php
-    include("../dbTools/dbConnect.php");
-    //include("dashboardTools/checkAndValidateLogin.php");
+    session_start();
+    include("../includes/dbTools/dbConnect.php");
+    include("../dbTools/checkLogin.php");
+    
     include("bookPackageTools/inputSenderData.php");
 
-    session_start();
+    //session_start();
+    $_SESSION['webaddress'] = "bookpackage.php";
+    include("../dbTools/checkLogin.php");
+
     //Set variables
     include ("dashboardTools/bookPackageTools/assignBookingVariables.php");
 ?>
