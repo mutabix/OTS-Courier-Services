@@ -28,6 +28,7 @@
 				<div class="row">
 					<div class="col-md-6";
 						<?php
+						//Below: Pagination code adapted by Reeve from http://stackoverflow.com/questions/3705318/simple-php-pagination-script
 						$total = $dbConnection->query('SELECT
 						COUNT(*)
 						FROM customers')->fetchColumn();
@@ -51,7 +52,7 @@
 						$prevlink = ($page > 1) ? '<a href="?page=1" title="First page">&laquo;</a> <a href="?page=' . ($page - 1) . '" title="Previous page">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
 						$nextlink = ($page < $pages) ? '<a href="?page=' . ($page + 1) . '" title="Next page">&rsaquo;</a> <a href="?page=' . $pages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
 						echo '<div id="paging"><p>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $total, ' results ', $nextlink, ' </p></div>';
-						
+						//Above: Pagination code adapted by Reeve from http://stackoverflow.com/questions/3705318/simple-php-pagination-script
 						
 						
 						
@@ -66,13 +67,11 @@
 						?>
 					</div>
 					<div class="col-md-6">
-						<?php if(true)//user is owner
+						<?php /* if(true)//user is owner
 						{
-							echo '<form>';
-								echo '<a href="addContact.php" class="btn btn-info" role="button">Add contact</a>';
-							echo '</form>';
+							echo '<a href="addContact.php" class="btn btn-info" role="button">Add contact</a>';
 						}
-						?>
+						*/?>
 					</div>
 				</div>
 				<table class="table table-hover">
@@ -115,7 +114,7 @@
 								if(true) //(User is owner)
 								{
 									echo'<td>';
-										echo 'Delete Link';
+										echo '<a href="delete.php?id='.$customer["customerID"].'" class="btn btn-info" role="button">Delete</a>';
 									echo '</td>';
 								}
 							echo '</tr>';
