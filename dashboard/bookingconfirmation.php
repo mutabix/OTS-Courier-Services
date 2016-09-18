@@ -30,12 +30,9 @@
         <div class="content">
             <div class="container-fluid">
             <?php
-                echo "<h4>Booking ID: </h4>";
-                echo "<h4>Tracking Number: </h4>";
-                echo "<br />";
-                echo "<h4>Shipping To: </h4>";
-                echo "<h4>Pickup Address: </h4>";
-                echo "<h4>Delivery Address: </h4>";
+
+                echo "<h4>Booking ID: ".$_SESSION['bookingID']."</h4>";
+                echo "<h4>Tracking Number: ".$_SESSION['trackingNumber']." </h4>";
             ?>
 
             <br />
