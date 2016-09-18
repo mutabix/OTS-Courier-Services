@@ -18,7 +18,12 @@
       h1{
         padding-left: 35px;
       }
-
+      thead{
+        background-color: #ffa60e !important;
+      }
+      thead th{
+        color: #FFFFFF !important;
+      }
     </style>
 </head>
 <body>
@@ -34,7 +39,7 @@
         <div class="content">
 
             <div class="container-fluid">
-              <table class="table table-striped">
+              <table class="table">
                 <thead>
                   <tr>
                     <th>Order Number</th>
@@ -89,7 +94,6 @@
                   </tr>
                 </tbody>
               </table>
-
 
 
 
