@@ -16,10 +16,11 @@
     $deliveryCount = 0;
 
     $trackingNumber = array();
+    $trackingStatus = array();
 
 
-    foreach ($getTrackingNumbers as $trackingNumber){
-        $trackingNumber[$count];
+    foreach ($getTrackingNumbers as $trackingNumberFetch){
+        $trackingNumber[$count] = $trackingNumberFetch['trackingNumber'];
         $count++;
     }
 
@@ -41,13 +42,19 @@
 
         if($shipmentStatusCode == 0){
             $pendingCount++;
+            $trackingStatus[$count] = "Pending";
         } else if ($shipmentStatusCode == 1){
             $readyCount++;
+            $trackingStatus[$count] = "Ready for Pickup";
         } else if ($shipmentStatusCode == 2){
             $processingCount++;
+            $trackingStatus[$count] = "Processing";
         } else if ($shipmentStatusCode == 3){
             $deliveryCount++;
-        }  
+            $trackingStatus[$count] = "Ready for Delivery";
+        } else if ($shipmentStatusCode == 4){
+            $trackingStatus[$count] = "Delivered";
+        } 
     }
 
 
@@ -133,10 +140,13 @@
                                     <table class="table">
                                         <tbody>
                                         <?php
-                                            foreach ($getTrackingNumbers as $trackingNumber){
+                                            for ($i=0; $i<count($trackingNumber); $i++){
                                                 echo "<tr>";
                                                     echo "<td>";
-                                                    echo $trackingNumber['trackingNumber'];
+                                                    echo $trackingNumber[$i];
+                                                    echo "</td>";
+                                                    echo "<td>";
+                                                    echo "Pending"; //Temp code --> for testing
                                                     echo "</td>";
                                                     echo "<td class='td-actions text-right'>";
                                                         echo "<button type='button' rel='tooltip' title='Edit Task' class='btn btn-info btn-simple btn-xs'>";
@@ -163,7 +173,7 @@
                                     <table class="table">
                                         <tbody>
                                             <tr>
-                                                <td>Sign contract for "What are conference organizers afraid of?"</td>
+                                                <td>Test Notification</td>
                                                 <td class="td-actions text-right">
                                                     <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
                                                         <i class="fa fa-edit"></i>
