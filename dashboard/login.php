@@ -51,7 +51,13 @@
             if(isset($loginEmail) && isset($loginPassword)){
             //include ("dashboardTools/loginTools/login-check.php");
                 if(!$credentialsMatch){
-                    echo "Email or Password Incorrect";
+                    //Show Modal
+                    echo "<script type='text/javascript'>";
+                        echo "$(window).load(function(){";
+                            echo "$('#credentialsIncorrectModal').modal('show');";
+                        echo "});";
+                    echo "</script>";
+
                     require ("dashboardTools/loginTools/login-form.php");
                 } else {
                     header("Location: dashboard.php");
@@ -61,6 +67,24 @@
                 require ("dashboardTools/loginTools/login-form.php");
             }
         ?>
+
+
+  <!-- Credentials Not Matching Modal -->
+  <div class="modal fade" id="credentialsIncorrectModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+    
+      <!-- Modal content-->
+      <div class="modal-content"  style="text-align: center;">
+        <div class="modal-body">
+          <p>Username or Password Incorrect</p>
+        </div>
+        <div class="modal-footer"  style="text-align: center;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
         
     </div>
 </div>
@@ -94,4 +118,6 @@
             border-color: #faebd7 !important;
         }
     </style>
+
+    
 </html>

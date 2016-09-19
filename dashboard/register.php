@@ -55,14 +55,30 @@
                 $retrievedEmail = $checkEmail['email'];
 
                 if($retrievedEmail == $email){
-                    echo "The email you entered is already registered";
+                    //echo "The email you entered is already registered";
+
+                    //Show Modal
+                    echo "<script type='text/javascript'>";
+                        echo "$(window).load(function(){";
+                            echo "$('#emailExists').modal('show');";
+                        echo "});";
+                    echo "</script>";
+
                     $emailValid = false;
                 } else {
                     $emailValid = true;
                 }
 
                 if($password != $confirmPassword){
-                    echo "Passwords do not match";
+                    //echo "Passwords do not match";
+
+                    //Show Modal
+                    echo "<script type='text/javascript'>";
+                        echo "$(window).load(function(){";
+                            echo "$('#passwordsNotMatchingModal').modal('show');";
+                        echo "});";
+                    echo "</script>";
+
                     $passwordsMatch = false;
                 } else {
                     $passwordsMatch = true;
@@ -83,6 +99,47 @@
         ?>
     </div>
 </div>
+
+  <!-- Passwords Not Matching Modal -->
+  <div class="modal fade" id="passwordsNotMatchingModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+    
+      <!-- Modal content-->
+      <div class="modal-content"  style="text-align: center;">
+        <div class="modal-body">
+          <p>Passwords Do Not Match</p>
+        </div>
+        <div class="modal-footer"  style="text-align: center;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+    <!-- Credentials Not Matching Modal -->
+  <div class="modal fade" id="emailExists" role="dialog">
+    <div class="modal-dialog modal-sm">
+    
+      <!-- Modal content-->
+      <div class="modal-content"  style="text-align: center;">
+        <div class="modal-body">
+          <p>The Email You Entered Already Exists.</p>
+          <p>Please Login Below</p>
+        </div>
+        <div class="modal-footer"  style="text-align: center;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+
 </body>
 <style>
     body {
