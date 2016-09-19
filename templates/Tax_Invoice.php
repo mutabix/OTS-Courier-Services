@@ -125,7 +125,7 @@
     <!--Left Content-->
     <div id="left_Con">
       <text>On the Spot: Courier Services</text><br>
-      <text>237 Imaginary</text> Ln<br>
+      <text>237 Imaginary Ln</text> Ln<br>
       <text>Brisbane 4000</text><br>
       <text>Queensland, Australia</text><br>
     </text>
@@ -137,10 +137,10 @@
     </div id="right_Con">
     <!--Lower Content-->
     <div id="lower_Con">
-      <b>Date: </b> <text>1 January 2000 </text> <rightAlign><b> Invoice Number: </b><text> 1 </text></rightAlign> <br> <br>
-      <b>To: </b> <text> THE REGECT STORE </text> <br>
-                  <text_Pad> 617 Forgotten Rd </text_Pad> <br>
-                  <text_Pad> Perth </text_Pad>
+      <b>Date: </b> <text>~Date Data~</text> <rightAlign><b> Invoice Number: </b><text> ~Invoice Data~ </text></rightAlign> <br> <br>
+      <b>To: </b> <text> ~Recipient Address~ </text> <br>
+                  <text_Pad> ~Recipient Address~ </text_Pad> <br>
+                  <text_Pad> ~Recipient Address~ </text_Pad>
 
     </div id="lower_Con">
     <!--Table Content-->
@@ -156,11 +156,11 @@
         </tr>
 
         <tr>
-          <td> 1 </td>
-          <td> Fluttershy Doll </td>
-          <td> Less than total </td>
-          <td> A lot less </td>
-          <td> A Billion </td>
+          <td> ~Item no.~ </td>
+          <td> ~Item Description~ </td>
+          <td> ~Cost of shipment~ </td>
+          <td> ~GST cost~ </td>
+          <td> ~Total Cost~ </td>
         </tr>
 
         <tr>
