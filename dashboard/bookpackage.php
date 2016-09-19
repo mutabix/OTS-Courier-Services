@@ -12,7 +12,7 @@
     //Set variables
     include ("dashboardTools/bookPackageTools/assignBookingVariables.php");
 
-    if(!(isset($_SESSION['senderDetails'] [0]))){
+    /*if(!(isset($_SESSION['senderDetails'] [0]))){
         $getCustomerDetails = $dbConnection->prepare("SELECT * FROM customers WHERE email = :email");
         $getCustomerDetails->bindParam(':email', $_SESSION['username']);
 
@@ -35,7 +35,7 @@
         $_SESSION['senderDetails'] [6] = $customerDetails['addressLine2'];
         $_SESSION['senderDetails'] [7] = $customerDetails['suburb'];
         $_SESSION['senderDetails'] [9] = $customerDetails['postcode'];
-    }
+    }*/
 ?>
 
 <!doctype html>
