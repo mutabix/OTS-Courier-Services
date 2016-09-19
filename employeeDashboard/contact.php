@@ -89,13 +89,13 @@
 				?>
 				<div class="row">
 					<div class="col-md-6">
-						<?php if(true)//user is owner
+						<?php /* if(true)//user is owner
 						{
 							echo '<form>';
 								echo '<a href="#" class="btn btn-info" role="button">Edit contact</a>';
 							echo '</form>';
 						}
-						?>
+						*/?>
 					</div>
 				</div>
 

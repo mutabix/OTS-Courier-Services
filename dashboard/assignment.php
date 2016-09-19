@@ -93,7 +93,7 @@
 									?>
 									<form action='dashboardTools/assignDriver.php' method='POST' novalidate>
 									<input type='hidden' name='packageNum' value='<?php echo $customer["deliveryID"];?>'/> 
-									<select name="noDriverAssigned" onChange="javascript: submit()">
+									<select name="noDriverAssigned" class='form-control' onChange="javascript: submit()">
 										<option selected>No Driver Assigned</option>
 										<?php 
 										$employeeResults = $dbConnection->prepare('SELECT employeeID FROM employees');
@@ -107,7 +107,7 @@
 								} else { ?>
 									<form action='dashboardTools/assignDriver.php' method='POST' novalidate>
 									<input type='hidden' name='packageNum' value='<?php echo $customer["deliveryID"];?>'/> 
-									<select name="DriverReplaced" onChange="javascript: submit()">
+									<select name="DriverReplaced" class='form-control' onChange="javascript: submit()">
 										<option disabled selected><?php echo $customer['assignedDriver'] ?></option>
 										<?php 
 										$employeeResults = $dbConnection->prepare('SELECT employeeID FROM employees');

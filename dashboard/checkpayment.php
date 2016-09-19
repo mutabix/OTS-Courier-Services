@@ -1,30 +1,21 @@
 <?php
-    include("../includes/dbTools/dbConnect.php");
 
-    session_start();
+    include("../dbTools/dbConnect.php");
+    $result = $dbConnection->prepare('SELECT * FROM pickups');
+    $result->execute();
+
 ?>
 
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Payment & Delivery Status</title>
+	<title>Employee Dashboard</title>
 
     <?php include("includes/styling_scripts/meta.html"); ?>
     <?php include("includes/styling_scripts/css.html"); ?>
     <?php include("includes/styling_scripts/fonts-icons.html"); ?>
     <?php include("includes/styling_scripts/javascript.html"); ?>
 
-    <style media="screen">
-      h1{
-        padding-left: 35px;
-      }
-      thead{
-        background-color: #ffa60e !important;
-      }
-      thead th{
-        color: #FFFFFF !important;
-      }
-    </style>
 </head>
 <body>
 
@@ -33,78 +24,90 @@
 
     <div class="main-panel">
         <?php include("includes/navbar-mobile-open.html"); ?>
-        <a class="navbar-brand" href="#">Payment/Delivery Status</a>
+        <a class="navbar-brand" href="#">Check Payments</a>
         <?php include("includes/navbar-mobile-close.html"); ?>
 
+
         <div class="content">
-
             <div class="container-fluid">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th>Order Number</th>
-                    <th>Consignment Number</th>
-                    <th>Order Type</th>
-                    <th>Payment Status</th>
-                    <th>Delivery Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>124878639</td>
-                    <td>Pick-Up</td>
-                    <td>Cleared</td>
-                    <td>In Transit to Pick-Up</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>146997463</td>
-                    <td>Delivery</td>
-                    <td>Cleared</td>
-                    <td>In Transit to Warehouse</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>916339777</td>
-                    <td>Pick Up</td>
-                    <td>Pending</td>
-                    <td>Pending Dispatch from Warehouse</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>175737790</td>
-                    <td>Pick Up</td>
-                    <td>Cleared</td>
-                    <td>In Transit to Delivery</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>575027152</td>
-                    <td>Delivery</td>
-                    <td>Cleared</td>
-                    <td>In Transit to Delivery</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">6</th>
-                    <td>949176434</td>
-                    <td>Pick-Up</td>
-                    <td>Pending</td>
-                    <td>In Transit to Warehouse</td>
-                  </tr>
-                </tbody>
-              </table>
 
 
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th><strong>Pickup ID</strong></th>
+							<th><strong>Shipment ID</strong></th>
+							<th><strong>Pickup Date & Time</strong></th>
+							<th><strong>Shipment Status</strong></th>
+							<th><strong>Payment ID</strong></th>
+							<th><strong>Payment Type</strong></th>
+              <th><strong>Total Amount Due</strong></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+            <?php
+              foreach ($result as $pickup) {
+                echo '<tr>';
+                  echo '<td>';
+                    echo $pickup['pickupID'];
+                  echo '</td>';
+                  echo '<td>';
+                    echo $pickup['shipmentID'];
+                  echo '</td>';
+                  echo '<td>';
+                    echo $pickup['pickupDateTime'];
+                  echo '</td>';
+                  echo '<td>';
+                  if ($pickup['shipmentStatus'] == 0)
+                    {
+                      echo 'En Route to Delivery';
+                    }else if ($pickup['shipmentStatus'] == 1)
+                      {
+                        echo 'En Route to Pickup';
+                      }else if ($pickup['shipmentStatus'] == 2)
+                        {
+                          echo 'En Route to Warehouse';
+                      }else if ($pickup['shipmentStatus'] == 3)
+                        {
+                          echo 'At Warehouse';
+                        }
 
-            </div>
+                  echo '</td>';
+                  echo '<td>';
+                    echo $pickup['paymentID'];
+                  echo '</td>';
+                  echo '<td>';
+                  if ($pickup['paymentType'] == 0)
+                    {
+                      echo 'Cash';
+                    }else if ($pickup['paymentType'] == 1)
+                      {
+                        echo 'EFTPOS';
+                      }else if ($pickup['paymentType'] == 2)
+                        {
+                          echo 'Cheque';
+                        }else{
+                          echo 'Unknown Payment Type';
+                          }
+                  echo '</td>';
+                  echo '<td>';
+                    echo $pickup['totalAmountDue'];
+                  echo '</td>';
+                echo '</tr>';
+              }
+              echo '</tbody>
+              </table>';
+
+
+            ?>
+          </tbody>
+
         </div>
-
-
-        <?php include("includes/footer.html"); ?>
-
+      </div>
     </div>
 </div>
+
 </body>
 
 
