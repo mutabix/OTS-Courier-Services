@@ -22,20 +22,12 @@
         <br />
         <div class='col-md-12'>
             <div class='row' style='margin-top: 20px'>
-				<button type="button" onclick="goToRegister()" class='btn btn-info btn-fill col-md-12 white-custom-button'>Register</button>
-            </div>
-
-            <div class='row' style='margin-top: 20px'>
-                <button type='button' class='white-custom-button btn btn-info btn-fill col-md-12' name='submitRegistration' onclick='goToEmployeeLogin()'>Employee Login</button>
+                <button type='button' class='white-custom-button btn btn-info btn-fill col-md-12' name='submitRegistration' onclick='goToConsumerLogin()'>Customer Login</button>
             </div>
 
             <script>
-                    function goToRegister() {
-                        window.location = 'register.php';
-                    }
-
-                    function goToEmployeeLogin() {
-                        window.location = '../staff/login.php';
+                    function goToConsumerLogin() {
+                        window.location = '../dashboard/login.php';
                     }
             </script>
         </div>
