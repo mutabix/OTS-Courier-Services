@@ -7,7 +7,7 @@
     $credentialsMatch = false;
     if(isset($loginEmail) && isset($loginPassword)){
         $loginPassword = sha1($loginPassword);
-        $checkLogin = $dbConnection->prepare("SELECT * FROM customers WHERE email = :email and password = :password");
+        $checkLogin = $dbConnection->prepare("SELECT * FROM employees WHERE email = :email and password = :password");
         $checkLogin->bindParam(':email', $loginEmail);
         $checkLogin->bindParam(':password', $loginPassword);
 
@@ -21,6 +21,7 @@
         $login = $checkLogin->fetch();
         $retrievedUsername = $login['email'];
         $retrievedPassword = $login['password'];
+        $employeeStatus = $login['employeeStatus'];
         //Double Check Login
         if($loginEmail == $retrievedUsername && $loginPassword == $retrievedPassword){
                 $_SESSION['username'] = $loginEmail; //Current session username
@@ -60,7 +61,12 @@
 
                     require ("dashboardTools/loginTools/login-form.php");
                 } else {
-                    header("Location: dashboard.php");
+                    if($employeeStatus == 0){ //Driver
+                        header("Location: driverDashboard/dashboard.php");
+                    } else if($employeeStatus == 1){
+                        header("Location: coordinatorDashboard/dashboard.php");
+                    }
+                    
                     //exit();
                 }
             } else {

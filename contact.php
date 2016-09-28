@@ -91,7 +91,7 @@
 	            		} else {
 
 	            			if (mail ($to, $subject, $body, $from)) {
-	            												            		echo "submit";
+								echo "submit";
 
 								$result='<div class="alert alert-success">Thank You! I will be in touch</div>';
 
