@@ -1,0 +1,129 @@
+<?php
+    session_start();
+    include ("../dbTools/dbConnect.php");
+
+    $loginEmail = $_POST["loginEmail"];
+    $loginPassword = $_POST["loginPassword"];
+    $credentialsMatch = false;
+    if(isset($loginEmail) && isset($loginPassword)){
+        $loginPassword = sha1($loginPassword);
+        $checkLogin = $dbConnection->prepare("SELECT * FROM employees WHERE email = :email and password = :password");
+        $checkLogin->bindParam(':email', $loginEmail);
+        $checkLogin->bindParam(':password', $loginPassword);
+
+        try {
+            $checkLogin->execute();
+        } catch(Exception $error) {
+            echo 'Exception -> ';
+            var_dump($error->getMessage());
+        }
+
+        $login = $checkLogin->fetch();
+        $retrievedUsername = $login['email'];
+        $retrievedPassword = $login['password'];
+        $employeeStatus = $login['employeeStatus'];
+        //Double Check Login
+        if($loginEmail == $retrievedUsername && $loginPassword == $retrievedPassword){
+                $_SESSION['username'] = $loginEmail; //Current session username
+                $_SESSION['loginSessionId'] = mt_rand();
+                $credentialsMatch = true;
+            }
+        else{
+                $credentialsMatch = false;
+        }
+    }
+?>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Staff Login</title>
+
+    <?php include("includes/styling_scripts/meta.html"); ?>
+    <?php include("includes/styling_scripts/css.html"); ?>
+    <?php include("includes/styling_scripts/fonts-icons.html"); ?>
+    <?php include("includes/styling_scripts/javascript.html"); ?>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="container-fluid">
+        <?php
+            if(isset($loginEmail) && isset($loginPassword)){
+            //include ("dashboardTools/loginTools/login-check.php");
+                if(!$credentialsMatch){
+                    //Show Modal
+                    echo "<script type='text/javascript'>";
+                        echo "$(window).load(function(){";
+                            echo "$('#credentialsIncorrectModal').modal('show');";
+                        echo "});";
+                    echo "</script>";
+
+                    require ("dashboardTools/loginTools/login-form.php");
+                } else {
+                    if($employeeStatus == 0){ //Driver
+                        header("Location: driverDashboard/dashboard.php");
+                    } else if($employeeStatus == 1){
+                        header("Location: coordinatorDashboard/dashboard.php");
+                    }
+                    
+                    //exit();
+                }
+            } else {
+                require ("dashboardTools/loginTools/login-form.php");
+            }
+        ?>
+
+
+  <!-- Credentials Not Matching Modal -->
+  <div class="modal fade" id="credentialsIncorrectModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+    
+      <!-- Modal content-->
+      <div class="modal-content"  style="text-align: center;">
+        <div class="modal-body">
+          <p>Username or Password Incorrect</p>
+        </div>
+        <div class="modal-footer"  style="text-align: center;">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+        
+    </div>
+</div>
+</body>
+    <style type="text/css">
+        body {
+            background: url(../assets/img/full_page_bkg_img.png) no-repeat center center fixed !important;
+            -webkit-background-size: cover !important;
+            -moz-background-size: cover !important;
+            -o-background-size: cover !important;
+            background-size: cover !important;
+        }
+        .col-centered{
+            float: none;
+            margin: 0 auto;
+            text-align: center; 
+        }
+        .vertical-center {
+            top: 50%;
+            transform: translateY(+50%);
+            float:none;
+            margin: 0 auto;
+        }
+        .white-custom-button {
+            background-color: #ffffff !important;
+            border-color: #ffffff !important;
+            color: #5A5B5C !important;
+        }
+        .white-custom-button:hover {
+            background-color: #faebd7 !important;
+            border-color: #faebd7 !important;
+        }
+    </style>
+
+    
+</html>
