@@ -56,7 +56,10 @@
             $trackingStatus[$count] = "Delivered";
         } 
     }
-
+	
+	$notificationResult = $dbConnection->prepare('SELECT * FROM notifications WHERE notificationFor = :email ORDER BY notificationDate DESC');
+    $notificationResult->bindParam(':email', $_SESSION['username']);
+    $notificationResult->execute();
 
 ?>
 
@@ -171,17 +174,34 @@
                             <div class="content">
                                 <div class="table-full-width">
                                     <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td>Test Notification</td>
-                                                <td class="td-actions text-right">
-                                                    <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-xs">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+										<thead>
+											<tr>
+												<th class='col-md-1'>Date</th>
+												<th class='col-md-2'>From</th>
+												<th class='col-md-9'>Message</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php
+												foreach ($notificationResult as $notification) {
+													echo '<tr>';
+													echo '<td>';
+													//echo $notification['notificationDate'];
+													$date = date("d/m/Y", strtotime($notification['notificationDate']));
+													echo $date;
+
+													echo '</td>';
+													echo '<td>';
+													echo $notification['notificationFrom'];
+													echo '</td>';
+													echo '<td>';
+													echo $notification['notificationDescription'];
+													echo '</td>';
+													echo '</tr>';
+												}
+										echo '</tbody>
+									</table>';
+									?>
                                 </div>
                             </div>
                         </div>
