@@ -1,7 +1,7 @@
 <?php
     session_start(); //ensure session is started.
 
-$addBooking = $dbConnection->prepare("INSERT INTO bookings (shipmentId, customerId, senderCompanyName, senderFirstName, senderLastName, senderEmail, senderMobile, senderAddressLine1, senderAddressLine2, senderSuburb, senderState, senderPostcode, receiverCompanyName, receiverFirstName, receiverLastName, receiverEmail, receiverMobile, receiverAddressLine1, receiverAddressLine2, receiverSuburb, receiverState, receiverPostcode, noOfPackages, packageWidth, packageLength, packageDepth, serviceTypeID, totalValue)VALUES (:shipmentId, :customerId, :senderCompanyName, :senderFirstName, :senderLastName, :senderEmail, :senderMobile, :senderAddressLine1, :senderAddressLine2, :senderSuburb, :senderState, :senderPostcode, :receiverCompanyName, :receiverFirstName, :receiverLastName, :receiverEmail, :receiverMobile, :receiverAddressLine1, :receiverAddressLine2, :receiverSuburb, :receiverState, :receiverPostcode, :noOfPackages, :packageWidth, :packageLength, :packageDepth, :serviceTypeID, :totalValue)");
+$addBooking = $dbConnection->prepare("INSERT INTO bookings (shipmentId, customerId, senderCompanyName, senderFirstName, senderLastName, senderEmail, senderMobile, senderAddressLine1, senderAddressLine2, senderSuburb, senderState, senderPostcode, receiverCompanyName, receiverFirstName, receiverLastName, receiverEmail, receiverMobile, receiverAddressLine1, receiverAddressLine2, receiverSuburb, receiverState, receiverPostcode, noOfPackages, packageWidth, packageLength, packageDepth, serviceTypeID, totalValue)VALUES (DEFAULT, :customerId, :senderCompanyName, :senderFirstName, :senderLastName, :senderEmail, :senderMobile, :senderAddressLine1, :senderAddressLine2, :senderSuburb, :senderState, :senderPostcode, :receiverCompanyName, :receiverFirstName, :receiverLastName, :receiverEmail, :receiverMobile, :receiverAddressLine1, :receiverAddressLine2, :receiverSuburb, :receiverState, :receiverPostcode, :noOfPackages, :packageWidth, :packageLength, :packageDepth, :serviceTypeID, :totalValue)");
     
     
 $senderCompanyName = $_SESSION['senderDetails'] [0];
@@ -44,6 +44,7 @@ for($i=0; $i<6; $i++){
     $_SESSION['shipmentDetails'] [$i] = "";
 }
 
+//$_SESSION['bookingID'] = $bookingID; //Place booking ID back in session storage
     //Bind parameters
 
 	//TEST DATA
@@ -51,7 +52,7 @@ for($i=0; $i<6; $i++){
 	$_SESSION['customerIdLogin'] = 1; //DUMMY DATA
 
     $customerId = $_SESSION['customerIdLogin'];
-    $getShipmentId = $dbConnection->prepare("SELECT MAX(shipmentId) FROM bookings");
+    /*$getShipmentId = $dbConnection->prepare("SELECT MAX(shipmentId) FROM bookings");
 
     
     try {
@@ -65,9 +66,9 @@ for($i=0; $i<6; $i++){
     //SHOULD ONLY RETREIVE ONE VALUE
     while($shipmentId = $getShipmentId->fetch(PDO::FETCH_ASSOC)){
         $shipmentId = $maxShipmentID + 1;
-    }
+    }*/
 
-	$addBooking->bindParam(':shipmentId', $shipmentId);
+	//$addBooking->bindParam(':shipmentId', $shipmentId);
     $addBooking->bindParam(':customerId', $customerId);
 
     $addBooking->bindParam(':senderCompanyName', $senderCompanyName);
@@ -110,10 +111,10 @@ for($i=0; $i<6; $i++){
     }
 
 
-	//$costToCustomerExGst = $_POST["costToCustomerExGst"];
+	//$costToCustomerExGst = $_POST["costToCustomerExGst"]
 
 
-$addShipment = $dbConnection->prepare("INSERT INTO shipments (shipmentID, trackingNumber, shipmentStatusCode, pendingBool, pendingDate) VALUES (DEFAULT, :trackingNumber, :shipmentStatusCode, :pendingBool, NOW())");
+$addShipment = $dbConnection->prepare("INSERT INTO shipments (trackingNumber, shipmentStatusCode, pendingBool, pendingDate) VALUES (DEFAULT, :shipmentStatusCode, :pendingBool, NOW())");
 
 $shipmentStatusCode = 0;
 $pendingBool = 0;

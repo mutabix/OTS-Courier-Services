@@ -4,6 +4,7 @@
     //include("bookPackageTools/inputSenderData.php");
 
     session_start();
+
     //Set variables
     //include ("dashboardTools/bookPackageTools/assignBookingVariables.php");
 
@@ -60,6 +61,7 @@
 
                             //echo 'form submitted successfully with no errors'; //Debugging Tool
                             include ("dashboardTools/bookPackageTools/insertBookingIntoDatabase.php");
+                            echo $_SESSION['bookingID'];
                             header("Location: bookingconfirmation.php");
                             exit();
                         }

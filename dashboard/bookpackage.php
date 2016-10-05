@@ -107,7 +107,7 @@
                         
                         
 
-                        require ("dashboardTools/bookPackageTools/validation.php");
+                        /*require ("dashboardTools/bookPackageTools/validation.php");
                         //$errorsExist = true;
                         //validateData();
                         if(!(validateEmail($senderEmail))){
@@ -174,7 +174,7 @@
                             $errorsExist = true;
                             $errors[$errorCount] = "Please Accept Our Terms And Conditions";
                             $errorCount++;
-                        }
+                        }*/
 
                         include ("dashboardTools/bookPackageTools/errorPopupNotification.php");
                     
