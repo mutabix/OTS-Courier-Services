@@ -343,7 +343,7 @@
             				}         				
 
 
-        					if(calculatePackageSpecs && (heightInputValue > 0 && widthInputValue > 0 && lengthInputValue > 0 && heightInputValue < 101 && widthInputValue < 101 && lengthInputValue < 101)){
+        					if(heightInputValue < 101 && widthInputValue < 101 && lengthInputValue < 101){
 	            				if(packageTypeID > 0 && serviceTypeID > 0 && pickupLocationID > 0 && deliveryLocationID > 0){
 		            				var totalCost = serviceTypeCost + packageTypeCost + deliveryLocationCost + packageSpecCost;
 		            				var subtotalCost = totalCost * 0.9;
@@ -353,7 +353,7 @@
 									document.getElementById("gst").innerHTML = "GST Included: $" + gst;
 									document.getElementById("totalCost").innerHTML = "Total Cost: $" + totalCost;
 
-	            				} else if(!calculatePackageSpecs && (heightInputValue == 0 && widthInputValue == 0 && lengthInputValue == 0)){
+	            				} /*else if(!calculatePackageSpecs && (heightInputValue == 0 && widthInputValue == 0 && lengthInputValue == 0)){
         							if(packageTypeID > 0 && serviceTypeID > 0 && pickupLocationID > 0 && deliveryLocationID > 0){
 			            				var totalCost = serviceTypeCost + packageTypeCost + deliveryLocationCost + packageSpecCost;
 			            				var subtotalCost = totalCost * 0.9;
@@ -362,8 +362,8 @@
 										document.getElementById("subtotal").innerHTML = "Subtotal: $" + subtotalCost;
 										document.getElementById("gst").innerHTML = "GST Included: $" + gst;
 										document.getElementById("totalCost").innerHTML = "Total Cost: $" + totalCost;
-		            				}
-        						}
+		            				} //IF STATEMENT NOT WORKING
+        						}*/
         					}
             			}
 	            		</script>

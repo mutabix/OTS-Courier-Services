@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include("../dbTools/dbConnect.php");
+    include("../../dbTools/dbConnect.php");
     include("../dbTools/checkLogin.php");
     
     include("bookPackageTools/inputSenderData.php");
@@ -85,7 +85,7 @@
 
     <div class="main-panel">
         <?php include("includes/navbar-mobile-open.html"); ?>
-        <a class="navbar-brand" href="#">Book a Package</a>
+        <a class="navbar-brand" href="#">Pickup Request</a>
         <?php include("includes/navbar-mobile-close.html"); ?>
 
         <div class="content">
@@ -107,7 +107,7 @@
                         
                         
 
-                        /*require ("dashboardTools/bookPackageTools/validation.php");
+                        require ("dashboardTools/bookPackageTools/validation.php");
                         //$errorsExist = true;
                         //validateData();
                         if(!(validateEmail($senderEmail))){
@@ -174,7 +174,7 @@
                             $errorsExist = true;
                             $errors[$errorCount] = "Please Accept Our Terms And Conditions";
                             $errorCount++;
-                        }*/
+                        }
 
                         include ("dashboardTools/bookPackageTools/errorPopupNotification.php");
                     

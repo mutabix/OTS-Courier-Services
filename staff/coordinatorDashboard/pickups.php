@@ -19,7 +19,7 @@
 
     <div class="main-panel">
         <?php include("includes/navbar-mobile-open.html"); ?>
-        <a class="navbar-brand" href="#">Contacts</a>
+        <a class="navbar-brand" href="#">Pickups</a>
         <?php include("includes/navbar-mobile-close.html"); ?>
 
 
@@ -31,7 +31,7 @@
 						//Below: Pagination code adapted by Reeve from http://stackoverflow.com/questions/3705318/simple-php-pagination-script
 						$total = $dbConnection->query('SELECT
 						COUNT(*)
-						FROM customers')->fetchColumn();
+						FROM pickups')->fetchColumn();
 						
 						$limit = 8;
 						
@@ -56,9 +56,9 @@
 						
 						
 						
-						$result = $dbConnection->prepare('SELECT customerID, companyName, firstName, lastName, email, mobileNumber, state
-						FROM customers
-						ORDER BY companyName
+						$result = $dbConnection->prepare('SELECT pickupID, shipmentID, pickupDateTime, shipmentStatus, paymentID, paymentType, totalAmountDue, pickupAddress
+						FROM pickups
+						ORDER BY pickupDateTime
 						LIMIT :limit
 						OFFSET :offset');
 						$result->bindParam(':limit', $limit, PDO::PARAM_INT);
@@ -77,39 +77,23 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th><strong>First Name</strong></th>
-							<th><strong>Last Name</strong></th>
-							<th><strong>Company Name</strong></th>
-							<th><strong>Email</strong></th>
-							<th><strong>Phone number</strong></th>
-							<th><strong>State</strong></th>
+							<th><strong>pickupID</strong></th>
+							<th><strong>shipmentID</strong></th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 					<?php
-						foreach ($result as $customer)
+						foreach ($result as $pickup)
 						{
 							?>
 							<tr onclick="location.href=<?php echo"'contact.php?id=".$customer["customerID"]."'";?>;" style="cursor: pointer">
 							<?php // Above is some troublesome code, could probably work placed into a normal block of PHP but was having issues.
 								echo '<td>';
-									echo $customer["firstName"];
+									echo $pickup["pickupID"];
 								echo '</td>';
 								echo '<td>';
-									echo $customer['lastName'];
-								echo '</td>';
-								echo '<td>';
-									echo $customer['companyName'];
-								echo '</td>';
-								echo '<td>';
-									echo $customer['email'];
-								echo '</td>';
-								echo '<td>';
-									echo $customer['mobileNumber'];
-								echo '</td>';
-								echo '<td>';
-									echo $customer['state'];
+									echo $pickup["shipmentID"];
 								echo '</td>';
 								if(true) //(User is owner)
 								{

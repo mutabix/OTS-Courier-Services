@@ -3,7 +3,20 @@
     //include("dashboardTools/checkAndValidateLogin.php");
 
     session_start();
-    //Set variables
+
+    $getShipmentId = $dbConnection->prepare("SELECT shipmentId FROM bookings WHERE");
+    
+    try {
+        $getShipmentId->execute();
+
+    } catch(Exception $error) {
+        echo 'Exception -> ';
+        var_dump($error->getMessage());
+    }
+    
+    $shipmentId = $getShipmentId->fetch();
+    $bookingID = $shipmentId['shipmentId'];
+    echo $bookingID;
 ?>
 
 <!doctype html>
