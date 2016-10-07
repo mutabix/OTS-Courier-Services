@@ -50,7 +50,7 @@
 				$nextlink = ($page < $pages) ? '<a href="?page=' . ($page + 1) . '" title="Next page">&rsaquo;</a> <a href="?page=' . $pages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
 				echo '<div id="paging"><p>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $total, ' results ', $nextlink, ' </p></div>';
 				
-				$result = $dbConnection->prepare('SELECT deliveryID, shipmentID, shipmentStatus, deliveryDueBy, deliveryAddress, deliveryAddressPostcode, assignedDriver
+				$result = $dbConnection->prepare('SELECT deliveryID, shipmentID, shipmentStatus, deliveryDueBy, deliveryAddress, deliveryAddressPostcode, assignedDriver, priority
 				FROM deliveries
 				ORDER BY deliveryAddressPostcode
 				LIMIT :limit
@@ -70,6 +70,7 @@
 							<th><strong>Delivery Due By</strong></th>
 							<th><strong>Delivery Address</strong></th>
 							<th><strong>Postcode</strong></th>
+							<th><strong>Priority</strong></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -128,6 +129,32 @@
 								echo '</td>';
 								echo '<td>';
 									echo $customer['deliveryAddressPostcode'];
+								echo '</td>';
+								echo '<td>';
+								if($customer['priority'] == null){
+									?>
+									<form action='dashboardTools/assignPriority.php' method='POST' novalidate>
+									<input type='hidden' name='packageNum' value='<?php echo $customer["deliveryID"];?>'/> 
+									<select name="noPriorityAssigned" class='form-control' onChange="javascript: submit()">
+										<option selected>Unassigned</option>
+										<option>Low</option>
+										<option>Moderate</option>
+										<option>High</option>
+									</select>
+									</form>
+									<?php
+								} else { ?>
+									<form action='dashboardTools/assignPriority.php' method='POST' novalidate>
+									<input type='hidden' name='packageNum' value='<?php echo $customer["deliveryID"];?>'/> 
+									<select name="PriorityReplaced" class='form-control' onChange="javascript: submit()">
+										<option disabled selected><?php echo $customer['priority'] ?></option>
+										<option>Low</option>
+										<option>Moderate</option>
+										<option>High</option>
+									</select>
+									</form>
+									<?php 
+								}
 								echo '</td>';
 							echo '</tr>';
 						}

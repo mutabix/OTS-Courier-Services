@@ -53,7 +53,7 @@
 				
 				
 				
-				$result = $dbConnection->prepare('SELECT deliveryID, shipmentID, shipmentStatus, deliveryDueBy, deliveryAddress, deliveryAddressPostcode
+				$result = $dbConnection->prepare('SELECT deliveryID, shipmentID, shipmentStatus, deliveryDueBy, deliveryAddress, deliveryAddressPostcode, priority
 				FROM deliveries
 				ORDER BY deliveryAddressPostcode
 				LIMIT :limit
@@ -76,6 +76,7 @@
 							<th><strong>Delivery Due By</strong></th>
 							<th><strong>Delivery Address</strong></th>
 							<th><strong>Postcode</strong></th>
+							<th><strong>Priority</strong></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -102,6 +103,9 @@
 								echo '</td>';
 								echo '<td>';
 									echo $customer['deliveryAddressPostcode'];
+								echo '</td>';
+								echo '<td>';
+									echo $customer['priority'];
 								echo '</td>';
 							echo '</tr>';
 						}
