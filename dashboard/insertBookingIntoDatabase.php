@@ -34,15 +34,15 @@ $serviceTypeID = $_SESSION['shipmentDetails'] [4];
 $packageTypeID = $_SESSION['shipmentDetails'] [5];
 $totalValue = $_SESSION['shipmentDetails'] [6];
 
-//Remove all session variable relating to the booking
-/*for($i=0; $i<9; $i++){
+//Remove all session variable
+for($i=0; $i<9; $i++){
     $_SESSION['senderDetails'] [$i] = "";
     $_SESSION['receiverDetails'] [$i] = "";
 }
 
 for($i=0; $i<6; $i++){
     $_SESSION['shipmentDetails'] [$i] = "";
-}*/
+}
 
 //$_SESSION['bookingID'] = $bookingID; //Place booking ID back in session storage
     //Bind parameters
@@ -50,11 +50,9 @@ for($i=0; $i<6; $i++){
 	//TEST DATA
 
 	$_SESSION['customerIdLogin'] = 1; //DUMMY DATA
-    $customerId = $_SESSION['customerIdLogin'];
 
     $trackingNumber = time() + mt_rand(50, 999) + mt_rand(1, 99);
     $shipmentId = $trackingNumber; //Rough could be improved
-    $_SESSION['shipmentTrackingId'] = $shipmentId;
 
 	//$addBooking->bindParam(':shipmentId', $shipmentId);
     $addBooking->bindParam(':shipmentId', $shipmentId);
@@ -95,7 +93,6 @@ for($i=0; $i<6; $i++){
         echo "executed";
 
     } catch(Exception $error) {
-        echo "error with add booking <br>";
     	echo 'Exception -> ';
     	var_dump($error->getMessage());
     }
@@ -104,7 +101,7 @@ for($i=0; $i<6; $i++){
 	//$costToCustomerExGst = $_POST["costToCustomerExGst"]
 
 
-$addShipment = $dbConnection->prepare("INSERT INTO shipments (trackingNumber, shipmentStatusCode, pendingBool, pendingDate) VALUES (:trackingNumber, :shipmentStatusCode, :pendingBool, NOW())");
+$addShipment = $dbConnection->prepare("INSERT INTO shipments (trackingNumber, shipmentStatusCode, pendingBool, pendingDate) VALUES (DEFAULT, :shipmentStatusCode, :pendingBool, NOW())");
 
 $shipmentStatusCode = 0;
 $pendingBool = 0;
@@ -118,7 +115,6 @@ try {
     //echo "executed";
 
 } catch(Exception $error) {
-    echo "error with add shipment <br>";
     echo 'Exception -> ';
     var_dump($error->getMessage());
 }
@@ -138,7 +134,6 @@ try {
     //echo "executed";
 
 } catch(Exception $error) {
-    echo "error with add tracking <br>";
     echo 'Exception -> ';
     var_dump($error->getMessage());
 }
@@ -146,8 +141,4 @@ try {
 $_SESSION['bookingID'] = $shipmentId;
 $_SESSION['trackingNumber'] = $trackingNumber;
 
-$addInvoice = $dbConnection->prepare("INSERT INTO payments (paymentID, shippingID, paymentAmount, paymentType, paymentStatus) VALUES (DEFAULT, :shippingID, :paymentAmount, :paymentType, :paymentStatus)");
-
-header("Location: bookingconfirmation.php");
-exit();
 ?>

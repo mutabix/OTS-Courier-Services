@@ -184,8 +184,7 @@
 
                         } else {
 
-                            //echo 'form submitted successfully with no errors'; //Debugging Tool
-                            //include ("dashboardTools/bookPackageTools/insertBookingIntoDatabase.php");
+                            //include ("dashboardTools/bookPackageTools/insertBookingIntoDatabase.php"); NOT NOW
                             header("Location: submitrequestpickup.php");
                             exit();
                         }

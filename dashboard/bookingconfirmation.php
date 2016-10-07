@@ -3,20 +3,6 @@
     //include("dashboardTools/checkAndValidateLogin.php");
 
     session_start();
-
-    $getShipmentId = $dbConnection->prepare("SELECT shipmentId FROM bookings WHERE");
-    
-    try {
-        $getShipmentId->execute();
-
-    } catch(Exception $error) {
-        echo 'Exception -> ';
-        var_dump($error->getMessage());
-    }
-    
-    $shipmentId = $getShipmentId->fetch();
-    $bookingID = $shipmentId['shipmentId'];
-    echo $bookingID;
 ?>
 
 <!doctype html>
@@ -50,12 +36,12 @@
 
             <br />
             <div class="row">
-                <button type="button" class="btn btn-info btn-fill pull-left" name="printConsignment" style="margin-right: 20px;">Print Consignment</button>
-                <button type="button" class="btn btn-info btn-fill pull-left" name="printTaxInvoice">Print Tax Invoice</button>
+                <button type="button" class="btn btn-info btn-fill pull-left" name="printConsignment" onclick="showConsignmentNote()" style="margin-right: 20px;">Print Consignment</button>
+                <button type="button" class="btn btn-info btn-fill pull-left" onclick="showTaxInvoice()" name="printTaxInvoice">Print Tax Invoice</button>
             </div>
             <br /><br />
             <div class="row">
-                <button type="button" class="btn btn-info btn-fill pull-left" name="toDashboard" href="dashboard.php">Return to Dashboard</button>
+                <button type="button" class="btn btn-info btn-fill pull-left" name="toDashboard" onclick="goToDashboard()">Return to Dashboard</button>
             </div>
 
                 <style>
@@ -66,6 +52,19 @@
                         background-image: linear-gradient(to right, #eca650, #ec7d46, #eca650);
                     }
                 </style>
+                <script>
+                    function showConsignmentNote(){
+                        window.open('files/connote.php' ,'_blank');
+                    }
+
+                    function showTaxInvoice(){
+                        window.open('files/taxInvoice.php' ,'_blank');
+                    }
+
+                    function goToDashboard(){
+                        window.location.href = "dashboard.php";
+                    }
+                </script>
             </div>
         </div>
 

@@ -59,11 +59,13 @@
 
                         } else {
 
-                            //echo 'form submitted successfully with no errors'; //Debugging Tool
+                            $message = "TEST";
+                            echo "<script type='text/javascript'>alert('$message');</script>";
+                            echo $_SESSION['shipmentTrackingId'];
                             include ("dashboardTools/bookPackageTools/insertBookingIntoDatabase.php");
-                            echo $_SESSION['bookingID'];
-                            header("Location: bookingconfirmation.php");
-                            exit();
+                            //echo $_SESSION['bookingID'];
+                            //header("Location: bookingconfirmation.php");
+                            //exit();
                         }
                     } else {
                         include ("dashboardTools/bookPackageTools/submitrequestform.php");
