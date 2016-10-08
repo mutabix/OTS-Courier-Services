@@ -177,6 +177,7 @@ try {
 
 $invoiceNumber = $getInvoiceNumber->fetch();
 $retrievedinvoiceNumber = $invoiceNumber['taxInvoiceID'];
+
 $_SESSION['taxInvoiceNumber'] = $retrievedinvoiceNumber;
 $_SESSION['invoiceDate'] = date('d/m/Y');
 

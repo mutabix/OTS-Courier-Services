@@ -1,5 +1,5 @@
 <?php
-	include ("../../../dbTools/dbConnect.php");
+	include ("../dbTools/dbConnect.php");
 	session_start();
 
 	$taxInvoiceNumber = $_SESSION['taxInvoiceNumber'];
