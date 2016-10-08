@@ -54,11 +54,11 @@
                 </style>
                 <script>
                     function showConsignmentNote(){
-                        window.open('files/connote.php' ,'_blank');
+                        window.open('files/connote/connote.php' ,'_blank');
                     }
 
                     function showTaxInvoice(){
-                        window.open('files/taxInvoice.php' ,'_blank');
+                        window.open('files/taxInvoice/taxInvoice.php' ,'_blank');
                     }
 
                     function goToDashboard(){

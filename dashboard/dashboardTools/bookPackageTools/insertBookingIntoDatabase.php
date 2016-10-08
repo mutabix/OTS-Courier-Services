@@ -127,7 +127,6 @@ try {
 
 $addSavedTracking = $dbConnection->prepare("INSERT INTO tracking (trackingID, trackingNumber, customer) VALUES (DEFAULT, :trackingNumber, :customer)");
 
-
 $customer = $_SESSION['username'];
 
 $addSavedTracking->bindParam(':trackingNumber', $trackingNumber);
@@ -146,7 +145,41 @@ try {
 $_SESSION['bookingID'] = $shipmentId;
 $_SESSION['trackingNumber'] = $trackingNumber;
 
-$addInvoice = $dbConnection->prepare("INSERT INTO payments (paymentID, shippingID, paymentAmount, paymentType, paymentStatus) VALUES (DEFAULT, :shippingID, :paymentAmount, :paymentType, :paymentStatus)");
+
+
+$addInvoice = $dbConnection->prepare("INSERT INTO payments (taxInvoiceID, shipmentId, paymentAmount, paymentType, paymentStatus, generatedDate) VALUES (DEFAULT, :shipmentId, :paymentAmount, :paymentType, DEFAULT, NOW())");
+
+$paymentAmount = $_SESSION['totalCost'];
+$paymentType = $_POST['optradio'];
+
+$addInvoice->bindParam(':shipmentId', $shipmentId);
+$addInvoice->bindParam(':paymentAmount', $paymentAmount);
+$addInvoice->bindParam(':paymentType', $paymentType);
+
+try {
+    $addInvoice->execute(); //Executes $addBooking - adds the data into the database
+    //echo "executed";
+
+} catch(Exception $error) {
+    echo 'Exception -> ';
+    var_dump($error->getMessage());
+}
+
+$getInvoiceNumber = $dbConnection->prepare("SELECT taxInvoiceID FROM payments WHERE shipmentId = :shipmentId");
+$getInvoiceNumber->bindParam(':shipmentId', $shipmentId);
+
+try {
+    $getInvoiceNumber->execute();
+} catch(Exception $error) {
+    echo 'Exception -> ';
+    var_dump($error->getMessage());
+}
+
+$invoiceNumber = $getInvoiceNumber->fetch();
+$retrievedinvoiceNumber = $invoiceNumber['taxInvoiceID'];
+$_SESSION['taxInvoiceNumber'] = $retrievedinvoiceNumber;
+$_SESSION['invoiceDate'] = date('d/m/Y');
+
 
 header("Location: bookingconfirmation.php");
 exit();

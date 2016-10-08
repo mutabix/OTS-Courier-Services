@@ -77,6 +77,7 @@
         echo "<h5 style='margin-top:-10px; margin-bottom:-10px;'> $". number_format($gst, 2) ." gst</h5>";
         echo "<hr class='special-subtotal-hr'>";
         echo "<h2 style='margin-top:-10px; margin-bottom:40px;'> $". number_format($total_cost, 2) ." total</h2>";
+        $_SESSION['totalCost'] = $total_cost;
     ?>
 
     <button type="submit" class="btn btn-info btn-fill pull-left" name="submitBooking">Submit Order</button>
