@@ -103,7 +103,6 @@
                         {
                           echo 'At Warehouse';
                         }
-
                   echo '</td>';
                   echo '<td>';
                     echo $pickup['paymentID'];
@@ -124,6 +123,12 @@
                   echo '</td>';
                   echo '<td>';
                     echo $pickup['totalAmountDue'];
+                  echo '</td>';
+                  echo '<td>';
+                  echo '<a href="getTaxInvoice.php?id='.$customer["customerID"].'" class="btn btn-info" role="button">Tax Invoice</a>';
+                  echo '</td>';
+                  echo '<td>';
+                  echo '<a href="getConNote.php?id='.$customer["customerID"].'" class="btn btn-info" role="button">Consignment Note</a>';
                   echo '</td>';
                 echo '</tr>';
               }
