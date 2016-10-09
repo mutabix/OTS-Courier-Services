@@ -56,58 +56,31 @@
 	$senderPostcode = $bookingDetails['senderPostcode'];
 	$receiverState = $bookingDetails['receiverState'];
 	$packageTypeID = $bookingDetails['packageTypeID'];
-
-
-
-
-
-
-
-
-
-	/*$taxInvoiceDate = $_SESSION['invoiceDate'];
-	$orderNumber = $_SESSION['bookingID'];
-
-	$senderCompanyName = $_SESSION['senderDetails'] [0];
-	$senderFirstName = $_SESSION['senderDetails'] [1];
-	$senderLastName = $_SESSION['senderDetails'] [2];
-	$senderAddressLine1 = $_SESSION['senderDetails'] [5];
-	$senderAddressLine2 = $_SESSION['senderDetails'] [6];
-	$senderSuburb = $_SESSION['senderDetails'] [7];
-	$senderState = $_SESSION['senderDetails'] [8];
-	$senderPostcode = $_SESSION['senderDetails'] [9];
-	$receiverState = $_SESSION['receiverDetails'] [8];
-	$packageTypeID = $_SESSION['shipmentDetails'] [5];*/
-
-	//echo $senderState;
+	$packageTypeID = $bookingDetails['packageWeight'];
 
 	if($senderState == $receiverState){
-		$deliveryDetail = "Interstate";
-	} else {
 		$deliveryDetail = "Intrastate";
+	} else {
+		$deliveryDetail = "Interstate";
 	}
 
-	if($packageTypeID == 0){
+	if($packageTypeID == 1){
 		$packageDetail = "1kg Satchel";
-	} else if($packageTypeID == 1){
-		$packageDetail = "3kg Satchel";
 	} else if($packageTypeID == 2){
-		$packageDetail = "5kg Satchel";
+		$packageDetail = "3kg Satchel";
 	} else if($packageTypeID == 3){
-		$packageDetail = "1kg Box";
+		$packageDetail = "5kg Satchel";
 	} else if($packageTypeID == 4){
-		$packageDetail = "3kg Box";
+		$packageDetail = "1kg Box";
 	} else if($packageTypeID == 5){
-		$packageDetail = "5kg Box";
+		$packageDetail = "3kg Box";
 	} else if($packageTypeID == 6){
-		$packageDetail = "10kg Box";
+		$packageDetail = "5kg Box";
 	} else if($packageTypeID == 7){
+		$packageDetail = "10kg Box";
+	} else if($packageTypeID == 8){
 		$packageDetail = "20kg Box";
-	} 
-
-
-
-
+	}
 ?>
 
 <!DOCTYPE html>

@@ -1,7 +1,8 @@
 <?php
     session_start(); //ensure session is started.
 
-$addBooking = $dbConnection->prepare("INSERT INTO bookings (shipmentId, customerId, senderCompanyName, senderFirstName, senderLastName, senderEmail, senderMobile, senderAddressLine1, senderAddressLine2, senderSuburb, senderState, senderPostcode, receiverCompanyName, receiverFirstName, receiverLastName, receiverEmail, receiverMobile, receiverAddressLine1, receiverAddressLine2, receiverSuburb, receiverState, receiverPostcode, noOfPackages, packageWidth, packageLength, packageDepth, serviceTypeID, totalValue)VALUES (:shipmentId, :customerId, :senderCompanyName, :senderFirstName, :senderLastName, :senderEmail, :senderMobile, :senderAddressLine1, :senderAddressLine2, :senderSuburb, :senderState, :senderPostcode, :receiverCompanyName, :receiverFirstName, :receiverLastName, :receiverEmail, :receiverMobile, :receiverAddressLine1, :receiverAddressLine2, :receiverSuburb, :receiverState, :receiverPostcode, :noOfPackages, :packageWidth, :packageLength, :packageDepth, :serviceTypeID, :totalValue)");
+
+$addBooking = $dbConnection->prepare("INSERT INTO bookings (shipmentId, customerId, senderCompanyName, senderFirstName, senderLastName, senderEmail, senderMobile, senderAddressLine1, senderAddressLine2, senderSuburb, senderState, senderPostcode, receiverCompanyName, receiverFirstName, receiverLastName, receiverEmail, receiverMobile, receiverAddressLine1, receiverAddressLine2, receiverSuburb, receiverState, receiverPostcode, noOfPackages, packageWeight, packageWidth, packageLength, packageDepth, serviceTypeID, totalValue, bookingMadeOn)VALUES (:shipmentId, :customerId, :senderCompanyName, :senderFirstName, :senderLastName, :senderEmail, :senderMobile, :senderAddressLine1, :senderAddressLine2, :senderSuburb, :senderState, :senderPostcode, :receiverCompanyName, :receiverFirstName, :receiverLastName, :receiverEmail, :receiverMobile, :receiverAddressLine1, :receiverAddressLine2, :receiverSuburb, :receiverState, :receiverPostcode, :noOfPackages, :packageWeight, :packageWidth, :packageLength, :packageDepth, :serviceTypeID, :totalValue, NOW())");
     
     
 $senderCompanyName = $_SESSION['senderDetails'] [0];
@@ -83,12 +84,12 @@ for($i=0; $i<6; $i++){
     $addBooking->bindParam(':receiverPostcode', $receiverPostcode);
 
     $addBooking->bindParam(':noOfPackages', $noOfPackages);
+    $addBooking->bindParam(':packageWeight', $packageTypeID);
     $addBooking->bindParam(':packageWidth', $packageWidth);
     $addBooking->bindParam(':packageLength', $packageLength);
     $addBooking->bindParam(':packageDepth', $packageDepth);
     $addBooking->bindParam(':serviceTypeID', $serviceTypeID); //NEEDS TO BE ASSIGNED BASED ON SELECTION
     $addBooking->bindParam(':totalValue', $totalValue);
-    
 
     try {
     	$addBooking->execute(); //Executes $addBooking - adds the data into the database
@@ -102,6 +103,18 @@ for($i=0; $i<6; $i++){
 
 
 	//$costToCustomerExGst = $_POST["costToCustomerExGst"]
+
+$addConnote = $dbConnection->prepare("INSERT INTO connotes (connoteNumber, shippingID) VALUES (DEFAULT, :shippingID)");
+$addConnote->bindParam(':shippingID', $trackingNumber);
+try {
+    $addConnote->execute(); //Executes $addBooking - adds the data into the database
+    //echo "executed";
+
+} catch(Exception $error) {
+    echo "error with add shipment <br>";
+    echo 'Exception -> ';
+    var_dump($error->getMessage());
+}
 
 
 $addShipment = $dbConnection->prepare("INSERT INTO shipments (trackingNumber, shipmentStatusCode, pendingBool, pendingDate) VALUES (:trackingNumber, :shipmentStatusCode, :pendingBool, NOW())");
@@ -151,6 +164,7 @@ $addInvoice = $dbConnection->prepare("INSERT INTO payments (taxInvoiceID, shipme
 
 $paymentAmount = $_SESSION['totalCost'];
 $paymentType = $_POST['optradio'];
+unset($_POST["optradio"]);
 
 $addInvoice->bindParam(':shipmentId', $shipmentId);
 $addInvoice->bindParam(':paymentAmount', $paymentAmount);
@@ -178,10 +192,23 @@ try {
 $invoiceNumber = $getInvoiceNumber->fetch();
 $retrievedinvoiceNumber = $invoiceNumber['taxInvoiceID'];
 
+
+$getConnoteNumber = $dbConnection->prepare("SELECT connoteNumber FROM connotes WHERE shippingId = :shipmentId");
+$getConnoteNumber->bindParam(':shipmentId', $shipmentId);
+try {
+    $getConnoteNumber->execute();
+} catch(Exception $error) {
+    echo 'Exception -> ';
+    var_dump($error->getMessage());
+}
+$connoteNumber = $getConnoteNumber->fetch();
+$retrievedConnoteNumber = $connoteNumber['connoteNumber'];
+
 $_SESSION['taxInvoiceNumber'] = $retrievedinvoiceNumber;
+$_SESSION['connoteNumber'] = $retrievedConnoteNumber;
 $_SESSION['invoiceDate'] = date('d/m/Y');
 
 
-header("Location: bookingconfirmation.php");
-exit();
+//header("Location: bookingconfirmation.php");
+//exit();
 ?>

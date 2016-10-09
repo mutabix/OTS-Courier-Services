@@ -57,9 +57,15 @@
         } 
     }
 	
-	$notificationResult = $dbConnection->prepare('SELECT * FROM notifications WHERE notificationFor = :email ORDER BY notificationDate DESC');
+	/*$notificationResult = $dbConnection->prepare('SELECT * FROM notifications WHERE notificationFor = :email ORDER BY notificationDate DESC');
     $notificationResult->bindParam(':email', $_SESSION['username']);
-    $notificationResult->execute();
+    try {
+        $notificationResult->execute();
+
+    } catch(Exception $error) {
+        echo 'Exception -> ';
+        var_dump($error->getMessage());
+    }*/
 
 ?>
 
@@ -183,7 +189,7 @@
 										</thead>
 										<tbody>
 											<?php
-												foreach ($notificationResult as $notification) {
+												/*foreach ($notificationResult as $notification) {
 													echo '<tr>';
 													echo '<td>';
 													//echo $notification['notificationDate'];
@@ -199,8 +205,8 @@
 													echo '</td>';
 													echo '</tr>';
 												}
-										echo '</tbody>
-									</table>';
+										echo '</tbody>';
+									echo '</table>';*/
 									?>
                                 </div>
                             </div>

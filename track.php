@@ -190,7 +190,7 @@
 				                    		}
 				                    	}
 
-				                    	if($shipmentStatusCode == 3){
+				                    	if($shipmentStatusCode == 2){
 				                    		if($processingBool == 0){
 				                    			echo "<div class='col-md-3'>";
 													echo "<div class='info'>";
@@ -213,7 +213,7 @@
 				                    		}
 				                    	}
 
-				                    	if($shipmentStatusCode == 4){
+				                    	if($shipmentStatusCode == 3){
 				                    		if($deliveryBool == 0){
 				                    			echo "<div class='col-md-3'>";
 													echo "<div class='info'>";

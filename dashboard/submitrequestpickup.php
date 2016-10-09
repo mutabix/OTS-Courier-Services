@@ -42,8 +42,8 @@
                     //$errors = array();
                     //Checks to see if data is set
                     $errorsExist = false;
-
                     if (isset($_POST["optradio"])) {
+
 
                         //require ("validateBookingDataFunctions.php");
                         //require ("validateBookingData.php");
@@ -59,8 +59,7 @@
 
                         } else {
 
-                            //$message = "TEST";
-                            //echo "<script type='text/javascript'>alert('$message');</script>";
+                            
                             //echo $_SESSION['shipmentTrackingId'];
                             include ("dashboardTools/bookPackageTools/insertBookingIntoDatabase.php");
                             //echo $_SESSION['bookingID'];

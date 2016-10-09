@@ -1,7 +1,7 @@
 <?php
     session_start(); //ensure session is started.
 
-$addBooking = $dbConnection->prepare("INSERT INTO bookings (shipmentId, customerId, senderCompanyName, senderFirstName, senderLastName, senderEmail, senderMobile, senderAddressLine1, senderAddressLine2, senderSuburb, senderState, senderPostcode, receiverCompanyName, receiverFirstName, receiverLastName, receiverEmail, receiverMobile, receiverAddressLine1, receiverAddressLine2, receiverSuburb, receiverState, receiverPostcode, noOfPackages, packageWidth, packageLength, packageDepth, serviceTypeID, totalValue)VALUES (:shipmentId, :customerId, :senderCompanyName, :senderFirstName, :senderLastName, :senderEmail, :senderMobile, :senderAddressLine1, :senderAddressLine2, :senderSuburb, :senderState, :senderPostcode, :receiverCompanyName, :receiverFirstName, :receiverLastName, :receiverEmail, :receiverMobile, :receiverAddressLine1, :receiverAddressLine2, :receiverSuburb, :receiverState, :receiverPostcode, :noOfPackages, :packageWidth, :packageLength, :packageDepth, :serviceTypeID, :totalValue)");
+$addBooking = $dbConnection->prepare("INSERT INTO bookings (shipmentId, customerId, senderCompanyName, senderFirstName, senderLastName, senderEmail, senderMobile, senderAddressLine1, senderAddressLine2, senderSuburb, senderState, senderPostcode, receiverCompanyName, receiverFirstName, receiverLastName, receiverEmail, receiverMobile, receiverAddressLine1, receiverAddressLine2, receiverSuburb, receiverState, receiverPostcode, noOfPackages, packageWidth, packageLength, packageDepth, serviceTypeID, totalValue, bookingMadeOn)VALUES (:shipmentId, :customerId, :senderCompanyName, :senderFirstName, :senderLastName, :senderEmail, :senderMobile, :senderAddressLine1, :senderAddressLine2, :senderSuburb, :senderState, :senderPostcode, :receiverCompanyName, :receiverFirstName, :receiverLastName, :receiverEmail, :receiverMobile, :receiverAddressLine1, :receiverAddressLine2, :receiverSuburb, :receiverState, :receiverPostcode, :noOfPackages, :packageWidth, :packageLength, :packageDepth, :serviceTypeID, :totalValue, :bookingMadeOn)");
     
     
 $senderCompanyName = $_SESSION['senderDetails'] [0];
@@ -86,6 +86,7 @@ for($i=0; $i<6; $i++){
     $addBooking->bindParam(':packageDepth', $packageDepth);
     $addBooking->bindParam(':serviceTypeID', $serviceTypeID); //NEEDS TO BE ASSIGNED BASED ON SELECTION
     $addBooking->bindParam(':totalValue', $totalValue);
+    $addBooking->bindBaram(':bookingMadeOn', NOW());
     
 
     try {
@@ -119,10 +120,7 @@ try {
     var_dump($error->getMessage());
 }
 
-
-
 $addSavedTracking = $dbConnection->prepare("INSERT INTO tracking (trackingID, trackingNumber, customer) VALUES (DEFAULT, :trackingNumber, :customer)");
-
 
 $customer = $_SESSION['username'];
 
@@ -140,5 +138,8 @@ try {
 
 $_SESSION['bookingID'] = $shipmentId;
 $_SESSION['trackingNumber'] = $trackingNumber;
+
+//header("Location: bookingconfirmation.php");
+//exit();
 
 ?>
