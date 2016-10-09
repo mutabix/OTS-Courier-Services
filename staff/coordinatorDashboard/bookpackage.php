@@ -1,7 +1,7 @@
 <?php
     session_start();
     include("../../dbTools/dbConnect.php");
-    //include("../../dbTools/checkLogin.php");
+    include("../../dbTools/checkLogin.php");
     
     //include("bookPackageTools/inputSenderData.php");
 
