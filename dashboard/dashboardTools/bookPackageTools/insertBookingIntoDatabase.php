@@ -50,7 +50,7 @@ for($i=0; $i<6; $i++){
 
 	//TEST DATA
 
-	$_SESSION['customerIdLogin'] = 1; //DUMMY DATA
+	//$_SESSION['customerIdLogin'] = 1; //DUMMY DATA
     $customerId = $_SESSION['customerIdLogin'];
 
     $trackingNumber = time() + mt_rand(50, 999) + mt_rand(1, 99);
