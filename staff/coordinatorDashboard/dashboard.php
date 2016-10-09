@@ -144,7 +144,7 @@
                                         <tbody>
                                         <?php
 										$total = count($trackingNumber);
-										$limit = 8;
+										$limit = 5;
 										
 										$pages = ceil($total / $limit);
 										
