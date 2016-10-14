@@ -3,7 +3,7 @@
     //$_SESSION['username'] = "";
     //echo $_SESSION['username'];
 
-//session_start();
+session_start();
 
     if(!(isset($_SESSION['username']))){
         header("Location: login.php");

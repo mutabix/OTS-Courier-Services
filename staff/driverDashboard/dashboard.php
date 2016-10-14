@@ -106,60 +106,65 @@
                                 <div class="table-full-width">
                                     <table class="table">
                                         <tbody>
-                                            <tr>
-                                                <th>Shipment ID</th>
-                                                <th>Connote ID</th>
-                                                <th>Priority</th>
-                                                <th>Suburb</th>
-                                                <th></th>
-                                            </tr>
 
                                             <?php
-                                                for($i=0; $i<count($shipmentIDList); $i++){
-                                                    if($shipmentIDListStatus[$i] == 1){
-                                                        $getBookingDetail = $dbConnection->prepare('SELECT serviceTypeID, senderSuburb FROM bookings WHERE shipmentId = :shippingId LIMIT 1');
-                                                        $getBookingDetail->bindParam(':shippingId', $shipmentIDList[$i]);
-                                                        try {
-                                                            $getBookingDetail->execute();
+                                                if($readyForPickup > 0){
+                                                    echo "<tr>";
+                                                        echo "<th>Shipment ID</th>";
+                                                        echo "<th>Connote ID</th>";
+                                                        echo "<th>Service Type</th>";
+                                                        echo "<th>Suburb</th>";
+                                                        echo "<th></th>";
+                                                    echo "</tr>";
 
-                                                        } catch(Exception $error) {
-                                                            echo 'Exception -> ';
-                                                            var_dump($error->getMessage());
+                                                    for($i=0; $i<count($shipmentIDList); $i++){
+                                                        if($shipmentIDListStatus[$i] == 1){
+                                                            $getBookingDetail = $dbConnection->prepare('SELECT serviceTypeID, senderSuburb FROM bookings WHERE shipmentId = :shippingId LIMIT 1');
+                                                            $getBookingDetail->bindParam(':shippingId', $shipmentIDList[$i]);
+                                                            try {
+                                                                $getBookingDetail->execute();
+
+                                                            } catch(Exception $error) {
+                                                                echo 'Exception -> ';
+                                                                var_dump($error->getMessage());
+                                                            }
+
+                                                            $bookingDetail = $getBookingDetail->fetch();
+
+                                                            $getConnoteNumber = $dbConnection->prepare('SELECT connoteNumber FROM connotes WHERE shippingId = :shippingId LIMIT 1');
+                                                            $getConnoteNumber->bindParam(':shippingId', $shipmentIDList[$i]);
+                                                            try {
+                                                                $getConnoteNumber->execute();
+
+                                                            } catch(Exception $error) {
+                                                                echo 'Exception -> ';
+                                                                var_dump($error->getMessage());
+                                                            }
+
+                                                            $connoteNumber = $getConnoteNumber->fetch();
+
+
+                                                            if($bookingDetail['serviceTypeID'] == 1){
+                                                                $priority = "Low";
+                                                            } else if($bookingDetail['serviceTypeID'] == 2){
+                                                                $priority = "Moderate";
+                                                            } else if($bookingDetail['serviceTypeID'] == 3){
+                                                                $priority = "High";
+                                                            }
+
+                                                            echo '<tr>';
+                                                            echo '<td>'.$shipmentIDList[$i].'</td>';
+                                                            echo '<td>'.$connoteNumber['connoteNumber'].'</td>';
+                                                            echo '<td>'.$priority.'</td>';
+                                                            echo '<td>'.$bookingDetail['senderSuburb'].'</td>';
+                                                            echo '<td>';
+                                                            echo '<a href="getOrderDetails.php?id='.$connoteNumber['connoteNumber'].'" class="btn btn-info" role="button">See More Details</a>';
+                                                            echo '</td>';
+                                                            echo '</tr>';
                                                         }
-
-                                                        $bookingDetail = $getBookingDetail->fetch();
-
-                                                        $getConnoteNumber = $dbConnection->prepare('SELECT connoteNumber FROM connotes WHERE shippingId = :shippingId LIMIT 1');
-                                                        $getConnoteNumber->bindParam(':shippingId', $shipmentIDList[$i]);
-                                                        try {
-                                                            $getConnoteNumber->execute();
-
-                                                        } catch(Exception $error) {
-                                                            echo 'Exception -> ';
-                                                            var_dump($error->getMessage());
-                                                        }
-
-                                                        $connoteNumber = $getConnoteNumber->fetch();
-
-
-                                                        if($bookingDetail['serviceTypeID'] == 1){
-                                                            $priority = "Low";
-                                                        } else if($bookingDetail['serviceTypeID'] == 2){
-                                                            $priority = "Moderate";
-                                                        } else if($bookingDetail['serviceTypeID'] == 3){
-                                                            $priority = "High";
-                                                        }
-
-                                                        echo '<tr>';
-                                                        echo '<td>'.$shipmentIDList[$i].'</td>';
-                                                        echo '<td>'.$connoteNumber['connoteNumber'].'</td>';
-                                                        echo '<td>'.$priority.'</td>';
-                                                        echo '<td>'.$bookingDetail['senderSuburb'].'</td>';
-                                                        echo '<td>';
-                                                        echo '<a href="getBookingDetails.php?id='.$shipmentIDList[$i].'" class="btn btn-info" role="button">See More Details</a>';
-                                                        echo '</td>';
-                                                        echo '</tr>';
                                                     }
+                                                } else {
+                                                    echo "<h5>&nbsp; &nbsp; No Packages To Pickup</h5>";
                                                 }
                                             ?>
                                         </tbody>
@@ -178,61 +183,68 @@
                                 <div class="table-full-width">
                                     <table class="table">
                                         <tbody>
-                                            <tr>
-                                                <th>Shipment ID</th>
-                                                <th>Connote ID</th>
-                                                <th>Service Type</th>
-                                                <th>Suburb, Postcode</th>
-                                                <th>Edit</th>
-                                            </tr>
+                                            
 
                                             <?php
-                                                for($i=0; $i<count($shipmentIDList); $i++){
-                                                    if($shipmentIDListStatus[$i] == 3){
-                                                        $getBookingDetail = $dbConnection->prepare('SELECT serviceTypeID, receiverSuburb FROM bookings WHERE shipmentId = :shippingId LIMIT 1');
-                                                        $getBookingDetail->bindParam(':shippingId', $shipmentIDList[$i]);
-                                                        try {
-                                                            $getBookingDetail->execute();
+                                                if($readyForDelivery > 0){
+                                                    echo "<tr>";
+                                                        echo "<th>Shipment ID</th>";
+                                                        echo "<th>Connote ID</th>";
+                                                        echo "<th>Service Type</th>";
+                                                        echo "<th>Suburb</th>";
+                                                        echo "<th></th>";
+                                                    echo "</tr>";
 
-                                                        } catch(Exception $error) {
-                                                            echo 'Exception -> ';
-                                                            var_dump($error->getMessage());
+                                                    for($i=0; $i<count($shipmentIDList); $i++){
+                                                        if($shipmentIDListStatus[$i] == 3){
+                                                            $getBookingDetail = $dbConnection->prepare('SELECT serviceTypeID, receiverSuburb FROM bookings WHERE shipmentId = :shippingId LIMIT 1');
+                                                            $getBookingDetail->bindParam(':shippingId', $shipmentIDList[$i]);
+                                                            try {
+                                                                $getBookingDetail->execute();
+
+                                                            } catch(Exception $error) {
+                                                                echo 'Exception -> ';
+                                                                var_dump($error->getMessage());
+                                                            }
+
+                                                            $bookingDetail = $getBookingDetail->fetch();
+
+                                                            $getConnoteNumber = $dbConnection->prepare('SELECT connoteNumber FROM connotes WHERE shippingId = :shippingId LIMIT 1');
+                                                            $getConnoteNumber->bindParam(':shippingId', $shipmentIDList[$i]);
+                                                            try {
+                                                                $getConnoteNumber->execute();
+
+                                                            } catch(Exception $error) {
+                                                                echo 'Exception -> ';
+                                                                var_dump($error->getMessage());
+                                                            }
+
+                                                            $connoteNumber = $getConnoteNumber->fetch();
+
+
+                                                            if($bookingDetail['serviceTypeID'] == 1){
+                                                                $priority = "Low";
+                                                            } else if($bookingDetail['serviceTypeID'] == 2){
+                                                                $priority = "Moderate";
+                                                            } else if($bookingDetail['serviceTypeID'] == 3){
+                                                                $priority = "High";
+                                                            }
+
+                                                            echo '<tr>';
+                                                            echo '<td>'.$shipmentIDList[$i].'</td>';
+                                                            echo '<td>'.$connoteNumber['connoteNumber'].'</td>';
+                                                            echo '<td>'.$priority.'</td>';
+                                                            echo '<td>'.$bookingDetail['receiverSuburb'].'</td>';
+                                                            echo '<td>';
+                                                            echo '<a href="getOrderDetails.php?id='.$connoteNumber['connoteNumber'].'" class="btn btn-info" role="button">See More Details</a>';
+                                                            echo '</td>';
+                                                            echo '</tr>';
                                                         }
-
-                                                        $bookingDetail = $getBookingDetail->fetch();
-
-                                                        $getConnoteNumber = $dbConnection->prepare('SELECT connoteNumber FROM connotes WHERE shippingId = :shippingId LIMIT 1');
-                                                        $getConnoteNumber->bindParam(':shippingId', $shipmentIDList[$i]);
-                                                        try {
-                                                            $getConnoteNumber->execute();
-
-                                                        } catch(Exception $error) {
-                                                            echo 'Exception -> ';
-                                                            var_dump($error->getMessage());
-                                                        }
-
-                                                        $connoteNumber = $getConnoteNumber->fetch();
-
-
-                                                        if($bookingDetail['serviceTypeID'] == 1){
-                                                            $priority = "Low";
-                                                        } else if($bookingDetail['serviceTypeID'] == 2){
-                                                            $priority = "Moderate";
-                                                        } else if($bookingDetail['serviceTypeID'] == 3){
-                                                            $priority = "High";
-                                                        }
-
-                                                        echo '<tr>';
-                                                        echo '<td>'.$shipmentIDList[$i].'</td>';
-                                                        echo '<td>'.$connoteNumber['connoteNumber'].'</td>';
-                                                        echo '<td>'.$priority.'</td>';
-                                                        echo '<td>'.$bookingDetail['receiverSuburb'].'</td>';
-                                                        echo '<td>';
-                                                        echo '<a href="getBookingDetails.php?id='.$shipmentIDList[$i].'" class="btn btn-info" role="button">See More Details</a>';
-                                                        echo '</td>';
-                                                        echo '</tr>';
                                                     }
+                                                } else {
+                                                    echo "<h5>&nbsp; &nbsp; No Packages To Deliver</h5>";
                                                 }
+                                                
                                             ?>
                                         </tbody>
                                     </table>

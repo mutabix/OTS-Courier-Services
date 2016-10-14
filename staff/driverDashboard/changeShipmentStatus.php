@@ -1,6 +1,8 @@
 <?php
 	include("../../dbTools/dbConnect.php");
+	
 	session_start();
+
 	$trackingNumber = $_SESSION['shippingId'];
 	$_SESSION['shippingId'] = "";
 
@@ -50,8 +52,7 @@
         }
 	}
 
-	$_POST["connoteNumber"] = $_SESSION['connoteNumber'];
-	
+	$_POST["connoteNumber"] = $_SESSION['connoteNumber'];	
 	header('Location: updateStatus.php');
 	exit();
 

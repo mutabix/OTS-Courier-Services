@@ -3,6 +3,14 @@
     session_start();
 
     $connoteNumber = $_POST["connoteNumber"];
+    if(isset($_SESSION["connoteNumber"]) && $_SESSION["connoteNumber"] != ""){
+        $connoteNumber = $_SESSION["connoteNumber"];
+        $_SESSION["connoteNumber"] = "";
+        unset($_SESSION["connoteNumber"]);
+    }
+
+    unset($_POST["connoteNumber"]);
+    unset($_SESSION["connoteNumber"]);
 
     if(isset($connoteNumber)){
         $connoteNumberExists = false;
@@ -18,8 +26,8 @@
 
         $connoteDetails = $checkConnote->fetch();
         $shippingId = $connoteDetails['shippingId'];
-        $_SESSION['shippingId'] = $shippingId;
-        $_SESSION['connoteNumber'] = $connoteNumber;
+        //$_SESSION['shippingId'] = $shippingId;
+        //$_SESSION['connoteNumber'] = $connoteNumber;
 
         if(isset($shippingId)){
             $connoteNumberExists = true;
@@ -30,7 +38,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Employee Dashboard</title>
+	<title>Update Package Status</title>
 
     <?php include("includes/styling_scripts/meta.html"); ?>
     <?php include("includes/styling_scripts/css.html"); ?>
@@ -58,17 +66,19 @@
             <?php
                 if(isset($connoteNumber)) {
                     if(strlen((string)$connoteNumber < 2)){
-                        echo "Tracking Number Not Valid";
+                        echo "Consignment Note Number Not Valid";
                         include("updateStatusForm.php");
 
                     } else if (!$connoteNumberExists){
                         include("updateStatusForm.php");
                         echo "<br><br><br><br>";
-                        echo "<p><strong>Tracking Number Does Not Exist</strong></p>";
+                        echo "<p><strong>Consignment Note Number Does Not Exist</strong></p>";
 
                     } else {
                         //Successful
                         include("updateStatusForm.php");
+                        $_SESSION['shippingId'] = $shippingId;
+                        $_SESSION['connoteNumber'] = $connoteNumber;
 
                         $getOrderDetails = $dbConnection->prepare("SELECT * FROM bookings WHERE shipmentId = :shipmentId LIMIT 1");
                         $getOrderDetails->bindParam(':shipmentId', $shippingId);
@@ -182,7 +192,7 @@
                         } else if ($shipmentStatusCode == 3){
                             echo "<br>";
                             echo "<div id='changeStatusOptions'>";
-                                echo "<input type='checkbox' id='packageDelivered' name='packageDelivered' disabled/>";
+                                echo "<input type='checkbox' id='packageDelivered' name='packageDelivered'/>";
                                 echo "<label for='packageDelivered'><span></span>Package Delivered</label>";
 
                                 echo "<br><br>";
