@@ -10,7 +10,7 @@
     $getOrderDetails->bindParam(':shipmentId', $orderNumber);
     $getOrderDetails->execute();
     $orderDetail = $getOrderDetails->fetch();
-    
+    echo $orderDetail['packageWeight'];
 
     $getCostToShip = $dbConnection->prepare("SELECT * FROM payments WHERE shipmentId = '1475992365' LIMIT 1");
     $getCostToShip->bindParam(':shipmentId', $orderNumber);
@@ -32,28 +32,20 @@
     $packageTypeID = $orderDetail['packageWeight'];
     if($packageTypeID == 1){
       $packageDetail = "1kg Satchel";
-      $packageWeight = "1kg";
     } else if($packageTypeID == 2){
       $packageDetail = "3kg Satchel";
-      $packageWeight = "3kg";
     } else if($packageTypeID == 3){
       $packageDetail = "5kg Satchel";
-      $packageWeight = "5kg";
     } else if($packageTypeID == 4){
       $packageDetail = "1kg Box";
-      $packageWeight = "1kg";
     } else if($packageTypeID == 5){
       $packageDetail = "3kg Box";
-      $packageWeight = "3kg";
     } else if($packageTypeID == 6){
       $packageDetail = "5kg Box";
-      $packageWeight = "5kg";
     } else if($packageTypeID == 7){
       $packageDetail = "10kg Box";
-      $packageWeight = "10kg";
     } else if($packageTypeID == 8){
       $packageDetail = "20kg Box";
-      $packageWeight = "20kg";
     }
 
 

@@ -44,9 +44,9 @@
 
     <div class="main-panel">
         <?php include("includes/navbar-mobile-open.html");
-        echo "<a class='navbar-brand' href=''>Update Status";
+        echo "<a class='navbar-brand' href='#'>Update Status";
         if($connoteNumberExists){
-            echo ": CON-".$connoteNumber."</a>";
+            echo ": CON-".$connoteNumber." | ID: ".$shippingId."</a>";
         } else{
             echo "</a>";
         }
@@ -103,38 +103,97 @@
                             $trackingStatus = "Delivered";
                         }
 
-                        echo "<h4>Current Status: ".$trackingStatus."</h4>";
+                        $packageTypeID = $orderDetail['packageWeight'];
+                        if($packageTypeID == 1){
+                          $packageDetail = "1kg Satchel";
+                          $packageWeight = "1kg";
+                        } else if($packageTypeID == 2){
+                          $packageDetail = "3kg Satchel";
+                          $packageWeight = "3kg";
+                        } else if($packageTypeID == 3){
+                          $packageDetail = "5kg Satchel";
+                          $packageWeight = "5kg";
+                        } else if($packageTypeID == 4){
+                          $packageDetail = "1kg Box";
+                          $packageWeight = "1kg";
+                        } else if($packageTypeID == 5){
+                          $packageDetail = "3kg Box";
+                          $packageWeight = "3kg";
+                        } else if($packageTypeID == 6){
+                          $packageDetail = "5kg Box";
+                          $packageWeight = "5kg";
+                        } else if($packageTypeID == 7){
+                          $packageDetail = "10kg Box";
+                          $packageWeight = "10kg";
+                        } else if($packageTypeID == 8){
+                          $packageDetail = "20kg Box";
+                          $packageWeight = "20kg";
+                        }
 
-                        echo "<h5>Change Status of Package</h5>";
-                        
+                        $serviceTypeId = $orderDetail['serviceTypeID'];
+                        if($serviceTypeId == 1){
+                          $serviceType = "Standard";
+                        } else if($serviceTypeId == 2){
+                          $serviceType = "Express";
+                        } else if($serviceTypeId == 3){
+                          $serviceType = "Overnight";
+                        }
+
+                        $paymentTypeId = $costToShip['paymentType'];
+                        if($paymentTypeId == 1){
+                          $paymentType = "Cash";
+                        } else if($paymentTypeId == 2){
+                          $paymentType = "Eftpos";
+                        } else if($paymentTypeId == 3){
+                          $paymentType = "Cheque";
+                        }
+
+
+
+                        echo "<h4>Current Status: ".$trackingStatus."</h4>";
+                        if($trackingStatus == "Ready for Pickup"){
+                            echo "<h5>Payment Required</h5>";
+                            echo "<h5>Amount: $".$costToShip['paymentAmount']."</h5>";
+                            echo "<h5>Mode: ".$paymentType."</h5>";
+                        }
+                        echo "<button type='submit' class='btn btn-info btn-fill' name='changeStatus' id='changeStatus' onclick='hideChangeStatusOptions()'>Change Status Of Package</button>";
+                        echo "<br><br>";
 
 
 
 
                         echo "<form action='changeShipmentStatus.php' method='POST'>";
                         if($shipmentStatusCode == 0){
+                            echo "<script>document.getElementById('changeStatus').className = 'btn btn-fill disabled';</script>";
                             echo "<p>Driver Action cannot be taken at this time, please contact an admin to change status</p>";
-                            echo "<label class='checkbox-inline'><input type='checkbox' value='' name='packagePickedUp' disabled>Package Picked Up</label>";
-                            echo "<label class='checkbox-inline'><input type='checkbox' value='' name='packageDelivered' disabled>Package Delivered</label>";
                         } else if ($shipmentStatusCode == 1){
-                            $trackingStatus = "Ready for Pickup";
-                            echo "<label class='checkbox-inline'><input type='checkbox' value='' name='packagePickedUp'>Package Picked Up</label>";
-                            echo "<label class='checkbox-inline'><input type='checkbox' value='' name='packageDelivered' disabled>Package Delivered</label>";
+                            echo "<br>";
+                            echo "<div id='changeStatusOptions'>";
+
+                                echo "<input type='checkbox' id='packagePickedUp' name='packagePickedUp'/>";
+                                echo "<label for='packagePickedUp'><span></span>Package Picked Up</label>";
+
+                                echo "<br><br>";
+                                echo "<button type='submit' class='btn btn-info btn-fill pull-left' name='updateStatus'>Update Status</button>";
+                            echo "</div>";
                         } else if ($shipmentStatusCode == 2){
+                            echo "<script>document.getElementById('changeStatus').className = 'btn btn-fill disabled';</script>";
                             echo "<p>Driver Action cannot be taken at this time, please contact an admin to change status</p>";
-                            echo "<label class='checkbox-inline'><input type='checkbox' value='' name='packagePickedUp' disabled>Package Picked Up</label>";
-                            echo "<label class='checkbox-inline'><input type='checkbox' value='' name='packageDelivered' disabled>Package Delivered</label>";
                         } else if ($shipmentStatusCode == 3){
-                            echo "<label class='checkbox-inline'><input type='checkbox' value='' name='packagePickedUp' disabled>Package Picked Up</label>";
-                            echo "<label class='checkbox-inline'><input type='checkbox' value='' name='packageDelivered'>Package Delivered</label>";
+                            echo "<br>";
+                            echo "<div id='changeStatusOptions'>";
+                                echo "<input type='checkbox' id='packageDelivered' name='packageDelivered' disabled/>";
+                                echo "<label for='packageDelivered'><span></span>Package Delivered</label>";
+
+                                echo "<br><br>";
+                                echo "<button type='submit' class='btn btn-info btn-fill pull-left' name='updateStatus'>Update Status</button>";
+                            echo "</div>";
+
                         } else if ($shipmentStatusCode == 4){
-                            $trackingStatus = "Delivered";
+                            echo "<script>document.getElementById('changeStatus').className = 'btn btn-fill disabled';</script>";
                             echo "<p>Driver Action cannot be taken at this time, please contact an admin to change status</p>";
-                            echo "<label class='checkbox-inline'><input type='checkbox' value='' name='packagePickedUp' disabled>Package Picked Up</label>";
-                            echo "<label class='checkbox-inline'><input type='checkbox' value='' name='packageDelivered' disabled>Package Delivered</label>";
                         }
 
-                        echo "<button type='submit' class='btn btn-info btn-fill pull-left' name='submitConnote'>Look up Package</button>";
                         echo "</form";
 
 
@@ -271,80 +330,38 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
-    /* SQUARED ONE */
-.squaredOne {
-    width: 28px;
-    height: 28px;
-    background: #fcfff4;
-
-    background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-    background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-    background: -o-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-    background: -ms-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-    background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=0 );
-    margin: 20px auto;
-    -webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
-    -moz-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
-    box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
-    position: relative;
+#changeStatusOptions{
+    display: none;
 }
 
-.squaredOne label {
-    cursor: pointer;
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    left: 4px;
-    top: 4px;
-
-    -webkit-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,1);
-    -moz-box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,1);
-    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,1);
-
-    background: -webkit-linear-gradient(top, #222 0%, #45484d 100%);
-    background: -moz-linear-gradient(top, #222 0%, #45484d 100%);
-    background: -o-linear-gradient(top, #222 0%, #45484d 100%);
-    background: -ms-linear-gradient(top, #222 0%, #45484d 100%);
-    background: linear-gradient(top, #222 0%, #45484d 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#222', endColorstr='#45484d',GradientType=0 );
+input[type="checkbox"] {
+    display:none;
 }
-
-.squaredOne label:after {
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    filter: alpha(opacity=0);
-    opacity: 0;
-    content: '';
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    background: #00bf00;
-
-    background: -webkit-linear-gradient(top, #00bf00 0%, #009400 100%);
-    background: -moz-linear-gradient(top, #00bf00 0%, #009400 100%);
-    background: -o-linear-gradient(top, #00bf00 0%, #009400 100%);
-    background: -ms-linear-gradient(top, #00bf00 0%, #009400 100%);
-    background: linear-gradient(top, #00bf00 0%, #009400 100%);
-
-    top: 2px;
-    left: 2px;
-
-    -webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
-    -moz-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
-    box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
+input[type="checkbox"] + label span {
+    display:inline-block;
+    width:19px;
+    height:19px;
+    margin:-1px 4px 0 0;
+    vertical-align:middle;
+    background-color: #9e9e9e;
+    border-radius: 4px;
+    background:url(../../assets/img/checkbox-01.png);
+    background-size: 19px 19px;
+    background-repeat: no-repeat;
+    cursor:pointer;
 }
-
-.squaredOne label:hover::after {
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
-    filter: alpha(opacity=30);
-    opacity: 0.3;
+input[type="checkbox"]:checked + label span {
+    background:url(../../assets/img/checkbox-03.png);
+    background-size: 19px 19px;
+    background-repeat: no-repeat;
 }
-
-.squaredOne input[type=checkbox]:checked + label:after {
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-    filter: alpha(opacity=100);
-    opacity: 1;
 }
 </style>
+<script>
+    function hideChangeStatusOptions(){
+        document.getElementById("changeStatusOptions").style.display = "block";
+    }
+    
+</script>
 
 </html>
