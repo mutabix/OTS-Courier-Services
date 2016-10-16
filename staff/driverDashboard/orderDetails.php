@@ -1,6 +1,6 @@
 <?php
-    include("../dbTools/dbConnect.php");
-    //include("dashboardTools/checkAndValidateLogin.php");
+    include("../../dbTools/dbConnect.php");
+    include("checkDriverLogin.php");
 
     session_start();
 
@@ -10,7 +10,6 @@
     $getOrderDetails->bindParam(':shipmentId', $orderNumber);
     $getOrderDetails->execute();
     $orderDetail = $getOrderDetails->fetch();
-    echo $orderDetail['packageWeight'];
 
     $getCostToShip = $dbConnection->prepare("SELECT * FROM payments WHERE shipmentId = '1475992365' LIMIT 1");
     $getCostToShip->bindParam(':shipmentId', $orderNumber);
