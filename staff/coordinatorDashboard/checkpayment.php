@@ -1,6 +1,6 @@
 <?php
 
-    include("../dbTools/dbConnect.php");
+    include("../../dbTools/dbConnect.php");
 ?>
 
 <!doctype html>
@@ -29,9 +29,8 @@
             <div class="container-fluid">
               <?php
               //Below: Pagination code adapted by Reeve from http://stackoverflow.com/questions/3705318/simple-php-pagination-script
-              $total = $dbConnection->query('SELECT
-              COUNT(*)
-              FROM pickups')->fetchColumn();
+              $total = $dbConnection->query('SELECT COUNT(*)
+              FROM payments')->fetchColumn();
 
               $limit = 11;
 
@@ -54,68 +53,63 @@
               echo '<div id="paging"><p>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $total, ' results ', $nextlink, ' </p></div>';
               //Above: Pagination code adapted by Reeve from http://stackoverflow.com/questions/3705318/simple-php-pagination-script
 
+
               $result = $dbConnection->prepare('SELECT *
-              FROM pickups
+              FROM payments
               LIMIT :limit
               OFFSET :offset');
               $result->bindParam(':limit', $limit, PDO::PARAM_INT);
               $result->bindParam(':offset', $offset, PDO::PARAM_INT);
               $result->execute();
 
+
+
               ?>
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th><strong>Pickup ID</strong></th>
+							<th><strong>Tax Invoice ID</strong></th>
 							<th><strong>Shipment ID</strong></th>
-							<th><strong>Pickup Date & Time</strong></th>
-							<th><strong>Shipment Status</strong></th>
-							<th><strong>Payment ID</strong></th>
+							<th><strong>Ppayment Amount</strong></th>
 							<th><strong>Payment Type</strong></th>
-              <th><strong>Total Amount Due</strong></th>
+							<th><strong>Payment Status</strong></th>
+              <th><strong>Start Date</strong></th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
             <?php
-              foreach ($result as $pickup) {
+              foreach ($result as $payments) {
+                $conResult = $dbConnection->prepare('SELECT *
+                FROM connotes WHERE shippingId = :shippingId LIMIT 1');
+                $conResult->bindParam(':shippingId', $payments['shipmentId']);
+                try {
+                    $conResult->execute();
+                } catch(Exception $error) {
+                    echo 'Exception -> ';
+                    var_dump($error->getMessage());
+                }
+                $connoteNumbertest = $conResult->fetch();
+                $connoteNumber = $connoteNumber['connoteNumber'];
+
                 echo '<tr>';
                   echo '<td>';
-                    echo $pickup['pickupID'];
+                    echo $payments['taxInvoiceID'];
                   echo '</td>';
                   echo '<td>';
-                    echo $pickup['shipmentID'];
+                    echo $payments['shipmentId'];
                   echo '</td>';
                   echo '<td>';
-                    echo $pickup['pickupDateTime'];
+                    echo $payments['paymentAmount'];
                   echo '</td>';
                   echo '<td>';
-                  if ($pickup['shipmentStatus'] == 0)
-                    {
-                      echo 'En Route to Delivery';
-                    }else if ($pickup['shipmentStatus'] == 1)
-                      {
-                        echo 'En Route to Pickup';
-                      }else if ($pickup['shipmentStatus'] == 2)
-                        {
-                          echo 'En Route to Warehouse';
-                      }else if ($pickup['shipmentStatus'] == 3)
-                        {
-                          echo 'At Warehouse';
-                        }
-
-                  echo '</td>';
-                  echo '<td>';
-                    echo $pickup['paymentID'];
-                  echo '</td>';
-                  echo '<td>';
-                  if ($pickup['paymentType'] == 0)
+                  if ($payments['paymentType'] == 0)
                     {
                       echo 'Cash';
-                    }else if ($pickup['paymentType'] == 1)
+                    }else if ($payments['paymentType'] == 1)
                       {
                         echo 'EFTPOS';
-                      }else if ($pickup['paymentType'] == 2)
+                      }else if ($payments['paymentType'] == 2)
                         {
                           echo 'Cheque';
                         }else{
@@ -123,7 +117,24 @@
                           }
                   echo '</td>';
                   echo '<td>';
-                    echo $pickup['totalAmountDue'];
+                  if ($payments['paymentStatus'] == 0)
+                    {
+                      echo 'Pending';
+                    }else if ($payments['paymentType'] == 1)
+                      {
+                        echo 'Complete';
+                        }else{
+                          echo 'Unknown Payment Type';
+                          }
+                  echo '<td>';
+                  echo $payments['generatedDate'];
+                  echo '</td>';
+                  echo '<td>';
+                  echo '<a href="getTaxInvoice.php?taxinv='.$payments['taxInvoiceID'].'" class="btn btn-info" target="_blank" role="button">Tax Invoice</a>';
+                  echo '</td>';
+                  echo '<td>';
+                  echo $connoteNumber;
+                  echo '<a href="getConNote.php?connote='.$connoteNumber.'" class="btn btn-info" target="_blank" role="button">Consignment Note</a>';
                   echo '</td>';
                 echo '</tr>';
               }
