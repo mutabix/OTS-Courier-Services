@@ -53,6 +53,7 @@
               echo '<div id="paging"><p>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $total, ' results ', $nextlink, ' </p></div>';
               //Above: Pagination code adapted by Reeve from http://stackoverflow.com/questions/3705318/simple-php-pagination-script
 
+
               $result = $dbConnection->prepare('SELECT *
               FROM payments
               LIMIT :limit
@@ -60,6 +61,8 @@
               $result->bindParam(':limit', $limit, PDO::PARAM_INT);
               $result->bindParam(':offset', $offset, PDO::PARAM_INT);
               $result->execute();
+
+
 
               ?>
 				<table class="table table-hover">
@@ -77,6 +80,18 @@
 					<tbody>
             <?php
               foreach ($result as $payments) {
+                $conResult = $dbConnection->prepare('SELECT *
+                FROM connotes WHERE shippingId = :shippingId LIMIT 1');
+                $conResult->bindParam(':shippingId', $payments['shipmentId']);
+                try {
+                    $conResult->execute();
+                } catch(Exception $error) {
+                    echo 'Exception -> ';
+                    var_dump($error->getMessage());
+                }
+                $connoteNumbertest = $conResult->fetch();
+                $connoteNumber = $connoteNumber['connoteNumber'];
+
                 echo '<tr>';
                   echo '<td>';
                     echo $payments['taxInvoiceID'];
@@ -118,7 +133,8 @@
                   echo '<a href="getTaxInvoice.php?taxinv='.$payments['taxInvoiceID'].'" class="btn btn-info" target="_blank" role="button">Tax Invoice</a>';
                   echo '</td>';
                   echo '<td>';
-                  echo '<a href="getConNote.php?connote='.$payments["shipmentId"].'" class="btn btn-info" target="_blank" role="button">Consignment Note</a>';
+                  echo $connoteNumber;
+                  echo '<a href="getConNote.php?connote='.$connoteNumber.'" class="btn btn-info" target="_blank" role="button">Consignment Note</a>';
                   echo '</td>';
                 echo '</tr>';
               }
