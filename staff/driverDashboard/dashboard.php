@@ -3,7 +3,11 @@
     include("../../dbTools/dbConnect.php");
     include("checkDriverLogin.php");
 
+	
+	//Pull logged in user's credentials
     $employeeID = $_SESSION['employeeID'];
+	echo $_SESSION['employeeID'];
+	$employeeID = 1;
 
     $getShipmentDetails = $dbConnection->prepare("SELECT * FROM shipments WHERE assignedDriver = :assignedDriver");
     $getShipmentDetails->bindParam(':assignedDriver', $employeeID);
