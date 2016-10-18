@@ -1,5 +1,13 @@
 <?php
     include("../../dbTools/dbConnect.php");
+	
+	include("checkDriverLogin.php");
+
+	
+	//Pull logged in user's credentials
+    $employeeID = $_SESSION['employeeID'];
+	echo $_SESSION['employeeID'];
+	$employeeID = 1;
 ?>
 
 <!doctype html>
@@ -31,7 +39,8 @@
 						//Below: Pagination code adapted by Reeve from http://stackoverflow.com/questions/3705318/simple-php-pagination-script
 						$total = $dbConnection->query('SELECT
 						COUNT(*)
-						FROM customers')->fetchColumn();
+						FROM deliveries
+						WHERE assignedDriver = "'.$employeeID.'"')->fetchColumn();
 						
 						$limit = 8;
 						
@@ -58,6 +67,7 @@
 						
 						$deliveries = $dbConnection->prepare('SELECT deliveryID, shipmentStatus, deliveryDueBy, deliveryAddress, deliveryAddressPostcode, assignedDriver, priority
 						FROM deliveries
+						WHERE assignedDriver = "'.$employeeID.'"
 						ORDER BY deliveryID
 						LIMIT :limit
 						OFFSET :offset');
