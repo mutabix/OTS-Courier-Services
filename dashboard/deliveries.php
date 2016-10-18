@@ -50,9 +50,6 @@
 				$nextlink = ($page < $pages) ? '<a href="?page=' . ($page + 1) . '" title="Next page">&rsaquo;</a> <a href="?page=' . $pages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
 				echo '<div id="paging"><p>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $total, ' results ', $nextlink, ' </p></div>';
 				
-				
-				
-				
 				$result = $dbConnection->prepare('SELECT deliveryID, shipmentID, shipmentStatus, deliveryDueBy, deliveryAddress, deliveryAddressPostcode, priority
 				FROM deliveries
 				ORDER BY deliveryAddressPostcode
@@ -61,10 +58,6 @@
 				$result->bindParam(':limit', $limit, PDO::PARAM_INT);
 				$result->bindParam(':offset', $offset, PDO::PARAM_INT);
 				$result->execute();
-				
-				
-
-					
 					
 				?>
 				<table class="table table-hover">
