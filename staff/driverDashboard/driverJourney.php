@@ -5,7 +5,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Employee Dashboard</title>
+	<title>Driver Dashboard</title>
 
     <?php include("includes/styling_scripts/meta.html"); ?>
     <?php include("includes/styling_scripts/css.html"); ?>
@@ -57,6 +57,9 @@
 					<div class="col-md-6">
 					<?php						
 							function myFunction()
+
+							echo '<button onclick="myFunction()" return="myFunction()" class="btn btn-info">start</a>';
+							echo '<button onclick="myFunction()" return="myFunction()" class="btn btn-info">end</a>';
 							{
 								$result = $dbConnection->prepare('INSERT INTO driverJourney (employeeID, startTime, endTime)
 								
@@ -81,12 +84,40 @@
 
 
 							}	
+
+{
+								$result = $dbConnection->prepare('INSERT INTO driverJourney (employeeID, startTime, endTime)
+								
+								VALUES (:employeeID, NOW(), NOW())');
+
+								
+								
+
+								
+								$NOW = "startTime";
+								
+								
+		
+								try {
+            $getNOW->execute();
+
+        } catch(Exception $error) {
+            echo 'Exception -> ';
+            var_dump($error->getMessage());
+        }
+						$NOW = $getNOW->Fetch();
+
+
+							}	
+							
 							echo '<button onclick="myFunction()" return="myFunction()" class="btn btn-info">start</a>';
 							echo '<button onclick="myFunction()" return="myFunction()" class="btn btn-info">end</a>';
 
 						?>
 
-</div>
+
+                                                           
+                                                     
 				</div>
 
 
