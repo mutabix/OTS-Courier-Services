@@ -58,19 +58,26 @@
 					<?php						
 							function myFunction()
 							{
-								$result = $dbConnection->prepare('INSERT INTO employees (employeeID)
-								VALUES (NULL :employeeID, :start, :end)');
+								$result = $dbConnection->prepare('INSERT INTO driverJourney (employeeID, startTime, endTime)
+								
+								VALUES (:employeeID, NOW(), NOW())');
 
-								$result->bindParam('employee ID', $employeeID);
+								$result->bindParam(':employeeID', $employeeID);
 								
 
 								
 								$employeeID = "1";
-								$employeeID = "Test";
 								
+								
+		
+								try {
+            $getemployeeID->execute();
 
-								
-								$result->execute();
+        } catch(Exception $error) {
+            echo 'Exception -> ';
+            var_dump($error->getMessage());
+        }
+						$employeeID = $getemployeeID->Fetch();
 
 
 							}	
