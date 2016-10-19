@@ -37,6 +37,18 @@
 
     <div class="main-panel">
         <?php 
+			if(isset($_POST['deleteTrue']))
+				{
+					$result = $dbConnection->prepare('DELETE
+					FROM customers
+					WHERE customerID = '.$_GET["id"].'');
+					$result->execute();
+						
+					echo '<script type="text/javascript">
+					window.location = "contacts.php"
+					</script>';					
+				}
+		
 			$customerData = $dbConnection->prepare('SELECT customerID, companyName, firstName, lastName, email, mobileNumber, addressLine1, addressLine2, suburb, state, postcode
 			FROM customers
 			WHERE customerID = '.$_GET["id"].'');
@@ -132,7 +144,14 @@
                 </div>
 
 
-                <h5>Edit Contact</h5>
+                					<?php
+						
+						echo '<form method="POST">';
+						echo 'Are you sure you wish to delete this contact: '.$customer["firstName"].' '.$customer["lastName"].'? ';
+						echo '<input type="submit" name="deleteTrue" class="btn btn-info" role="button" value="Yes"> ';
+						echo '<input type="submit" name="deleteFalse" class="btn btn-info" role="button" value="No">';
+						echo '</form>';
+					?>
 
 
             </div>

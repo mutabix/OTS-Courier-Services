@@ -14,7 +14,7 @@
 			var_dump($error->getMessage());
 		}
 		$updateDriver = $dbConnection->prepare("UPDATE deliveries SET assignedDriver=:text WHERE deliveryID=:id");
-		$updateDriver->bindParam(':text', $assignmentFinal);
+		$updateDriver->bindParam(':text', $assignment);
 		$updateDriver->bindParam(':id', $_POST["packageNum"]);
 		try {
 		$updateDriver->execute();
@@ -37,7 +37,7 @@
 			var_dump($error->getMessage());
 		}
 		$updateDriver = $dbConnection->prepare("UPDATE deliveries SET assignedDriver=:text WHERE deliveryID=:id");
-		$updateDriver->bindParam(':text', $assignmentFinal);
+		$updateDriver->bindParam(':text', $assignment);
 		$updateDriver->bindParam(':id', $_POST["packageNum"]);
 		try {
 		$updateDriver->execute();

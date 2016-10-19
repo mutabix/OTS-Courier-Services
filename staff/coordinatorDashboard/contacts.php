@@ -114,7 +114,7 @@
 								if(true) //(User is owner)
 								{
 									echo'<td>';
-										echo '<a href="delete.php?id='.$customer["customerID"].'" class="btn btn-info" role="button">Delete</a>';
+										echo '<a href="deleteContact.php?id='.$customer["customerID"].'" class="btn btn-info" role="button">Delete</a>';
 									echo '</td>';
 								}
 							echo '</tr>';
