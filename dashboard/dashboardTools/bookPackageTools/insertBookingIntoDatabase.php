@@ -209,6 +209,6 @@ $_SESSION['connoteNumber'] = $retrievedConnoteNumber;
 $_SESSION['invoiceDate'] = date('d/m/Y');
 
 
-//header("Location: bookingconfirmation.php");
-//exit();
+header("Location: bookingconfirmation.php");
+exit();
 ?>

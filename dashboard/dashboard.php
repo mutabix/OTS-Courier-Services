@@ -1,9 +1,10 @@
 <?php
     session_start();
     include("../dbTools/dbConnect.php");
-    include("../dbTools/checkLogin.php");
+    include("checkLogin.php");
+    
     $email = $_SESSION['username'];
-    $getTrackingNumbers = $dbConnection->prepare("SELECT trackingNumber FROM tracking WHERE customer = :customerEmail");
+    $getTrackingNumbers = $dbConnection->prepare("SELECT trackingNumber FROM tracking WHERE customer = :customerEmail LIMIT 5");
     $getTrackingNumbers->bindParam(':customerEmail', $email);
     $getTrackingNumbers->execute();
     $count = 0;
