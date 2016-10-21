@@ -22,10 +22,12 @@
         $retrievedUsername = $login['email'];
         $retrievedPassword = $login['password'];
         $employeeStatus = $login['employeeStatus'];
+        $employeeID = $login['employeeID'];
         //Double Check Login
         if($loginEmail == $retrievedUsername && $loginPassword == $retrievedPassword){
                 $_SESSION['username'] = $loginEmail; //Current session username
                 $_SESSION['loginSessionId'] = mt_rand();
+                $_SESSION['employeeID'] = $employeeID;
                 $credentialsMatch = true;
             }
         else{
@@ -62,8 +64,11 @@
                     require ("dashboardTools/loginTools/login-form.php");
                 } else {
                     if($employeeStatus == 0){ //Driver
+                        $_SESSION['employeeStatus'] = 0;
                         header("Location: driverDashboard/dashboard.php");
+
                     } else if($employeeStatus == 1){
+                        $_SESSION['employeeStatus'] = 1;
                         header("Location: coordinatorDashboard/dashboard.php");
                     }
                     

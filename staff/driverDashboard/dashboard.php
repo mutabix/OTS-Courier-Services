@@ -1,13 +1,13 @@
 <?php
     session_start();
     include("../../dbTools/dbConnect.php");
-    include("checkDriverLogin.php");
+    include("checkLogin.php");
 
 	
 	//Pull logged in user's credentials
     $employeeID = $_SESSION['employeeID'];
-	echo $_SESSION['employeeID'];
-	$employeeID = 1;
+	//echo $_SESSION['employeeID'];
+	//$employeeID = 1;
 
     $getShipmentDetails = $dbConnection->prepare("SELECT * FROM shipments WHERE assignedDriver = :assignedDriver");
     $getShipmentDetails->bindParam(':assignedDriver', $employeeID);
@@ -43,7 +43,6 @@
     $notificationResult->bindParam(':email', $_SESSION['username']);
     try {
         $notificationResult->execute();
-
     } catch(Exception $error) {
         echo 'Exception -> ';
         var_dump($error->getMessage());

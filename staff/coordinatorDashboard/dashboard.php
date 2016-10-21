@@ -1,66 +1,54 @@
 <?php
     session_start();
     include("../../dbTools/dbConnect.php");
-    include("../../dbTools/checkLogin.php");
+    include("checkLogin.php");
 
-    $email = $_SESSION['username'];
+    $email = $_SESSION['username'];  
 
-    $getTrackingNumbers = $dbConnection->prepare("SELECT trackingNumber FROM tracking WHERE customer = :customerEmail");
-    $getTrackingNumbers->bindParam(':customerEmail', $email);
-    $getTrackingNumbers->execute();
+    $getShipments = $dbConnection->prepare("SELECT shipmentStatusCode FROM shipments");
 
-    $count = 0;
-    $pendingCount = 0;
-    $readyCount = 0;
-    $processingCount = 0;
-    $deliveryCount = 0;
-
-    $trackingNumber = array();
-    $trackingStatus = array();
-
-
-    foreach ($getTrackingNumbers as $trackingNumberFetch){
-        $trackingNumber[$count] = $trackingNumberFetch['trackingNumber'];
-        $count++;
+    try {
+        $getShipments->execute();
+    } catch(Exception $error) {
+        echo 'Exception -> ';
+        var_dump($error->getMessage());
     }
 
-    for ($i=0; $i<count($trackingNumber); $i++){
-        $currentTrackingNumber = $trackingNumber[$i];
-        $getTrackingDetails = $dbConnection->prepare("SELECT shipmentStatusCode FROM shipments WHERE trackingNumber = :trackingNumber");
-        $getTrackingDetails->bindParam(':trackingNumber', $currentTrackingNumber);
+    $pendingCount = 0;
+    $processingCount = 0;
+    $progressCount = 0;
 
-        try {
-            $getTrackingDetails->execute();
-
-        } catch(Exception $error) {
-            echo 'Exception -> ';
-            var_dump($error->getMessage());
+    foreach ($getShipments as $shippingDetail) {
+        //$shipmentIDList[$i] = $shippingDetail['trackingNumber'];
+        //$shipmentIDListStatus[$i] = $shippingDetail['shipmentStatusCode'];
+        //$shipmentStatusCode = $shippingDetail['shipmentStatusCode'];
+        if ($shippingDetail['shipmentStatusCode'] == 0){
+            $pendingCount++;
+        } else if ($shippingDetail['shipmentStatusCode'] == 3){
+            $processingCount++;
         }
 
-        $shipmentStatusCodeFetch = $getTrackingDetails->fetch();
-        $shipmentStatusCode = $shipmentStatusCodeFetch['shipmentStatusCode'];
-
-        if($shipmentStatusCode == 0){
-            $pendingCount++;
-            $trackingStatus[$count] = "Pending";
-        } else if ($shipmentStatusCode == 1){
-            $readyCount++;
-            $trackingStatus[$count] = "Ready for Pickup";
-        } else if ($shipmentStatusCode == 2){
-            $processingCount++;
-            $trackingStatus[$count] = "Processing";
-        } else if ($shipmentStatusCode == 3){
-            $deliveryCount++;
-            $trackingStatus[$count] = "Ready for Delivery";
-        } else if ($shipmentStatusCode == 4){
-            $trackingStatus[$count] = "Delivered";
-        } 
+        if($shippingDetail['shipmentStatusCode'] != 4){
+            $progressCount++;
+        }
     }
-	
-	$notificationResult = $dbConnection->prepare('SELECT * FROM notifications WHERE notificationFor = :email ORDER BY notificationDate DESC');
-    $notificationResult->bindParam(':email', $_SESSION['username']);
-    $notificationResult->execute();
 
+    $getOrders = $dbConnection->prepare("SELECT * FROM shipments WHERE shipmentStatusCode = 0 OR shipmentStatusCode = 3 LIMIT 7");
+    try {
+        $getOrders->execute();
+    } catch(Exception $error) {
+        echo 'Exception -> ';
+        var_dump($error->getMessage());
+    }
+
+    $notificationResult = $dbConnection->prepare('SELECT * FROM notifications WHERE notificationFor = :email ORDER BY notificationDate DESC LIMIT 5');
+    $notificationResult->bindParam(':email', $_SESSION['username']);
+    try {
+        $notificationResult->execute();
+    } catch(Exception $error) {
+        echo 'Exception -> ';
+        var_dump($error->getMessage());
+    }
 ?>
 
 <!doctype html>
@@ -87,10 +75,10 @@
         <div class="content">
             <div class="container-fluid">
                 <div class='row' style='text-align: center'>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Packages Pending</h4>
+                                <h4 class="title">Pickups to Assign</h4>
                             </div>
                             <div class="content">
                             <?php echo "<h4>".$pendingCount."</h4>" ?>
@@ -98,129 +86,49 @@
                         </div>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Ready for Pickup</h4>
+                                <h4 class="title">Deliveries to Assign</h4>
                             </div>
                             <div class="content">
-                                <h4>0</h4>
+                                <?php echo "<h4>".$processingCount."</h4>" ?>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Packages Processing</h4>
+                                <h4 class="title">Orders in Progress</h4>
                             </div>
                             <div class="content">
-                                <h4>0</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Ready for Delivery</h4>
-                            </div>
-                            <div class="content">
-                                <h4>0</h4>
+                                <?php echo "<h4>".$progressCount."</h4>" ?>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class='row'>
-                    <div class="col-md-6">
-                        <div class="card ">
+                    <a href="#"><div class="col-md-12">
+                        <div class="card">
                             <div class="header">
-                                <h4 class="title">Saved Tracking Numbers</h4>
+                                <h4 class="title">Orders Requiring Action</h4>
                             </div>
-                            <div class="content">
-                                <div class="table-full-width">
-                                    <table class="table">
-                                        <tbody>
-                                        <?php
-										$total = count($trackingNumber);
-										$limit = 5;
-										
-										$pages = ceil($total / $limit);
-										
-										
-										$page = min($pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array
-										('options' => array
-											('default' => 1,
-											 'min_range' => 1,
-											),
-										)));
-										
-										$offset = ($page - 1) * $limit;
-										
-										$start = $offset + 1;
-										$end = min(($offset + $limit), $total);
-										
-										$prevlink = ($page > 1) ? '<a href="?page=1" title="First page">&laquo;</a> <a href="?page=' . ($page - 1) . '" title="Previous page">&lsaquo;</a>' : '<span class="disabled">&laquo;</span> <span class="disabled">&lsaquo;</span>';
-										$nextlink = ($page < $pages) ? '<a href="?page=' . ($page + 1) . '" title="Next page">&rsaquo;</a> <a href="?page=' . $pages . '" title="Last page">&raquo;</a>' : '<span class="disabled">&rsaquo;</span> <span class="disabled">&raquo;</span>';
-										echo '<div id="paging"><p>', $prevlink, ' Page ', $page, ' of ', $pages, ' pages, displaying ', $start, '-', $end, ' of ', $total, ' results ', $nextlink, ' </p></div>';
-										
-										$result = $dbConnection->prepare('SELECT trackingNumber
-										FROM tracking
-										ORDER BY trackingNumber
-										LIMIT :limit
-										OFFSET :offset');
-										$result->bindParam(':limit', $limit, PDO::PARAM_INT);
-										$result->bindParam(':offset', $offset, PDO::PARAM_INT);
-										$result->execute();	
-										
-										foreach ($result as $trackingNumber)
-										{
-											echo "<tr>";
-												echo "<td>";
-												echo $trackingNumber['trackingNumber'];
-												echo "</td>";
-												echo "<td>";
-												echo "Pending";
-												echo "</td>";
-                                                echo "<td class='td-actions text-right'>";
-													echo "<button type='button' rel='tooltip' title='Edit Task' class='btn btn-info btn-simple btn-xs'>";
-														echo "<i class='fa fa-edit'></i>";
-													echo "</button>";
-												echo "</td>";
-                                            echo "</tr>";
-										}
-										
-                                          /*  for ($i=0; $i<count($trackingNumber); $i++){
-                                                echo "<tr>";
-                                                    echo "<td>";
-                                                    echo $trackingNumber[$i];
-                                                    echo "</td>";
-                                                    echo "<td>";
-                                                    echo "Pending"; //Temp code --> for testing
-                                                    echo "</td>";
-                                                    echo "<td class='td-actions text-right'>";
-                                                        echo "<button type='button' rel='tooltip' title='Edit Task' class='btn btn-info btn-simple btn-xs'>";
-                                                            echo "<i class='fa fa-edit'></i>";
-                                                        echo "</button>";
-                                                    echo "</td>";
-                                                echo "</tr>";
-                                            }*/
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                             <div class="content">
+                                <h5>You Have Orders Requiring Action Please Click on the Card to Modify</h5>
                             </div>
                         </div>
-                    </div>
+                    </div></a>
+                </div>
 
-                    <div class="col-md-6">
-                        <div class="card ">
+                <div class='row'>
+                    <div class="col-md-12">
+                        <div class="card">
                             <div class="header">
                                 <h4 class="title">Notifications</h4>
                             </div>
-                            <div class="content">
-                                <div class="table-full-width">
+                            <div class="content">                                
+                            <div class="table-full-width">
                                     <table class="table">
 										<thead>
 											<tr>
@@ -247,9 +155,11 @@
 													echo '</td>';
 													echo '</tr>';
 												}
-										echo '</tbody>
-									</table>';
-									?>
+									       ?>
+
+                                           <tr><td colspan="3" style="text-align: right;"><a href="notifications.php">See All Notifications</a></td></tr>
+                                    </tbody>
+                                    </table>'
                                 </div>
                             </div>
                         </div>
