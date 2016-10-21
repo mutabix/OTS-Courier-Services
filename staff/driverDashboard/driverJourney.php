@@ -56,10 +56,11 @@
 							<div class="row">
 					<div class="col-md-6">
 					<?php						
-							function myFunction()
 
 							echo '<button onclick="myFunction()" return="myFunction()" class="btn btn-info">start</a>';
 							echo '<button onclick="myFunction()" return="myFunction()" class="btn btn-info">end</a>';
+
+							function myFunction()
 							{
 								$result = $dbConnection->prepare('INSERT INTO driverJourney (employeeID, startTime, endTime)
 								
@@ -108,10 +109,11 @@
 						$NOW = $getNOW->Fetch();
 
 
-							}	
-							
-							echo '<button onclick="myFunction()" return="myFunction()" class="btn btn-info">start</a>';
-							echo '<button onclick="myFunction()" return="myFunction()" class="btn btn-info">end</a>';
+							}
+							//This code doesn't seem to make any difference
+							//echo '<button onclick="myFunction()" return="myFunction()" class="btn btn-info">start</a>';
+							//echo '<button onclick="myFunction()" return="myFunction()" class="btn btn-info">end</a>';
+
 
 						?>
 
