@@ -61,9 +61,7 @@
               $result->bindParam(':limit', $limit, PDO::PARAM_INT);
               $result->bindParam(':offset', $offset, PDO::PARAM_INT);
               $result->execute();
-
-
-
+              
               ?>
 				<table class="table table-hover">
 					<thead>
