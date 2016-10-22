@@ -61,14 +61,14 @@
               $result->bindParam(':limit', $limit, PDO::PARAM_INT);
               $result->bindParam(':offset', $offset, PDO::PARAM_INT);
               $result->execute();
-              
+
               ?>
 				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th><strong>Tax Invoice ID</strong></th>
 							<th><strong>Shipment ID</strong></th>
-							<th><strong>Ppayment Amount</strong></th>
+							<th><strong>Payment Amount</strong></th>
 							<th><strong>Payment Type</strong></th>
 							<th><strong>Payment Status</strong></th>
               <th><strong>Start Date</strong></th>
