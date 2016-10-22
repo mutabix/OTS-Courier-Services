@@ -1,6 +1,7 @@
 
 <?php
     include("dbTools/dbConnect.php");
+	include("checkLogin.php");
 
 
     $trackingNumber = $_POST["trackingNumber"];

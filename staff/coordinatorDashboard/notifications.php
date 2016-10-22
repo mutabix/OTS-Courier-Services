@@ -1,6 +1,7 @@
 <?php
     session_start();
     include("../../dbTools/dbConnect.php");
+	include("checkLogin.php");
 
     $notificationResult = $dbConnection->prepare('SELECT * FROM notifications WHERE notificationFor = :email ORDER BY notificationDate DESC');
     $notificationResult->bindParam(':email', $_SESSION['username']);
