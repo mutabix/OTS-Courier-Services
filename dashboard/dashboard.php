@@ -248,16 +248,16 @@
                                                     echo $trackingNumber[$i];
                                                     echo "</td>";
                                                     echo "<td>";
-                                                    echo $trackingStatus[$i]; //Temp code --> for testing
+                                                    echo $trackingStatus[$i];
                                                     echo "</td>";
                                                     echo "<td class='td-actions text-right'>";
-                                                        echo "<button type='button' rel='tooltip' title='Edit Task' class='btn btn-info btn-simple btn-xs'>";
+                                                        echo "<button type='button' rel='tooltip' title='Edit Task' class='btn btn-info btn-simple btn-xs href='#'>";
                                                             echo "<i class='fa fa-edit'></i>";
                                                         echo "</button>";
                                                     echo "</td>";
                                                 echo "</tr>";
                                             }
-                                            ?>
+                                        ?>
 
                                             <tr><td colspan="3" style='text-align: right;'><a href='savedTrackingNumbers.php'>See My Saved Tracking Numbers</a></td></tr>
                                         </tbody>
