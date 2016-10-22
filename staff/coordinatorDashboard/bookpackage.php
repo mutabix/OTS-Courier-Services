@@ -1,41 +1,9 @@
 <?php
     session_start();
     include("../../dbTools/dbConnect.php");
-    include("../../dbTools/checkLogin.php");
-    
-    //include("bookPackageTools/inputSenderData.php");
+    include("checkLogin.php");
 
-    //session_start();
-    //$_SESSION['webaddress'] = "bookpackage.php";
-    //include("../../dbTools/checkLogin.php");
 
-    //Set variables
-    //include ("dashboardTools/bookPackageTools/assignBookingVariables.php");
-
-    if(!(isset($_SESSION['senderDetails'] [0]))){
-        $getCustomerDetails = $dbConnection->prepare("SELECT * FROM customers WHERE email = :email");
-        $getCustomerDetails->bindParam(':email', $_SESSION['username']);
-
-        try {
-            $getCustomerDetails->execute();
-        } catch(Exception $error) {
-            echo 'Exception -> ';
-            var_dump($error->getMessage());
-        }
-
-        $customerDetails = $getCustomerDetails->fetch();
-        //$customerDetails['companyName'];
-
-        /*$_SESSION['senderDetails'] [0] = $customerDetails['companyName'];
-        $_SESSION['senderDetails'] [1] = $customerDetails['firstName'];
-        $_SESSION['senderDetails'] [2] = $customerDetails['lastName'];
-        $_SESSION['senderDetails'] [3] = $customerDetails['email'];
-        $_SESSION['senderDetails'] [4] = $customerDetails['mobileNumber'];
-        $_SESSION['senderDetails'] [5] = $customerDetails['addressLine1'];
-        $_SESSION['senderDetails'] [6] = $customerDetails['addressLine2'];
-        $_SESSION['senderDetails'] [7] = $customerDetails['suburb'];
-        $_SESSION['senderDetails'] [9] = $customerDetails['postcode'];*/
-    }
 ?>
 
 <!doctype html>
@@ -189,7 +157,7 @@
                             exit();
                         }
                     } else {
-                        include ("includes/tools/bookingform.php");
+                        include ("../../dashboard/dashboardTools/bookPackageTools/bookingform.php");
                     }
                 ?>
 
