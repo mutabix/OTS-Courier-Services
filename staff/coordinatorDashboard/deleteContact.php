@@ -1,22 +1,7 @@
 <?php
     session_start();
     include("../../dbTools/dbConnect.php");
-    //include("../dbTools/checkLogin.php");
-
-
-    //$email = $_SESSION['username'];
-
-
-    //$getAccountDetails = $dbConnection->prepare("SELECT * FROM customers WHERE email = :email");
-    //$getAccountDetails->bindParam(':email', $email);
-
-    /*try {
-        $getAccountDetails->execute();
-
-    } catch(Exception $error) {
-        echo 'Exception -> ';
-        var_dump($error->getMessage());
-    }*/
+    include("checkLogin.php");
 
 ?>
 
