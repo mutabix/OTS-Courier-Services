@@ -144,7 +144,7 @@
                             $errorCount++;
                         }*/
 
-                        include ("../../dashboard/dashboardTools/bookPackageTools/errorPopupNotification.php");
+                        include ("dashboardTools/bookPackageTools/errorPopupNotification.php");
                     
 
                         if ($errorsExist) {
@@ -157,7 +157,7 @@
                             exit();
                         }
                     } else {
-                        include ("../../dashboard/dashboardTools/bookPackageTools/bookingform.php");
+                        include ("dashboardTools/bookPackageTools/bookingform.php");
                     }
                 ?>
 
