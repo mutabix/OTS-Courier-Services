@@ -1,5 +1,5 @@
 <?php
-    include("../dbTools/dbConnect.php");
+    include("../../dbTools/dbConnect.php");
 ?>
 
 <!doctype html>
@@ -15,7 +15,7 @@
 <body>
 
 <div class="wrapper">
-    <?php include("includes/employee/sidebar.html"); ?>
+    <?php include("includes/sidebar.html"); ?>
 
     <div class="main-panel">
         <?php include("includes/navbar-mobile-open.html"); ?>
