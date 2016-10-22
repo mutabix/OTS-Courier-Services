@@ -148,7 +148,7 @@
                     
 
                         if ($errorsExist) {
-                            include ("../../dashboard/dashboardTools/bookPackageTools/bookingform.php");
+                            include ("dashboardTools/bookPackageTools/bookingform.php");
 
                         } else {
 
