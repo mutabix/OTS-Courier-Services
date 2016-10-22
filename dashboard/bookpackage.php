@@ -34,6 +34,7 @@
         $_SESSION['senderDetails'] [5] = $customerDetails['addressLine1'];
         $_SESSION['senderDetails'] [6] = $customerDetails['addressLine2'];
         $_SESSION['senderDetails'] [7] = $customerDetails['suburb'];
+        $_SESSION['senderDetails'] [8] = $customerDetails['state'];
         $_SESSION['senderDetails'] [9] = $customerDetails['postcode'];
     }
 ?>

@@ -67,19 +67,23 @@
                 <div class='row'>
                     <div class='col-md-5'>
                         <div class='form-group'>
+
+                            <?php echo "<script> var postcode = '".$_SESSION['senderDetails'] [8]."'; </script>"; ?>
+
                             <label for='senderState'>State / Territory</label>
                             <select class='form-control' id='senderState' name='senderState'>
                                 <option selected disabled>Select State / Territory</option>
-                                <option>QLD</option>
-                                <option>NSW</option>
-                                <option>ACT</option>
-                                <option>VIC</option>
-                                <option>SA</option>
-                                <option>NT</option>
-                                <option>WA</option>
-                                <option disabled>TAS</option>
+                                <option id='QLD'>QLD</option>
+                                <option id='NSW'>NSW</option>
+                                <option id='ACT'>ACT</option>
+                                <option id='VIC'>VIC</option>
+                                <option id='SA'>SA</option>
+                                <option id='NT'>NT</option>
+                                <option id='WA'>WA</option>
+                                <option id='TAS' disabled>TAS</option>
                             </select>
                         </div>
+                        <script>document.getElementById(postcode).selected = true</script>
                     </div>
                     <div class='col-md-5'>
                         <div class='form-group'>

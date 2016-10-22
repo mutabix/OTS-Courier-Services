@@ -64,7 +64,7 @@
     }
 
     //My Bookings Data
-    $myBookingsData = $dbConnection->prepare('SELECT * FROM bookings WHERE senderEmail = :email ORDER BY bookingMadeOn DESC LIMIT 5');
+    $myBookingsData = $dbConnection->prepare('SELECT * FROM bookings WHERE senderEmail = :email ORDER BY bookingMadeOn DESC');
     $myBookingsData->bindParam(':email', $email);
     try {
         $myBookingsData->execute();
@@ -162,8 +162,12 @@
                                                 <td></td>
                                             </tr>
                                             <?php
+                                            $orderCount = 0;
                                             foreach ($myBookingsData as $booking) {
-                                                
+                                                $orderCount++;
+                                                if($orderCount > 5){
+                                                    break;
+                                                }
                                                 $shipmentStatusRetrieval = $dbConnection->prepare('SELECT * FROM shipments WHERE trackingNumber = :trackingNumber LIMIT 1');
                                                 $shipmentStatusRetrieval->bindParam(':trackingNumber', $booking['shipmentId']);
                                                 try {
@@ -220,6 +224,7 @@
 
                                                 echo '</tr>';
                                             }
+
                                                 
                                             ?>
 
@@ -251,9 +256,9 @@
                                                     echo $trackingStatus[$i];
                                                     echo "</td>";
                                                     echo "<td class='td-actions text-right'>";
-                                                        echo "<button type='button' rel='tooltip' title='Edit Task' class='btn btn-info btn-simple btn-xs href='#'>";
+                                                        echo "<a href='tracking.php?id=".$trackingNumber[$i]."'><button type='submit' rel='tooltip' title='Edit Task' class='btn btn-info btn-simple btn-xs'>";
                                                             echo "<i class='fa fa-edit'></i>";
-                                                        echo "</button>";
+                                                        echo "</button></a>";
                                                     echo "</td>";
                                                 echo "</tr>";
                                             }
