@@ -2,8 +2,9 @@
     session_start();
     include("../dbTools/dbConnect.php");
     include("checkLogin.php");
-    
-    $trackingNumber = $_GET['id'];
+
+    $trackingNumber = $_POST["trackingNumber"];
+    $_POST["trackingNumber"] = "";
 
     $trackingNumberExists;
 
@@ -38,6 +39,7 @@
         }
     }
     
+    
 ?>
 
 <!doctype html>
@@ -57,13 +59,40 @@
 
     <div class="main-panel">
         <?php include("includes/navbar-mobile-open.html"); ?>
-        <a class="navbar-brand" href="#">Track Package: <?php echo $_GET['id']; ?></a>
+        <a class="navbar-brand" href="#">Track Package</a>
         <?php include("includes/navbar-mobile-close.html"); ?>
 
 
         <div class="content">
             <div class="container-fluid">
                 <div class='col-md-12'>
+                    <div id="tracking-details">
+
+                    <?php
+                        if(isset($trackingNumber)) {
+                            if(strlen((string)$trackingNumber < 2)){
+                                echo "Tracking Number Not Valid";
+                                include("trackform.php");
+
+                            } else if (!$trackingNumberExists){
+                                echo "Tracking Number Does Not Exist";
+                                include("trackform.php");
+
+                            } else {
+                                include("trackform.php");
+                            }
+
+                        } else {
+                            include("trackform.php");
+                        }
+                    ?>
+
+                    </div>
+                </div>
+
+                    <br>
+
+                    <div class='col-md-12' style='text-align: center;'>
                         <br>
                         <br>
 
@@ -278,17 +307,31 @@
                                             echo "</div>";
                                         }
                                     }
+
+                                    
                                 ?>
+                                
+                                <!--
+                                FONT AWESOME ICONS 
+                                PENDING - ellipsis-h or spinner
+                                ENROUTE TO PICKUP - truck
+                                WITH DRIVER FOR PROCESSING - truck
+                                PROCESSING @ FACILITY - cogs
+                                WITH DRIVER FOR DELIVERY - truck
+                            -->
+                                
+                                
                             </div>
                         </div>
-                    </div>
 
-                    <div class='row'>
-                    <?php echo "<a href='deleteFromAccount.php?id=".$trackingNumber."'><button type='submit' class='btn btn-info btn-fill pull-left' name='submitTrack' style='margin-top: 50px'>Remove Tracking Number From My Account</button></a>" ?>
                     </div>
-                    <div class='row'>
-                    <?php echo "<a href='saveToAccount.php?id=".$trackingNumber."'><button type='submit' class='btn btn-info btn-fill pull-left' name='submitTrack' style='margin-top: 50px'>Save Tracking Number To My Account</button></a>" ?>
-                    </div>
+                    <?php
+                        if(isset($trackingNumber)){
+                            echo "<div class='row'>";
+                            echo "<a href='saveToAccount.php?id=".$trackingNumber."'><button type='submit' class='btn btn-info btn-fill pull-left' name='submitTrack' style='margin-top: 50px'>Save Tracking Number To My Account</button></a>";
+                            echo "</div>";
+                        }
+                    ?>
             </div>
         </div>
 

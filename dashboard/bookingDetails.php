@@ -10,13 +10,14 @@
     $getOrderDetails->bindParam(':shipmentId', $orderNumber);
     $getOrderDetails->execute();
     $orderDetail = $getOrderDetails->fetch();
-    echo $orderDetail['packageWeight'];
+    //echo $orderDetail['packageWeight'];
 
-    $getCostToShip = $dbConnection->prepare("SELECT * FROM payments WHERE shipmentId = '1475992365' LIMIT 1");
+    $getCostToShip = $dbConnection->prepare("SELECT * FROM payments WHERE shipmentId = :shipmentId LIMIT 1");
     $getCostToShip->bindParam(':shipmentId', $orderNumber);
     $getCostToShip->execute();
     $costToShip = $getCostToShip->fetch();
     $_SESSION['taxInvoiceNumber'] = $costToShip['taxInvoiceID'];
+    //echo $costToShip['taxInvoiceID'];
 
     $getTrackingDetails = $dbConnection->prepare("SELECT * FROM shipments WHERE trackingNumber = :shipmentId LIMIT 1");
     $getTrackingDetails->bindParam(':shipmentId', $orderNumber);
