@@ -2,6 +2,16 @@
     session_start();
     include("../dbTools/dbConnect.php");
 
+    $email = $_SESSION['username'];
+    $getTrackingNumbers = $dbConnection->prepare("SELECT trackingNumber FROM tracking WHERE customer = :customerEmail");
+    $getTrackingNumbers->bindParam(':customerEmail', $email);
+    $getTrackingNumbers->execute();
+    $count = 0;
+    $pendingCount = 0;
+    $readyCount = 0;
+    $processingCount = 0;
+    $deliveryCount = 0;
+
     $trackingNumber = array();
     $trackingStatus = array();
 
@@ -46,7 +56,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>Employee Dashboard</title>
+	<title>Dashboard</title>
 
     <?php include("includes/styling_scripts/meta.html"); ?>
     <?php include("includes/styling_scripts/css.html"); ?>
@@ -70,7 +80,7 @@
               <?php
               //Below: Pagination code adapted by Reeve from http://stackoverflow.com/questions/3705318/simple-php-pagination-script
               /*$total = $dbConnection->query('SELECT COUNT(*)
-              FROM bookings')->fetchColumn();
+              FROM tracking WHERE customer = :customerEmail')->fetchColumn();
 
               $limit = 11;
 
@@ -103,12 +113,12 @@
               $myBookingsData->execute();*/
 
               ?>
-              <h1> Lol This is broken </h1>
+              <h1> Saved Shipment Status's </h1>
               <table class="table">
                   <tbody>
                   <?php
                   echo count($trackingNumber);
-                      for ($i=0; $i<5; $i++){
+                      for ($i=0; $i<count($trackingNumber); $i++){
                           echo "<tr>";
                               echo "<td>";
                               echo $trackingNumber[$i];
