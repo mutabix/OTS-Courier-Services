@@ -134,7 +134,7 @@
                           echo "</tr>";
                       }
                   ?>
-                  <tr><td colspan="3" style='text-align: right;'><a href='savedTrackingNumbers.php'>See My Saved Tracking Numbers</a></td></tr>
+                  
               </tbody>
           </table>
 
