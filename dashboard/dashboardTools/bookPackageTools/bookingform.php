@@ -80,7 +80,7 @@
                                 <option id='SA'>SA</option>
                                 <option id='NT'>NT</option>
                                 <option id='WA'>WA</option>
-                                <option id='TAS' disabled>TAS</option>
+                                <option id='TAS' disabled>TAS - We do not offer shipping to Tasmania right now</option>
                             </select>
                         </div>
                         <script>document.getElementById(postcode).selected = true</script>
