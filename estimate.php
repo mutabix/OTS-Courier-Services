@@ -46,7 +46,7 @@
 	    		<li><a href="track.php">Track</a></li>
 	    		<li><a href="estimate.php">Calculate Shipping</a></li>
 				<li><a href="dashboard/dashboard.php">Dashboard</a></li>
-				<li><a href="contact.php">Contact Us</a></li>
+				<!--<li><a href="contact.php">Contact Us</a></li>-->
 
 
 	    	</ul>
@@ -407,8 +407,8 @@
 					<li><a href="index.php">Home</a></li>
 					<li><a href="track.php">Track</a></li>
 					<li><a href="estimate.php">Calculate Shipping</a></li>
-					<li><a href="dashboard.php">Dashboard</a></li>
-					<li><a href="contactus.php">Contact Us</a></li>
+					<li><a href="dashboard/dashboard.php">Dashboard</a></li>
+					<!--<li><a href="contactus.php">Contact Us</a></li>-->
 	            </ul>
 	        </nav>
 	        <div class="copyright pull-right">

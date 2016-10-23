@@ -47,7 +47,7 @@
 	<div class='row'>
 		<div class='col-md-7'>
 	        <div class='form-group'>
-	            <button type='submit' class='btn btn-info btn-fill pull-left' name='submit'>Send Message</button>
+	            <button type='submit' class='btn btn-info btn-fill pull-left' style='background-color: #EE966A' name='submit'>Send Message</button>
 
 	        </div>
 		</div>

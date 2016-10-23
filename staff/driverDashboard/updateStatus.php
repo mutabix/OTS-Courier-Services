@@ -1,6 +1,7 @@
 <?php
-    include("../../dbTools/dbConnect.php");
     session_start();
+    include("../../dbTools/dbConnect.php");
+    
 
     $connoteNumber = $_POST["connoteNumber"];
     if(isset($_SESSION["connoteNumber"]) && $_SESSION["connoteNumber"] != ""){

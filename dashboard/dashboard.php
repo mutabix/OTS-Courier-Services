@@ -4,7 +4,7 @@
     include("checkLogin.php");
     
     $email = $_SESSION['username'];
-    $getTrackingNumbers = $dbConnection->prepare("SELECT trackingNumber FROM tracking WHERE customer = :customerEmail LIMIT 5");
+    $getTrackingNumbers = $dbConnection->prepare("SELECT trackingNumber FROM tracking WHERE customer = :customerEmail");
     $getTrackingNumbers->bindParam(':customerEmail', $email);
     $getTrackingNumbers->execute();
     $count = 0;
@@ -15,7 +15,6 @@
 
     $trackingNumber = array();
     $trackingStatus = array();
-
 
     foreach ($getTrackingNumbers as $trackingNumberFetch){
         $trackingNumber[$count] = $trackingNumberFetch['trackingNumber'];
@@ -35,6 +34,7 @@
         }
         $shipmentStatusCodeFetch = $getTrackingDetails->fetch();
         $shipmentStatusCode = $shipmentStatusCodeFetch['shipmentStatusCode'];
+        //echo $shipmentStatusCode;
 
         if($shipmentStatusCode == 0){
             $pendingCount++;
@@ -52,6 +52,8 @@
             $trackingStatus[$i] = "Delivered";
         }
     }
+
+
 
     $notificationResult = $dbConnection->prepare('SELECT * FROM notifications WHERE notificationFor = :email ORDER BY notificationDate DESC LIMIT 5');
     $notificationResult->bindParam(':email', $_SESSION['username']);
@@ -247,7 +249,7 @@
                                     <table class="table">
                                         <tbody>
                                         <?php
-                                            for ($i=0; $i<count($trackingNumber); $i++){
+                                            for ($i=0; $i<5; $i++){
                                                 echo "<tr>";
                                                     echo "<td>";
                                                     echo $trackingNumber[$i];
@@ -257,7 +259,7 @@
                                                     echo "</td>";
                                                     echo "<td class='td-actions text-right'>";
                                                         echo "<a href='tracking.php?id=".$trackingNumber[$i]."'><button type='submit' rel='tooltip' title='Edit Task' class='btn btn-info btn-simple btn-xs'>";
-                                                            echo "<i class='fa fa-edit'></i>";
+                                                            echo "<i class='fa fa-external-link'></i>";
                                                         echo "</button></a>";
                                                     echo "</td>";
                                                 echo "</tr>";

@@ -89,7 +89,7 @@
 	    		<li><a href="track.php">Track</a></li>
 	    		<li><a href="estimate.php">Calculate Shipping</a></li>
 				<li><a href="dashboard/dashboard.php">Dashboard</a></li>
-				<li><a href="contact.php">Contact Us</a></li>
+				<!--<li><a href="contact.php">Contact Us</a></li>-->
 
 
 	    	</ul>
@@ -111,17 +111,18 @@
 			            	<?php
 			            		if(isset($trackingNumber)) {
 			            			if(strlen((string)$trackingNumber < 2)){
-			            				echo "Tracking Number Not Valid";
 			            				include("trackform.php");
+			            				echo "<script>document.getElementById('notValid').style.display = 'block'</script>";
+
 
 			            			} else if (!$trackingNumberExists){
-			            				echo "Tracking Number Does Not Exist";
 			            				include("trackform.php");
+			            				echo "<script>document.getElementById('notExist').style.display = 'block'</script>";
+
 
 			            			} else {
 			            				include("trackform.php");
 			            			}
-
 
 			            		} else {
 			            			include("trackform.php");
@@ -379,8 +380,8 @@
 					<li><a href="index.php">Home</a></li>
 					<li><a href="track.php">Track</a></li>
 					<li><a href="estimate.php">Calculate Shipping</a></li>
-					<li><a href="dashboard.php">Dashboard</a></li>
-					<li><a href="contactus.php">Contact Us</a></li>
+					<li><a href="dashboard/dashboard.php">Dashboard</a></li>
+					<!--<li><a href="contactus.php">Contact Us</a></li>-->
 	            </ul>
 	        </nav>
 	        <div class="copyright pull-right">
