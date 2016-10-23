@@ -3,6 +3,10 @@
     include("../../dbTools/dbConnect.php");
     include("checkLogin.php");
 
+    include ("dashboardTools/bookPackageTools/assignBookingVariables.php");
+
+    
+
 
 ?>
 
