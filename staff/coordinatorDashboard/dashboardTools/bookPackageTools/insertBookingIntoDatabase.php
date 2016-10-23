@@ -52,6 +52,7 @@ for($i=0; $i<6; $i++){
 
 	//$_SESSION['customerIdLogin'] = 1; //DUMMY DATA
     $customerId = $_SESSION['customerIdLogin'];
+    $customerId = 0; //For admin
 
     $trackingNumber = time() + mt_rand(50, 999) + mt_rand(1, 99);
     $shipmentId = $trackingNumber; //Rough could be improved

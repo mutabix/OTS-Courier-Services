@@ -1,5 +1,5 @@
 <?php
-    include("../dbTools/dbConnect.php");
+    include("../../dbTools/dbConnect.php");
 	include("checkLogin.php");
     //include("dashboardTools/checkAndValidateLogin.php");
     //include("bookPackageTools/inputSenderData.php");

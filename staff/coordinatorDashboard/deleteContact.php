@@ -33,6 +33,13 @@
 					window.location = "contacts.php"
 					</script>';					
 				}
+				
+			if(isset($_POST['deleteFalse']))
+			{
+				echo '<script type="text/javascript">
+				window.location = "contacts.php"
+				</script>';		
+			}
 		
 			$customerData = $dbConnection->prepare('SELECT customerID, companyName, firstName, lastName, email, mobileNumber, addressLine1, addressLine2, suburb, state, postcode
 			FROM customers
