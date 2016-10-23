@@ -101,13 +101,13 @@
                     echo $payments['paymentAmount'];
                   echo '</td>';
                   echo '<td>';
-                  if ($payments['paymentType'] == 0)
+                  if ($payments['paymentType'] == 1)
                     {
                       echo 'Cash';
-                    }else if ($payments['paymentType'] == 1)
+                    }else if ($payments['paymentType'] == 2)
                       {
                         echo 'EFTPOS';
-                      }else if ($payments['paymentType'] == 2)
+                      }else if ($payments['paymentType'] == 3)
                         {
                           echo 'Cheque';
                         }else{
