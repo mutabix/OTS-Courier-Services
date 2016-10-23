@@ -63,7 +63,7 @@
               $myBookingsData->execute();
 
               ?>
-              <h1> Lol This is broken </h1>
+              <h2>All Orders</h2>
 				<table class="table table-hover">
 					<thead>
 						<tr>

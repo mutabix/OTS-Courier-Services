@@ -1,7 +1,7 @@
 <?php
     session_start();
     include("../../dbTools/dbConnect.php");
-    //include("checkLogin.php");
+    include("checkLogin.php");
 
     $employeeID = $_SESSION['employeeID'];
 
@@ -41,7 +41,7 @@
                   var_dump($error->getMessage());
               }
 
-          
+
               $timetable = $getShiftTimes->fetch();
 
               ?>

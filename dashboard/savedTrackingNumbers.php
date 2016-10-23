@@ -3,7 +3,7 @@
     include("../dbTools/dbConnect.php");
 
     $email = $_SESSION['username'];
-    $getTrackingNumbers = $dbConnection->prepare("SELECT trackingNumber FROM tracking WHERE customer = :customerEmail");
+    $getTrackingNumbers = $dbConnection->prepare("SELECT trackingNumber FROM tracking WHERE customer = :customerEmail LIMIT 20");
     $getTrackingNumbers->bindParam(':customerEmail', $email);
     $getTrackingNumbers->execute();
     $count = 0;
@@ -113,11 +113,11 @@
               $myBookingsData->execute();*/
 
               ?>
-              <h1> Saved Shipment Status's </h1>
+              <h2> Saved Tracking Numbers</h2>
               <table class="table">
                   <tbody>
                   <?php
-                  echo count($trackingNumber);
+                  //echo count($trackingNumber);
                       for ($i=0; $i<count($trackingNumber); $i++){
                           echo "<tr>";
                               echo "<td>";
