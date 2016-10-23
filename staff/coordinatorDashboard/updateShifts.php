@@ -1,5 +1,6 @@
 <?php
 	include("../../dbTools/dbConnect.php");
+	include("checkLogin.php");
 
 	session_start();
 	$employeeArray = $_SESSION['employeeArray'];

@@ -132,7 +132,8 @@
                 					<?php
 						
 						echo '<form method="POST">';
-						echo 'Are you sure you wish to delete this contact: '.$customer["firstName"].' '.$customer["lastName"].'? ';
+						echo 'Are you sure you wish to delete this contact: '.$customer["firstName"].' '.$customer["lastName"].'? <b>WARNING! THIS WILL DELETE THE CUSTOMER\'S ACCOUNT!</b>';
+						echo '<br>';
 						echo '<input type="submit" name="deleteTrue" class="btn btn-info" role="button" value="Yes"> ';
 						echo '<input type="submit" name="deleteFalse" class="btn btn-info" role="button" value="No">';
 						echo '</form>';

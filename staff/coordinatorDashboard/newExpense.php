@@ -2,6 +2,7 @@
     session_start();
     include("../../dbTools/dbConnect.php");
     date_default_timezone_set('Australia/Brisbane');
+	include("checkLogin.php");
 
     $expenseDate = $_POST["expenseDate"];
     $expenseAmount = $_POST["expenseAmount"];
