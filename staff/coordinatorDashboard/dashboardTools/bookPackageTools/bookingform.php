@@ -77,7 +77,7 @@
                                 <option>SA</option>
                                 <option>NT</option>
                                 <option>WA</option>
-                                <option disabled>TAS</option>
+                                <option disabled>TAS - We do not offer shipping to Tasmania right now</option>
                             </select>
                         </div>
                     </div>
@@ -169,7 +169,7 @@
                                     <option>SA</option>
                                     <option>NT</option>
                                     <option>WA</option>
-                                    <option disabled>TAS</option>
+                                    <option disabled>TAS - We do not offer shipping to Tasmania right now</option>
                                 </select>
                             </div>
                         </div>
