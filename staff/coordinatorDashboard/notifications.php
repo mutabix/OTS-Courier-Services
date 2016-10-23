@@ -62,9 +62,12 @@
                 ?>
 
                 <br /><br />
-                <button type="button" class="btn btn-warning">New Message</button>
-
-
+                <button type="button" onclick="goToManager()" class="btn btn-warning">New Message</button>
+				<script>
+					function goToManager() {
+						window.location = 'notificationManager.php'
+					}
+				</script>
             </div>
         </div>
 

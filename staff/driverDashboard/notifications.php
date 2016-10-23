@@ -62,7 +62,6 @@
                 ?>
 
                 <br /><br />
-                <button type="button" class="btn btn-warning">New Message</button>
 
 
             </div>

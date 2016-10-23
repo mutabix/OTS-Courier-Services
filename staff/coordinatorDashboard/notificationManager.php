@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include("../dbTools/dbConnect.php");
+    include("../../dbTools/dbConnect.php");
 ?>
 
 <!doctype html>

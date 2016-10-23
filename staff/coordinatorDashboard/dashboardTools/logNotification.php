@@ -1,5 +1,5 @@
 <?php
-    include("../../dbTools/dbConnect.php");
+    include("../../../dbTools/dbConnect.php");
 	
 	$receiver = $_POST["Recipients"];
 	$noteType = $_POST["Type"];
