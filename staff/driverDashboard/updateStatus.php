@@ -2,16 +2,21 @@
     session_start();
     include("../../dbTools/dbConnect.php");
     
-
     $connoteNumber = $_POST["connoteNumber"];
-    if(isset($_SESSION["connoteNumber"]) && $_SESSION["connoteNumber"] != ""){
+    $_SESSION["connoteNumber"] = $connoteNumber;
+    //$connoteNumber = $_SESSION["connoteNumber"];
+    /*if(isset($_SESSION["connoteNumber"]) && $_SESSION["connoteNumber"] != ""){
         $connoteNumber = $_SESSION["connoteNumber"];
         $_SESSION["connoteNumber"] = "";
         unset($_SESSION["connoteNumber"]);
-    }
+    }*/
 
+    //echo $connoteNumber;
+
+    /*$_SESSION["connoteNumber"] = "";
+    $_POST["connoteNumber"] = "";
     unset($_POST["connoteNumber"]);
-    unset($_SESSION["connoteNumber"]);
+    unset($_SESSION["connoteNumber"]);*/
 
     if(isset($connoteNumber)){
         $connoteNumberExists = false;
