@@ -105,7 +105,7 @@
 										<select name="noHourAssigned" class='form-control' onChange="javascript: submit()">
 											<option selected disabled>Select Time</option>
 											<?php 
-												$time = date("h-i-s");
+												$time = date("h:i:s");
 												for ($x = 12; $x <= 32; $x++) {
 													$time = date("h-i-s", strtotime($today . '+ '.$x * 30 .'minutes'));
 													?><option><?php echo $time?></option><?php

@@ -32,7 +32,8 @@
             <div class="container-fluid">
 
               <?php
-              $getShiftTimes = $dbConnection->prepare('SELECT * FROM Shift_Management'); //WHERE employeeID = (SOME RANDOM SESSION VARIABLE)
+              $getShiftTimes = $dbConnection->prepare('SELECT * FROM Shift_Management WHERE employeeID = :siteEmployeeID'); //WHERE employeeID = (SOME RANDOM SESSION VARIABLE)
+              $getShiftTimes->bindParam(':siteEmployeeID', $employeeID);
               try {
                   $getShiftTimes->execute();
               } catch(Exception $error) {
@@ -40,8 +41,7 @@
                   var_dump($error->getMessage());
               }
 
-              $getShiftTimes->bindParam(':employeeID', $employeeID);
-
+          
               $timetable = $getShiftTimes->fetch();
 
               ?>
