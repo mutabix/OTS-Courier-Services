@@ -1,6 +1,5 @@
 <?php
-
-    include("../../dbTools/dbConnect.php");
+  include("../../dbTools/dbConnect.php");
 	include("checkLogin.php");
 ?>
 
@@ -88,7 +87,7 @@
                     echo 'Exception -> ';
                     var_dump($error->getMessage());
                 }
-                $connoteNumbertest = $conResult->fetch();
+                $connoteNumber = $conResult->fetch();
                 $connoteNumber = $connoteNumber['connoteNumber'];
 
                 echo '<tr>';
@@ -132,7 +131,7 @@
                   echo '<a href="getTaxInvoice.php?taxinv='.$payments['taxInvoiceID'].'" class="btn btn-info" target="_blank" role="button">Tax Invoice</a>';
                   echo '</td>';
                   echo '<td>';
-                  echo $connoteNumber;
+                  //echo $connoteNumber;
                   echo '<a href="getConNote.php?connote='.$connoteNumber.'" class="btn btn-info" target="_blank" role="button">Consignment Note</a>';
                   echo '</td>';
                 echo '</tr>';
