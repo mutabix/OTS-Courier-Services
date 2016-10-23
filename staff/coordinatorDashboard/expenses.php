@@ -1,6 +1,7 @@
 <?php
     session_start();
     include("../../dbTools/dbConnect.php");
+	include("checkLogin.php");
 
     $expenseData = $dbConnection->prepare('SELECT * FROM expenses ORDER BY expenseDate DESC');
     $expenseData->execute();

@@ -2,12 +2,12 @@
     session_start();
     include("../dbTools/dbConnect.php");
     include("checkLogin.php");
-    
+
     include("bookPackageTools/inputSenderData.php");
 
     //session_start();
     $_SESSION['webaddress'] = "bookpackage.php";
-    include("../dbTools/checkLogin.php");
+    //sinclude("../dbTools/checkLogin.php");
 
     //Set variables
     include ("dashboardTools/bookPackageTools/assignBookingVariables.php");
@@ -34,6 +34,7 @@
         $_SESSION['senderDetails'] [5] = $customerDetails['addressLine1'];
         $_SESSION['senderDetails'] [6] = $customerDetails['addressLine2'];
         $_SESSION['senderDetails'] [7] = $customerDetails['suburb'];
+        $_SESSION['senderDetails'] [8] = $customerDetails['state'];
         $_SESSION['senderDetails'] [9] = $customerDetails['postcode'];
     }
 ?>
@@ -47,7 +48,7 @@
     <?php include("includes/styling_scripts/css.html"); ?>
     <?php include("includes/styling_scripts/fonts-icons.html"); ?>
     <?php include("includes/styling_scripts/javascript.html"); ?>
-    
+
     <script>
         function checkPackageType(){
             var packageTypeSelected = document.getElementById("packageType").selectedIndex;
@@ -103,9 +104,10 @@
                     $errorsExist = false;
 
                     //Checks to see if data is set
+
                     if (isset($senderFirstName) && isset($senderLastName) && isset($senderEmail) && isset($senderMobile) && isset($senderAddressLine1) && isset($senderSuburb) && isset($senderState) && isset($senderPostcode) && isset($receiverFirstName) && isset($receiverLastName) && isset($receiverEmail) && isset($receiverMobile) && isset($receiverAddressLine1) && isset($receiverSuburb) && isset($receiverState) && isset($receiverPostcode) && isset($noOfPackages) && isset($serviceTypeID) && isset($totalValue)) {
-                        
-                        
+                      echo "test";
+
 
                         /*require ("dashboardTools/bookPackageTools/validation.php");
                         //$errorsExist = true;
@@ -162,7 +164,7 @@
                             $errorsExist = true;
                             $errors[$errorCount] = "Package Depth Invalid";
                             $errorCount++;
-                        } 
+                        }
 
                         if(!(isset($_POST["detailsCorrectCheckbox"]))){
                             $errorsExist = true;
@@ -177,9 +179,10 @@
                         }*/
 
                         include ("dashboardTools/bookPackageTools/errorPopupNotification.php");
-                    
+
 
                         if ($errorsExist) {
+                          echo "errprs";
                             include ("dashboardTools/bookPackageTools/bookingform.php");
 
                         } else {

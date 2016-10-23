@@ -146,7 +146,7 @@
 									if($trackingNumberExists){
 										if($shipmentStatusCode == 0){
 											if($pendingBool == 0){
-												echo "<div class='col-md-3'>";
+												echo "<div class='col-md-2'>";
 													echo "<div class='info'>";
 														echo "<div class='icon icon-primary'>";
 															echo "<i class='fa fa-spinner' aria-hidden='true' style='font-size: 100px'></i>";
@@ -155,7 +155,7 @@
 													echo "</div>";
 					                    		echo "</div>";
 				                    		} else if($pendingBool == 1){
-				                    			echo "<div class='col-md-3'>";
+				                    			echo "<div class='col-md-2'>";
 													echo "<div class='info'>";
 														echo "<div class='icon icon-primary'>";
 															echo "<i class='fa fa-spinner' aria-hidden='true' style='font-size: 100px'></i>";
@@ -168,8 +168,18 @@
 				                    	}
 
 				                    	if($shipmentStatusCode == 1){
+			                    			echo "<div class='col-md-2'>";
+												echo "<div class='info'>";
+													echo "<div class='icon icon-primary'>";
+														echo "<i class='fa fa-spinner' aria-hidden='true' style='font-size: 100px'></i>";
+													echo "</div>";
+													echo "<h4 class='info-title'>Pending Complete</h4>";
+													echo "<h4 class='info-title'>".$pendingDate."</h4>";
+												echo "</div>";
+				                    		echo "</div>";
+
 				                    		if($pickupBool == 0){
-				                    			echo "<div class='col-md-3'>";
+				                    			echo "<div class='col-md-2'>";
 													echo "<div class='info'>";
 														echo "<div class='icon icon-primary'>";
 															echo "<i class='fa fa-truck' aria-hidden='true' style='font-size: 100px'></i>";
@@ -178,7 +188,7 @@
 													echo "</div>";
 					                    		echo "</div>";
 				                    		} else if($pickupBool == 1){
-				                    			echo "<div class='col-md-3'>";
+				                    			echo "<div class='col-md-2'>";
 													echo "<div class='info'>";
 														echo "<div class='icon icon-primary'>";
 															echo "<i class='fa fa-truck' aria-hidden='true' style='font-size: 100px'></i>";
@@ -191,8 +201,30 @@
 				                    	}
 
 				                    	if($shipmentStatusCode == 2){
+				                    		echo "<div class='col-md-2'>";
+												echo "<div class='info'>";
+													echo "<div class='icon icon-primary'>";
+														echo "<i class='fa fa-spinner' aria-hidden='true' style='font-size: 100px'></i>";
+													echo "</div>";
+													echo "<h4 class='info-title'>Pending Complete</h4>";
+													echo "<h4 class='info-title'>".$pendingDate."</h4>";
+												echo "</div>";
+				                    		echo "</div>";
+
+				                    		echo "<div class='col-md-2'>";
+												echo "<div class='info'>";
+													echo "<div class='icon icon-primary'>";
+														echo "<i class='fa fa-truck' aria-hidden='true' style='font-size: 100px'></i>";
+													echo "</div>";
+													echo "<h4 class='info-title'>Package Picked Up</h4>";
+													echo "<h4 class='info-title'>".$pendingDate."</h4>";
+												echo "</div>";
+				                    		echo "</div>";
+
+
+
 				                    		if($processingBool == 0){
-				                    			echo "<div class='col-md-3'>";
+				                    			echo "<div class='col-md-2'>";
 													echo "<div class='info'>";
 														echo "<div class='icon icon-primary'>";
 															echo "<i class='fa fa-cogs' aria-hidden='true' style='font-size: 100px'></i>";
@@ -201,7 +233,7 @@
 													echo "</div>";
 					                    		echo "</div>";
 				                    		} else if($processingBool == 1){
-				                    			echo "<div class='col-md-3'>";
+				                    			echo "<div class='col-md-2'>";
 													echo "<div class='info'>";
 														echo "<div class='icon icon-primary'>";
 															echo "<i class='fa fa-cogs' aria-hidden='true' style='font-size: 100px'></i>";
@@ -214,8 +246,40 @@
 				                    	}
 
 				                    	if($shipmentStatusCode == 3){
+				                    		echo "<div class='col-md-2'>";
+												echo "<div class='info'>";
+													echo "<div class='icon icon-primary'>";
+														echo "<i class='fa fa-spinner' aria-hidden='true' style='font-size: 100px'></i>";
+													echo "</div>";
+													echo "<h4 class='info-title'>Pending Complete</h4>";
+													echo "<h4 class='info-title'>".$pendingDate."</h4>";
+												echo "</div>";
+				                    		echo "</div>";
+
+				                    		echo "<div class='col-md-2'>";
+												echo "<div class='info'>";
+													echo "<div class='icon icon-primary'>";
+														echo "<i class='fa fa-truck' aria-hidden='true' style='font-size: 100px'></i>";
+													echo "</div>";
+													echo "<h4 class='info-title'>Package Picked Up</h4>";
+													echo "<h4 class='info-title'>".$pendingDate."</h4>";
+												echo "</div>";
+				                    		echo "</div>";
+
+			                    			echo "<div class='col-md-2'>";
+												echo "<div class='info'>";
+													echo "<div class='icon icon-primary'>";
+														echo "<i class='fa fa-cogs' aria-hidden='true' style='font-size: 100px'></i>";
+													echo "</div>";
+													echo "<h4 class='info-title'>Package Processed</h4>";
+													echo "<h4 class='info-title'>".$processingDate."</h4>";
+												echo "</div>";
+				                    		echo "</div>";
+
+
+
 				                    		if($deliveryBool == 0){
-				                    			echo "<div class='col-md-3'>";
+				                    			echo "<div class='col-md-2'>";
 													echo "<div class='info'>";
 														echo "<div class='icon icon-primary'>";
 															echo "<i class='fa fa-truck' aria-hidden='true' style='font-size: 100px'></i>";
@@ -224,7 +288,7 @@
 													echo "</div>";
 					                    		echo "</div>";
 				                    		} else if($deliveryBool == 1){
-				                    			echo "<div class='col-md-3'>";
+				                    			echo "<div class='col-md-2'>";
 													echo "<div class='info'>";
 														echo "<div class='icon icon-primary'>";
 															echo "<i class='fa fa-truck' aria-hidden='true' style='font-size: 100px'></i>";
@@ -234,6 +298,57 @@
 													echo "</div>";
 					                    		echo "</div>";
 				                    		}
+			                    		}
+
+			                    		if($shipmentStatusCode == 4){
+			                    			echo "<div class='col-md-2'>";
+												echo "<div class='info'>";
+													echo "<div class='icon icon-primary'>";
+														echo "<i class='fa fa-spinner' aria-hidden='true' style='font-size: 100px'></i>";
+													echo "</div>";
+													echo "<h4 class='info-title'>Pending Complete</h4>";
+													echo "<h4 class='info-title'>".$pendingDate."</h4>";
+												echo "</div>";
+				                    		echo "</div>";
+
+				                    		echo "<div class='col-md-2'>";
+												echo "<div class='info'>";
+													echo "<div class='icon icon-primary'>";
+														echo "<i class='fa fa-truck' aria-hidden='true' style='font-size: 100px'></i>";
+													echo "</div>";
+													echo "<h4 class='info-title'>Package Picked Up</h4>";
+													echo "<h4 class='info-title'>".$pendingDate."</h4>";
+												echo "</div>";
+				                    		echo "</div>";
+
+			                    			echo "<div class='col-md-2'>";
+												echo "<div class='info'>";
+													echo "<div class='icon icon-primary'>";
+														echo "<i class='fa fa-cogs' aria-hidden='true' style='font-size: 100px'></i>";
+													echo "</div>";
+													echo "<h4 class='info-title'>Package Processed</h4>";
+													echo "<h4 class='info-title'>".$processingDate."</h4>";
+												echo "</div>";
+				                    		echo "</div>";
+
+				                    		echo "<div class='col-md-2'>";
+												echo "<div class='info'>";
+													echo "<div class='icon icon-primary'>";
+														echo "<i class='fa fa-truck' aria-hidden='true' style='font-size: 100px'></i>";
+													echo "</div>";
+													echo "<h4 class='info-title'>Package Delivered</h4>";
+													echo "<h4 class='info-title'>".$deliveryDate."</h4>";
+												echo "</div>";
+				                    		echo "</div>";
+
+				                    		echo "<div class='col-md-2'>";
+												echo "<div class='info'>";
+													echo "<div class='icon icon-primary'>";
+														echo "<i class='fa fa-check' aria-hidden='true' style='font-size: 100px'></i>";
+													echo "</div>";
+													echo "<h4 class='info-title'>Complete</h4>";
+												echo "</div>";
+				                    		echo "</div>";
 			                    		}
 									}
 
@@ -253,7 +368,7 @@
 			                </div>
 						</div>
 
-	            	</div>			
+	            	</div>		
 	    	</div>
 	    </div>
 	</div>
