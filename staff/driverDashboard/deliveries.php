@@ -6,8 +6,6 @@
 	
 	//Pull logged in user's credentials
     $employeeID = $_SESSION['employeeID'];
-	echo $_SESSION['employeeID'];
-	$employeeID = 1;
 ?>
 
 <!doctype html>
@@ -114,9 +112,6 @@
 							echo '</td>';
 							echo '<td>';
 								echo $delivery['priority'];
-							echo '</td>';
-							echo'<td>';
-								echo '<a href="delete.php?id='.$delivery["deliveryID"].'" class="btn btn-info" role="button">Delete</a>';
 							echo '</td>';
 							echo '</tr>';
 						}
