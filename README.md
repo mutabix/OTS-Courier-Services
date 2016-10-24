@@ -9,4 +9,6 @@ Go to login.php --> then click --> employee login
 #Driver: bob@gmail.com   ---   Password
 #Coordinator: jack@gmail.com   ---   Password
 
+#Burndown Charts, meeting minutes and testing documents are contained within the Supporting Documentation folder
+
 #Team 22: Reeve Waugh, Matthew Magin, Samuel Leary, Hayden Muller, Veronica Skartland Kristiansen
