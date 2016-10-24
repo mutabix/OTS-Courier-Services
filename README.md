@@ -10,5 +10,6 @@ Go to login.php --> then click --> employee login
 #Coordinator: jack@gmail.com   ---   Password
 
 #Burndown Charts, meeting minutes and testing documents are contained within the Supporting Documentation folder
+#Task assignments and task progress are within the burndown chart excel document.
 
 #Team 22: Reeve Waugh, Matthew Magin, Samuel Leary, Hayden Muller, Veronica Skartland Kristiansen
