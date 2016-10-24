@@ -55,7 +55,7 @@
 
 
               $result = $dbConnection->prepare('SELECT *
-              FROM payments
+              FROM payments ORDER BY paymentStatus
               LIMIT :limit
               OFFSET :offset');
               $result->bindParam(':limit', $limit, PDO::PARAM_INT);
@@ -118,7 +118,7 @@
                   if ($payments['paymentStatus'] == 0)
                     {
                       echo 'Pending';
-                    }else if ($payments['paymentType'] == 1)
+                    }else if ($payments['paymentStatus'] == 1)
                       {
                         echo 'Complete';
                         }else{
